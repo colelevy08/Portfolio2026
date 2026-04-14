@@ -4,10 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Resume from '../assets/ColeLevyResume.pdf'
 
 const links = [
-  { label: 'Home', to: '#home' },
   { label: 'About', to: '#about' },
-  { label: 'Projects', to: '#projects' },
-  { label: 'History', to: '#history' },
+  { label: 'Work', to: '#work' },
   { label: 'Contact', to: '#contact' },
 ]
 
@@ -30,14 +28,14 @@ export default function Header() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#home" className="font-mono text-lg font-bold tracking-tight">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+        <a href="#home" className="font-mono text-base font-bold tracking-tight">
           <span className="text-accent">&lt;Cole</span>
           <span className="text-slate-100"> Levy</span>
           <span className="text-accent-2">/&gt;</span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-7 md:flex">
           {links.map((l) => (
             <a
               key={l.to}
