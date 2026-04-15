@@ -84,11 +84,12 @@ export const projects: Project[] = [
     tags: ["JavaScript", "Music", "Vercel"],
   },
   {
-    title: "EchoEcho",
+    title: "Bocage",
     description:
-      "Social media platform for music enthusiasts and vinyl lovers. My Flatiron School capstone — full stack with React + Flask.",
-    repo: "https://github.com/colelevy08/EchoEcho",
-    tags: ["React", "Flask", "Full Stack"],
+      "Personal web project — built and deployed on Vercel.",
+    repo: "https://github.com/colelevy08/bocage",
+    live: "https://bocage.vercel.app",
+    tags: ["JavaScript", "Web", "Vercel"],
   },
 ]
 
