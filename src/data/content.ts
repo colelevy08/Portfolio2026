@@ -45,11 +45,12 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "PolyBot",
+    title: "Legacy Path Planners",
     description:
-      "High-speed Polymarket copy-trading bot. Whale identification pipeline with edge-verified, Kelly-sized copy trades over WebSocket.",
-    repo: "https://github.com/colelevy08/PolyBot",
-    tags: ["Python", "WebSocket", "Trading"],
+      "Web app for planning the legacy path forward. Built with JavaScript, deployed on Vercel.",
+    repo: "https://github.com/colelevy08/legacy-path-planners",
+    live: "https://legacy-path-planners.vercel.app",
+    tags: ["JavaScript", "Web", "Vercel"],
   },
   {
     title: "Saratoga Handicapper",
