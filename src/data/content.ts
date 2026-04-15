@@ -39,51 +39,56 @@ export type Project = {
   title: string
   description: string
   repo: string
+  live?: string
   tags: string[]
 }
 
 export const projects: Project[] = [
   {
-    title: "EchoEcho",
+    title: "PolyBot",
     description:
-      "A social media and ecommerce platform for sharing all things music.",
-    repo: "https://github.com/colelevy08/EchoEcho",
-    tags: ["React", "Flask", "SQL"],
-  },
-  {
-    title: "HappyTrails",
-    description:
-      "A hiking trail finder and review application for outdoor lovers.",
-    repo: "https://github.com/rachelsteiner91/HappyTrails",
-    tags: ["React", "Python", "SQLAlchemy"],
-  },
-  {
-    title: "Closet Organizer",
-    description:
-      "An app to organize and plan your wardrobe. Never worry about what to wear again!",
-    repo: "https://github.com/colelevy08/Closet-Organizer",
-    tags: ["React", "Flask"],
+      "High-speed Polymarket copy-trading bot. Whale identification pipeline with edge-verified, Kelly-sized copy trades over WebSocket.",
+    repo: "https://github.com/colelevy08/PolyBot",
+    tags: ["Python", "WebSocket", "Trading"],
   },
   {
     title: "Saratoga Handicapper",
     description:
-      "Horse racing analytics tool for the Saratoga track. Data-driven picks and analysis.",
+      "Horse racing analytics toolkit for the Saratoga track. Data-driven picks and race-day insights.",
     repo: "https://github.com/colelevy08/saratoga-handicapper",
-    tags: ["Data", "Python"],
+    live: "https://saratoga-handicapper.vercel.app",
+    tags: ["Python", "Data", "Vercel"],
   },
   {
     title: "Standard Fare",
     description:
-      "Restaurant website supporting the launch of Standard Fare in Saratoga Springs.",
+      "Website for Standard Fare — the new Saratoga Springs restaurant I helped launch. Menu, reservations, story.",
     repo: "https://github.com/colelevy08/standard-fare",
-    tags: ["React", "Web"],
+    live: "https://standard-fare-ten.vercel.app",
+    tags: ["JavaScript", "Web", "Vercel"],
   },
   {
-    title: "Portfolio 2025",
+    title: "Prediction Market Bot",
     description:
-      "My previous portfolio website — see how far the 2026 rebuild has come.",
-    repo: "https://github.com/colelevy08/Portfolio25",
-    tags: ["React", "TypeScript"],
+      "Earlier iteration of my prediction-market trading research. Python pipeline with auto-trade hooks and a deployed dashboard.",
+    repo: "https://github.com/colelevy08/prediction-market-bot",
+    live: "https://prediction-market-bot.vercel.app",
+    tags: ["Python", "Trading", "Dashboard"],
+  },
+  {
+    title: "GrooveStack",
+    description:
+      "Music-themed web app built and deployed on Vercel — my take on a stacked, playful music experience.",
+    repo: "https://github.com/colelevy08/groovestack",
+    live: "https://groovestack.vercel.app",
+    tags: ["JavaScript", "Music", "Vercel"],
+  },
+  {
+    title: "EchoEcho",
+    description:
+      "Social media platform for music enthusiasts and vinyl lovers. My Flatiron School capstone — full stack with React + Flask.",
+    repo: "https://github.com/colelevy08/EchoEcho",
+    tags: ["React", "Flask", "Full Stack"],
   },
 ]
 

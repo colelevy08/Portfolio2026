@@ -7,6 +7,7 @@ import {
   User,
   ExternalLink,
   ArrowUpRight,
+  Github,
 } from 'lucide-react'
 import {
   projects,
@@ -15,7 +16,6 @@ import {
   profile,
 } from '../data/content'
 
-const featured = projects.slice(0, 4)
 const topWork = workEvents.slice(0, 4)
 const topEdu = educationEvents.slice(0, 3)
 
@@ -88,52 +88,85 @@ export default function Work() {
 
             {active === 'projects' && (
               <motion.div key="projects" {...panelMotion}>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {featured.map((p) => (
-                    <a
-                      key={p.title}
-                      href={p.repo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="card-gradient-border group flex flex-col gap-3 rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/10"
-                    >
-                      <div className="flex items-start justify-between">
-                        <h3 className="text-base font-semibold text-slate-100 transition-colors group-hover:text-accent-2">
-                          {p.title}
-                        </h3>
-                        <ArrowUpRight
-                          size={16}
-                          className="text-slate-500 transition-colors group-hover:text-accent-2"
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {projects.map((p) => {
+                    const primary = p.live ?? p.repo
+                    return (
+                      <div
+                        key={p.title}
+                        className="card-gradient-border group relative flex flex-col gap-3 rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/10"
+                      >
+                        <a
+                          href={primary}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={p.title}
+                          className="absolute inset-0 rounded-2xl"
                         />
+                        <div className="flex items-start justify-between gap-2">
+                          <h3 className="text-base font-semibold text-slate-100 transition-colors group-hover:text-accent-2">
+                            {p.title}
+                          </h3>
+                          {p.live && (
+                            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                              live
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm leading-relaxed text-slate-400">
+                          {p.description}
+                        </p>
+                        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-1">
+                          <div className="flex flex-wrap gap-1.5">
+                            {p.tags.map((t) => (
+                              <span
+                                key={t}
+                                className="rounded-md bg-white/5 px-2 py-0.5 font-mono text-[10px] text-slate-400"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="relative z-10 flex items-center gap-1.5 text-slate-500">
+                            <a
+                              href={p.repo}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`${p.title} code`}
+                              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:border-accent-2/60 hover:text-white"
+                            >
+                              <Github size={12} />
+                            </a>
+                            {p.live && (
+                              <a
+                                href={p.live}
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label={`${p.title} live`}
+                                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:border-accent-2/60 hover:text-white"
+                              >
+                                <ArrowUpRight size={12} />
+                              </a>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-sm leading-relaxed text-slate-400">
-                        {p.description}
-                      </p>
-                      <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                        {p.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-md bg-white/5 px-2 py-0.5 font-mono text-[10px] text-slate-400"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </a>
-                  ))}
-                  <a
-                    href={profile.socials.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 p-5 text-sm text-slate-400 transition-colors hover:border-accent-2/60 hover:text-white sm:col-span-2"
-                  >
-                    See the rest on GitHub
-                    <ExternalLink
-                      size={14}
-                      className="transition-transform group-hover:translate-x-0.5"
-                    />
-                  </a>
+                    )
+                  })}
                 </div>
+                <a
+                  href={profile.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group mt-4 flex items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 p-4 text-sm text-slate-400 transition-colors hover:border-accent-2/60 hover:text-white"
+                >
+                  See all repos on GitHub
+                  <ExternalLink
+                    size={14}
+                    className="transition-transform group-hover:translate-x-0.5"
+                  />
+                </a>
               </motion.div>
             )}
 
