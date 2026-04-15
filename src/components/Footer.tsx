@@ -3,25 +3,24 @@ import { profile } from '../data/content'
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/5 px-6 py-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
-        <p className="text-sm text-slate-400">
+    <footer className="border-t border-white/5 px-6 py-6">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-xs text-slate-500 sm:flex-row">
+        <p>
           © {new Date().getFullYear()}{' '}
-          <span className="font-mono text-accent-2">{profile.name}</span> — built
-          with React &amp; Tailwind.
+          <span className="font-mono text-accent-2">{profile.name}</span> · Saratoga Springs, NY
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <SocialLink href={profile.socials.linkedin} label="LinkedIn">
-            <Linkedin size={16} />
+            <Linkedin size={14} />
           </SocialLink>
           <SocialLink href={profile.socials.github} label="GitHub">
-            <Github size={16} />
+            <Github size={14} />
           </SocialLink>
           <SocialLink href={profile.socials.whatsapp} label="WhatsApp">
-            <MessageCircle size={16} />
+            <MessageCircle size={14} />
           </SocialLink>
           <SocialLink href={profile.socials.telegram} label="Telegram">
-            <Send size={16} />
+            <Send size={14} />
           </SocialLink>
         </div>
       </div>
@@ -44,7 +43,7 @@ function SocialLink({
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:border-accent-2/60 hover:text-white"
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition-all hover:border-accent-2/60 hover:text-white"
     >
       {children}
     </a>

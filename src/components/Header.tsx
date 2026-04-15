@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Resume from '../assets/ColeLevyResume.pdf'
 
 const links = [
-  { label: 'About', to: '#about' },
   { label: 'Work', to: '#work' },
   { label: 'Contact', to: '#contact' },
 ]
@@ -35,7 +34,7 @@ export default function Header() {
           <span className="text-accent-2">/&gt;</span>
         </a>
 
-        <div className="hidden items-center gap-7 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
             <a
               key={l.to}

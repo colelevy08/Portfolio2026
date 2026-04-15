@@ -1,6 +1,5 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
-import Bento from './components/Bento'
 import Work from './components/Work'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -11,7 +10,6 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <Bento />
         <Work />
         <Contact />
       </main>
