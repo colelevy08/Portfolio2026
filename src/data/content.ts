@@ -286,6 +286,6 @@ export const path: PathEvent[] = [
 
 export const stack = {
   build:
-    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Deployed to GitHub Pages.",
+    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Built with Claude Code. Deployed on Vercel.",
   source: "github.com/colelevy08/Portfolio2026",
 }
