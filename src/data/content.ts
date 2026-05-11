@@ -286,6 +286,30 @@ export const path: PathEvent[] = [
 
 export const stack = {
   build:
-    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Built with Claude Code. Deployed on Vercel.",
+    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Deployed on Vercel.",
   source: "github.com/colelevy08/Portfolio2026",
 }
+
+export type ToolkitGroup = {
+  group: string
+  items: string[]
+}
+
+export const toolkit: ToolkitGroup[] = [
+  {
+    group: "Frontend",
+    items: ["React", "TypeScript", "Vite", "Tailwind v4", "Framer Motion", "Capacitor"],
+  },
+  {
+    group: "Backend & data",
+    items: ["FastAPI", "Python", "Node.js", "Supabase", "Postgres", "SQLite"],
+  },
+  {
+    group: "AI in the loop",
+    items: ["Claude Code", "Anthropic API", "OpenAI API"],
+  },
+  {
+    group: "Ship & host",
+    items: ["Vercel", "GitHub Pages", "GitHub Actions"],
+  },
+]
