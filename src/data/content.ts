@@ -89,7 +89,7 @@ export const projects: Project[] = [
     description:
       "Lead-gen site and back-office CRM for Norm Levy's LTC insurance practice. Quote intake, agent workflow, calendar booking. Built to read trustworthy in a regulated industry.",
     isPrivate: true,
-    live: "https://legacy-path-planners.vercel.app",
+    live: "https://www.legacypathplanners.com/",
     tags: ["React", "Vercel", "Supabase"],
   },
   {
