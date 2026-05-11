@@ -1,90 +1,105 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0b0b10;
-  --color-ink-soft: #111118;
-  --color-ink-elevated: #1a1a24;
-  --color-accent: #7c3aed;
-  --color-accent-2: #06b6d4;
+  --color-bg: #0e0d0c;
+  --color-bg-2: #16140f;
+  --color-bg-3: #1d1a14;
+  --color-ink: #f1ece2;
+  --color-ink-2: #cfc8bb;
+  --color-muted: #8f887c;
+  --color-line: #2a2520;
+  --color-line-2: #3a342c;
+  --color-accent: #e2733a;
+  --color-accent-2: #f4a261;
+
+  --font-serif: "Fraunces", "PP Editorial New", "Times New Roman", ui-serif, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--color-bg);
 }
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-ink);
-  color: #e2e8f0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
 }
 
-.aurora {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.aurora::before,
-.aurora::after {
-  content: "";
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(100px);
-  opacity: 0.35;
-}
-.aurora::before {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, #7c3aed, transparent 60%);
-  top: -150px;
-  left: -150px;
-  animation: drift 18s ease-in-out infinite alternate;
-}
-.aurora::after {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #06b6d4, transparent 60%);
-  bottom: -150px;
-  right: -100px;
-  animation: drift 22s ease-in-out infinite alternate-reverse;
+.font-serif {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 30, "WONK" 0;
+  letter-spacing: -0.02em;
 }
 
-@keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(80px, 60px) scale(1.15); }
-}
-
-.card-gradient-border {
-  position: relative;
-  background: var(--color-ink-soft);
-}
-.card-gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(124,58,237,0.6), rgba(6,182,212,0.6), rgba(124,58,237,0.1));
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.35);
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
-html.light {
-  background: #f5f5f7;
-  color: #0b0b10;
+/* Section eyebrow — small all-caps mono label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
-html.light body {
-  background: #f5f5f7;
-  color: #0b0b10;
+
+/* Subtle grain — adds editorial paper texture */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* Hairline divider matching ink color */
+.hairline {
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Focus ring for keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Project image plate — subtle bevel against the bg */
+.plate {
+  background: var(--color-bg-2);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 240ms ease, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.plate:hover {
+  border-color: var(--color-line-2);
+}
+
+a {
+  color: inherit;
+}
+
+/* Disable text-balance on small screens where it causes awkward wraps */
+@media (min-width: 640px) {
+  .balance {
+    text-wrap: balance;
+  }
 }

@@ -1,104 +1,219 @@
 import { motion } from 'framer-motion'
 import { useForm, ValidationError } from '@formspree/react'
-import { Mail, Phone, CheckCircle2, ArrowRight } from 'lucide-react'
+import type { SubmissionError, FieldValues } from '@formspree/core'
+import { CheckCircle2, ArrowUpRight } from 'lucide-react'
 import { profile } from '../data/content'
+
+type FormErrors = SubmissionError<FieldValues> | null
 
 export default function Contact() {
   const [state, handleSubmit] = useForm(profile.formspreeId)
 
   return (
-    <section id="contact" className="relative px-6 py-16">
-      <div className="mx-auto max-w-4xl">
+    <section id="contact" className="relative px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-[1240px]">
+        <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
+          <div className="col-span-12 sm:col-span-3">
+            <p className="eyebrow">§ 04 / Contact</p>
+          </div>
+          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight sm:col-span-9 sm:text-5xl lg:text-6xl balance">
+            Got a project, role, or rabbit-hole question?{' '}
+            <span className="text-muted">Send it over.</span>
+          </h2>
+        </header>
+
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-          className="card-gradient-border overflow-hidden rounded-3xl p-6 sm:p-8"
+          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+          className="grid grid-cols-12 gap-y-12 gap-x-6"
         >
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.2fr]">
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                Let's build something.
-              </h2>
-              <p className="mt-2 text-sm text-slate-400">
-                Got a project or a role? Drop a line — I reply fast.
-              </p>
+          {/* Direct channels */}
+          <div className="col-span-12 sm:col-span-5 lg:col-span-4">
+            <p className="eyebrow mb-6">Direct</p>
+            <dl className="space-y-5">
+              <Channel
+                label="Email"
+                value={profile.email}
+                href={`mailto:${profile.email}`}
+              />
+              <Channel
+                label="Phone"
+                value={profile.phoneDisplay}
+                href={`tel:${profile.phone}`}
+              />
+              <Channel
+                label="LinkedIn"
+                value="in/colelevy"
+                href={profile.socials.linkedin}
+                external
+              />
+              <Channel
+                label="GitHub"
+                value="@colelevy08"
+                href={profile.socials.github}
+                external
+              />
+              <Channel
+                label="Telegram"
+                value="@colelevy"
+                href={profile.socials.telegram}
+                external
+              />
+              <Channel
+                label="WhatsApp"
+                value={profile.phoneDisplay}
+                href={profile.socials.whatsapp}
+                external
+              />
+            </dl>
+          </div>
 
-              <div className="mt-5 space-y-2 text-sm">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="flex items-center gap-2 text-slate-200 hover:text-white"
-                >
-                  <Mail size={14} className="text-accent-2" />
-                  {profile.email}
-                </a>
-                <a
-                  href={`tel:${profile.phone}`}
-                  className="flex items-center gap-2 text-slate-200 hover:text-white"
-                >
-                  <Phone size={14} className="text-accent-2" />
-                  {profile.phoneDisplay}
-                </a>
+          {/* Form */}
+          <div className="col-span-12 sm:col-span-7 lg:col-span-7 lg:col-start-6">
+            <p className="eyebrow mb-6">Or write here</p>
+            {state.succeeded ? (
+              <div className="flex flex-col items-start gap-3 border-l-2 border-accent pl-6 py-2">
+                <CheckCircle2 size={24} className="text-accent" />
+                <h3 className="font-serif text-2xl tracking-tight">
+                  Message received.
+                </h3>
+                <p className="text-ink-2 text-[15px] leading-[1.6]">
+                  Thanks — I'll get back to you shortly.
+                </p>
               </div>
-            </div>
-
-            <div>
-              {state.succeeded ? (
-                <div className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-white/5 p-6 text-center">
-                  <CheckCircle2 size={32} className="text-accent-2" />
-                  <h3 className="text-base font-semibold">Message sent — thanks!</h3>
-                  <p className="text-sm text-slate-400">I'll get back to you shortly.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="your@email.com"
-                    aria-label="Email"
-                    className="w-full rounded-lg border border-white/10 bg-ink-elevated px-4 py-2.5 text-sm text-slate-100 outline-none transition-colors focus:border-accent-2/70"
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <Field
+                  id="email"
+                  label="Your email"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="you@domain.com"
+                  errors={state.errors}
+                />
+                <Field
+                  id="message"
+                  label="Message"
+                  textarea
+                  name="message"
+                  required
+                  placeholder="Project, role, idea — whatever it is."
+                  errors={state.errors}
+                />
+                <button
+                  type="submit"
+                  disabled={state.submitting}
+                  className="group inline-flex items-center gap-3 border-b border-ink pb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-ink hover:text-accent hover:border-accent transition-colors disabled:opacity-50"
+                >
+                  {state.submitting ? 'Sending…' : 'Send message'}
+                  <ArrowUpRight
+                    size={14}
+                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
-                  <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={state.errors}
-                    className="text-xs text-red-400"
-                  />
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={3}
-                    placeholder="What's on your mind?"
-                    aria-label="Message"
-                    className="w-full resize-none rounded-lg border border-white/10 bg-ink-elevated px-4 py-2.5 text-sm text-slate-100 outline-none transition-colors focus:border-accent-2/70"
-                  />
-                  <ValidationError
-                    prefix="Message"
-                    field="message"
-                    errors={state.errors}
-                    className="text-xs text-red-400"
-                  />
-                  <button
-                    type="submit"
-                    disabled={state.submitting}
-                    className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-ink shadow-md shadow-accent/30 transition-transform hover:scale-[1.02] disabled:opacity-60"
-                  >
-                    {state.submitting ? 'Sending…' : 'Send message'}
-                    <ArrowRight
-                      size={14}
-                      className="transition-transform group-hover:translate-x-1"
-                    />
-                  </button>
-                </form>
-              )}
-            </div>
+                </button>
+              </form>
+            )}
           </div>
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function Channel({
+  label,
+  value,
+  href,
+  external,
+}: {
+  label: string
+  value: string
+  href: string
+  external?: boolean
+}) {
+  return (
+    <div>
+      <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+        {label}
+      </dt>
+      <dd className="mt-1">
+        <a
+          href={href}
+          {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+          className="group inline-flex items-center gap-1.5 font-serif text-lg tracking-tight text-ink hover:text-accent transition-colors sm:text-xl"
+        >
+          {value}
+          {external && (
+            <ArrowUpRight
+              size={13}
+              className="text-muted transition-colors group-hover:text-accent"
+            />
+          )}
+        </a>
+      </dd>
+    </div>
+  )
+}
+
+type FieldProps = {
+  id: string
+  label: string
+  name: string
+  required?: boolean
+  placeholder?: string
+  type?: string
+  textarea?: boolean
+  errors?: FormErrors
+}
+
+function Field({
+  id,
+  label,
+  name,
+  required,
+  placeholder,
+  type = 'text',
+  textarea,
+  errors,
+}: FieldProps) {
+  const fieldClasses =
+    'w-full bg-transparent border-b border-line py-3 text-[15px] text-ink placeholder:text-muted outline-none transition-colors focus:border-accent'
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-1"
+      >
+        {label}
+      </label>
+      {textarea ? (
+        <textarea
+          id={id}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          rows={4}
+          className={`${fieldClasses} resize-none`}
+        />
+      ) : (
+        <input
+          id={id}
+          name={name}
+          type={type}
+          required={required}
+          placeholder={placeholder}
+          className={fieldClasses}
+        />
+      )}
+      <ValidationError
+        prefix={label}
+        field={name}
+        errors={errors ?? null}
+        className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-accent"
+      />
+    </div>
   )
 }

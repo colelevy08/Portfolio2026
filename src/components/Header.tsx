@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, Download } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Resume from '../assets/ColeLevyResume.pdf'
+import { profile } from '../data/content'
 
 const links = [
   { label: 'Work', to: '#work' },
+  { label: 'About', to: '#about' },
+  { label: 'Path', to: '#path' },
   { label: 'Contact', to: '#contact' },
 ]
 
@@ -13,7 +16,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -21,25 +24,28 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         scrolled
-          ? 'bg-ink/70 backdrop-blur-md border-b border-white/5'
+          ? 'bg-bg/80 backdrop-blur-md border-b border-line'
           : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <a href="#home" className="font-mono text-base font-bold tracking-tight">
-          <span className="text-accent">&lt;Cole</span>
-          <span className="text-slate-100"> Levy</span>
-          <span className="text-accent-2">/&gt;</span>
+      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-4 sm:py-5">
+        <a
+          href="#top"
+          className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink hover:text-accent transition-colors"
+          aria-label={`${profile.name} — home`}
+        >
+          {profile.name} <span className="text-muted">·</span>{' '}
+          <span className="text-muted">{profile.location.split(',')[0]}</span>
         </a>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <a
               key={l.to}
               href={l.to}
-              className="text-sm text-slate-300 transition-colors hover:text-white"
+              className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-2 hover:text-accent transition-colors"
             >
               {l.label}
             </a>
@@ -47,18 +53,18 @@ export default function Header() {
           <a
             href={Resume}
             download
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-1.5 text-sm font-semibold text-ink shadow-lg shadow-accent/20 transition-transform hover:scale-105"
+            className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent hover:text-accent-2 transition-colors"
           >
-            <Download size={14} /> Resume
+            Résumé ↓
           </a>
         </div>
 
         <button
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
-          className="rounded-md p-2 text-slate-200 md:hidden"
+          className="md:hidden text-ink"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
@@ -68,15 +74,16 @@ export default function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/5 bg-ink/95 backdrop-blur-md md:hidden"
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden border-t border-line bg-bg/95 backdrop-blur-md md:hidden"
           >
-            <div className="flex flex-col gap-1 px-6 py-4">
+            <div className="flex flex-col gap-1 px-6 py-5">
               {links.map((l) => (
                 <a
                   key={l.to}
                   href={l.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-2 text-slate-300 hover:bg-white/5 hover:text-white"
+                  className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-ink-2 hover:text-accent transition-colors"
                 >
                   {l.label}
                 </a>
@@ -85,9 +92,9 @@ export default function Header() {
                 href={Resume}
                 download
                 onClick={() => setOpen(false)}
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-2 text-sm font-semibold text-ink"
+                className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-accent hover:text-accent-2 transition-colors"
               >
-                <Download size={14} /> Resume
+                Résumé ↓
               </a>
             </div>
           </motion.div>

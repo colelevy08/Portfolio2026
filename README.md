@@ -4,18 +4,19 @@
 
 # `<Cole Levy />` — Portfolio 2026
 
-**Full Stack Developer** · Saratoga Springs, NY
+**Full-Stack Developer** · Saratoga Springs, NY
 
 _A fast, animated, fully-responsive personal portfolio built from the ground up for 2026._
 
-[![Website](https://img.shields.io/badge/Live-colelevy08.github.io-7c3aed?style=for-the-badge&logo=githubpages&logoColor=white)](https://colelevy08.github.io/Portfolio2026/)
+[![Vercel](https://img.shields.io/badge/Live-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio2026.vercel.app)
+[![GitHub Pages](https://img.shields.io/badge/Mirror-GitHub_Pages-7c3aed?style=for-the-badge&logo=githubpages&logoColor=white)](https://colelevy08.github.io/Portfolio2026/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](#license)
 
-[**Live site**](https://colelevy08.github.io/Portfolio2026/) ·
+[**Live site**](https://portfolio2026.vercel.app) ·
 [**LinkedIn**](https://www.linkedin.com/in/colelevy) ·
 [**GitHub**](https://github.com/colelevy08) ·
 [**Email**](mailto:colelevy08@gmail.com)
@@ -24,86 +25,95 @@ _A fast, animated, fully-responsive personal portfolio built from the ground up 
 
 ---
 
+<p align="center">
+  <a href="https://portfolio2026.vercel.app">
+    <img src="./docs/preview.png" alt="Portfolio 2026 — preview" width="820" />
+  </a>
+</p>
+
+---
+
 ## About
 
-This is the 2026 rebuild of my personal portfolio — a complete re-imagining of [Portfolio25](https://github.com/colelevy08/Portfolio25) on a modern Vite + React + Tailwind stack.
+The 2026 rebuild of my personal portfolio — a complete re-imagining of [Portfolio25](https://github.com/colelevy08/Portfolio25) on a modern Vite + React + Tailwind stack.
 
-It's designed to be fast, accessible, and animated without feeling heavy — a single-page journey through who I am, what I've built, and how to reach me.
+Designed to be fast, accessible, and animated without feeling heavy — a single-page journey through who I am, what I've built, and how to reach me.
 
 ## Highlights
 
-- **Animated hero** with aurora-glow background and staggered reveal timing
-- **Projects grid** with gradient borders and hover lift
-- **Interactive history timeline** with tabbed Work / Education views
-- **Formspree-powered contact** with validation and a success state
-- **Mobile-first responsive layout** — collapsible nav, adaptive grid
-- **Tailwind v4** — no separate config file, CSS-first theming via `@theme`
-- **Framer Motion** page-section reveals
-- **Zero runtime CMS** — content lives in typed TypeScript (`src/data/content.ts`)
+- **Single-viewport hero** — typographic editorial layout with staggered reveal
+- **Tabbed Work section** — featured projects with gradient borders, live demos, and source links
+- **About bento** — compact grid telling the story in a glance
+- **Path timeline** — interactive career + education view
+- **Formspree-powered contact** — validation and a real success state, no backend
+- **Mobile-first** — verified at 375px and 1440px, keyboard-navigable
+- **Tailwind v4** — CSS-first theming via `@theme`, no `tailwind.config.js`
+- **Framer Motion** — section reveals only; no infinite loops, no parallax tax
+- **Zero runtime CMS** — every word lives in typed TypeScript (`src/data/content.ts`)
 
 ## Tech stack
 
-| Layer        | Tools                                              |
-| ------------ | -------------------------------------------------- |
-| Framework    | React 18 · TypeScript 5 · Vite 5                   |
-| Styling      | Tailwind CSS 4 · custom CSS aurora/gradient borders |
-| Animation    | Framer Motion                                      |
-| Icons        | Lucide React                                       |
-| Forms        | @formspree/react                                   |
-| Deployment   | GitHub Pages (via `gh-pages`)                      |
+| Layer       | Tools                                                 |
+| ----------- | ----------------------------------------------------- |
+| Framework   | React 18 · TypeScript 5 · Vite 5                      |
+| Styling     | Tailwind CSS 4 · custom CSS aurora / gradient borders |
+| Animation   | Framer Motion                                         |
+| Icons       | Lucide React                                          |
+| Forms       | @formspree/react                                      |
+| Deployment  | Vercel (primary) · GitHub Pages (mirror)              |
 
 ## Project structure
 
 ```
 Portfolio2026/
+├─ docs/
+│  └─ preview.png        # README hero screenshot
 ├─ public/               # static assets (favicon)
 ├─ src/
-│  ├─ assets/            # profile pic, resume PDF, illustration, Hello.gif
-│  ├─ components/        # Header, Hero, About, Projects, History, Contact, Footer
+│  ├─ assets/            # profile pic, resume PDF, project screenshots
+│  ├─ components/        # Header, Hero, Work, About, Path, Contact, Footer
 │  ├─ data/
-│  │  └─ content.ts      # all portfolio content (profile, projects, history)
+│  │  └─ content.ts      # ALL portfolio content (profile, projects, history)
 │  ├─ App.tsx            # section composition
 │  ├─ main.tsx           # entry point
-│  └─ index.css          # Tailwind + theme tokens + aurora styles
+│  └─ index.css          # Tailwind + @theme tokens + aurora styles
 ├─ index.html
-├─ vite.config.ts
+├─ vite.config.ts        # env-aware base path (Vercel vs gh-pages)
 └─ tsconfig.json
 ```
 
 ## Getting started
 
-**Requirements:** Node `20+` (Tailwind v4 / Vite 5 support), npm.
+**Requirements:** Node `20+`, npm.
 
 ```bash
-# clone
 git clone https://github.com/colelevy08/Portfolio2026.git
 cd Portfolio2026
-
-# install
 npm install
-
-# start the dev server at http://localhost:5173
-npm run dev
+npm run dev        # http://localhost:5173/Portfolio2026/
 ```
 
 ### Build & preview
 
 ```bash
 npm run build      # type-check + production bundle into dist/
-npm run preview    # preview the production build locally
+npm run preview    # serve the built site locally
 ```
 
-### Deploy to GitHub Pages
+## Deployment
 
-The `homepage` field in `package.json` and `base` in `vite.config.ts` are already wired for GitHub Pages.
+The site ships to **two targets** from the same `dist/` bundle. `vite.config.ts` flips the base path based on Vercel's `VERCEL` env var:
 
-```bash
-npm run deploy
-```
+| Target           | URL                                                   | How                                          |
+| ---------------- | ----------------------------------------------------- | -------------------------------------------- |
+| **Vercel** (primary) | https://portfolio2026.vercel.app                      | Auto-deploys on push to `main` (root path `/`)   |
+| **GitHub Pages**     | https://colelevy08.github.io/Portfolio2026/           | `npm run deploy` (base `/Portfolio2026/`)        |
+
+That's it — no Vercel config file, no GitHub Actions workflow. Framework detection on Vercel; `gh-pages` for the mirror.
 
 ## Customizing
 
-All content — profile info, about paragraphs, skills, project list, and history — is in **`src/data/content.ts`**. Update it in one place and every section re-renders automatically.
+All content — profile info, about paragraphs, skills, projects, history — lives in **`src/data/content.ts`**. Update it in one place and every section re-renders.
 
 - **Theme colors:** `src/index.css` inside the `@theme {}` block
 - **Contact form:** `profile.formspreeId` in `src/data/content.ts`

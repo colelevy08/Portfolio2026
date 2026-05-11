@@ -1,51 +1,98 @@
-import { Github, Linkedin, MessageCircle, Send } from 'lucide-react'
-import { profile } from '../data/content'
+import { profile, stack } from '../data/content'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 px-6 py-6">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-xs text-slate-500 sm:flex-row">
-        <p>
+    <footer className="border-t border-line px-6 py-10">
+      <div className="mx-auto grid max-w-[1240px] grid-cols-12 gap-y-6 gap-x-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+        <div className="col-span-12 sm:col-span-4">
           © {new Date().getFullYear()}{' '}
-          <span className="font-mono text-accent-2">{profile.name}</span> · Saratoga Springs, NY
-        </p>
-        <div className="flex items-center gap-2">
-          <SocialLink href={profile.socials.linkedin} label="LinkedIn">
-            <Linkedin size={14} />
-          </SocialLink>
-          <SocialLink href={profile.socials.github} label="GitHub">
-            <Github size={14} />
-          </SocialLink>
-          <SocialLink href={profile.socials.whatsapp} label="WhatsApp">
-            <MessageCircle size={14} />
-          </SocialLink>
-          <SocialLink href={profile.socials.telegram} label="Telegram">
-            <Send size={14} />
-          </SocialLink>
+          <span className="text-ink">{profile.name}</span>
+          <br />
+          {profile.location}
+        </div>
+
+        <div className="col-span-6 sm:col-span-3">
+          <p className="text-muted/70">Social</p>
+          <ul className="mt-2 space-y-1.5">
+            <li>
+              <a
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                LinkedIn ↗
+              </a>
+            </li>
+            <li>
+              <a
+                href={profile.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                GitHub ↗
+              </a>
+            </li>
+            <li>
+              <a
+                href={profile.socials.telegram}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                Telegram ↗
+              </a>
+            </li>
+            <li>
+              <a
+                href={profile.socials.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-accent transition-colors"
+              >
+                WhatsApp ↗
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="col-span-6 sm:col-span-3">
+          <p className="text-muted/70">Anchors</p>
+          <ul className="mt-2 space-y-1.5">
+            <li>
+              <a href="#work" className="hover:text-accent transition-colors">
+                Work ↘
+              </a>
+            </li>
+            <li>
+              <a href="#about" className="hover:text-accent transition-colors">
+                About ↘
+              </a>
+            </li>
+            <li>
+              <a href="#path" className="hover:text-accent transition-colors">
+                Path ↘
+              </a>
+            </li>
+            <li>
+              <a
+                href="#contact"
+                className="hover:text-accent transition-colors"
+              >
+                Contact ↘
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="col-span-12 sm:col-span-2">
+          <p className="text-muted/70">Colophon</p>
+          <p className="mt-2 text-[10px] leading-[1.5] normal-case tracking-normal">
+            {stack.build}
+          </p>
         </div>
       </div>
     </footer>
-  )
-}
-
-function SocialLink({
-  href,
-  label,
-  children,
-}: {
-  href: string
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition-all hover:border-accent-2/60 hover:text-white"
-    >
-      {children}
-    </a>
   )
 }

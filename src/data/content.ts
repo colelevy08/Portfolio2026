@@ -1,9 +1,13 @@
 export const profile = {
   name: "Cole Levy",
-  title: "Full Stack Developer",
+  initials: "CL",
+  title: "Full-stack developer",
+  tagline:
+    "Full-stack developer shipping for real businesses, in two languages.",
+  available: "Available for client work · est. 2023",
   email: "colelevy08@gmail.com",
   phone: "+15184104999",
-  phoneDisplay: "(+1) (518) 410-4999",
+  phoneDisplay: "(518) 410-4999",
   location: "Saratoga Springs, NY",
   formspreeId: "xeoeyajg",
   credlyBadge:
@@ -17,201 +21,271 @@ export const profile = {
 }
 
 export const aboutParagraphs = [
-  "I am a Full Stack Developer and Communication graduate with a passion for technology, languages, and global markets. I completed a Full Stack Development program at Flatiron School, where I became proficient in HTML, CSS, JavaScript, React, Python, Flask, SQL, and more. I have continued expanding my expertise since, developing skills in general IT.",
-  "Before transitioning into tech, I earned my Communication degree from SUNY Geneseo, where I built a strong foundation in media, interpersonal communication, and strategic messaging. I plan to leverage my diverse background to create innovative solutions that bridge the gap between technology and effective communication.",
-  "I currently serve as an Assistant Manager at Sure Thing Hospitality. After contributing to the successful launch of the new Standard Fare restaurant in Saratoga Springs, NY, I now assist in overseeing daily operations and customer service to deliver an exceptional dining experience. This position has further developed my leadership, organizational, and problem-solving abilities.",
-]
-
-export const skills = [
-  "React",
-  "TypeScript",
-  "JavaScript",
-  "Node.js",
-  "Python",
-  "Flask",
-  "SQL",
-  "Tailwind CSS",
-  "HTML",
-  "CSS",
+  "I build the web layer for small businesses that need to look serious on day one — restaurants, insurance practices, members clubs. Three of those are on retainer right now.",
+  "Before the bootcamp at Flatiron School (2023) I studied Communication at SUNY Geneseo, with semesters at La Sorbonne and Sciences Po. The communication degree is why my interfaces read clearly; the dev work is what makes them ship.",
+  "When I'm off the client clock I write trading bots against prediction markets, build a horse-racing analytics PWA for the Saratoga track, and run kitchens. I currently assistant-manage Standard Fare, a restaurant I helped launch in 2025.",
 ]
 
 export type Project = {
+  slug: string
   title: string
+  kind: "Client retainer" | "Open source" | "Personal"
+  year: string
+  blurb: string
   description: string
-  repo: string
+  repo?: string
+  isPrivate?: boolean
   live?: string
   tags: string[]
 }
 
 export const projects: Project[] = [
   {
-    title: "Legacy Path Planners",
+    slug: "bocage-society",
+    title: "Bocage Champagne Society",
+    kind: "Client retainer",
+    year: "2026",
+    blurb:
+      "Members app + Admin CRM for a private champagne society, shipped to iOS, Android, and web from a single codebase.",
     description:
-      "Web app for planning the legacy path forward. Built with JavaScript, deployed on Vercel.",
-    repo: "https://github.com/colelevy08/legacy-path-planners",
-    live: "https://legacy-path-planners.vercel.app",
-    tags: ["JavaScript", "Web", "Vercel"],
+      "Capacitor-wrapped React + Vite app with a Supabase backend. Membership, RSVPs, ticketing, and a back-office CRM for the owner. The companion to the public-facing Bocage marketing site.",
+    repo: "https://github.com/colelevy08/BocageChampagneSociety",
+    live: "https://bocage-champagne-society.vercel.app",
+    tags: ["React", "Vite", "Capacitor", "Supabase"],
   },
   {
-    title: "Saratoga Handicapper",
-    description:
-      "Horse racing analytics toolkit for the Saratoga track. Data-driven picks and race-day insights.",
-    repo: "https://github.com/colelevy08/saratoga-handicapper",
-    live: "https://saratoga-handicapper.vercel.app",
-    tags: ["Python", "Data", "Vercel"],
-  },
-  {
+    slug: "standard-fare",
     title: "Standard Fare",
+    kind: "Client retainer",
+    year: "2025",
+    blurb:
+      "Marketing site for the Saratoga Springs restaurant I helped open — brunch, dinner, craft cocktails, in-house art gallery.",
     description:
-      "Website for Standard Fare — the new Saratoga Springs restaurant I helped launch. Menu, reservations, story.",
+      "Creative-American dining at 21 Phila St. Reservation flow, ticketed event listings, menu CMS, and a gallery rotation page. I helped launch the kitchen and I built the site.",
     repo: "https://github.com/colelevy08/standard-fare",
     live: "https://standard-fare-ten.vercel.app",
-    tags: ["JavaScript", "Web", "Vercel"],
+    tags: ["React", "Vercel", "Supabase"],
   },
   {
-    title: "Prediction Market Bot",
+    slug: "bocage",
+    title: "Bocage",
+    kind: "Client retainer",
+    year: "2025",
+    blurb:
+      "Saratoga Springs' first champagne bar — a 20-seat room for sparkling wines, caviar, and charcuterie.",
     description:
-      "Earlier iteration of my prediction-market trading research. Python pipeline with auto-trade hooks and a deployed dashboard.",
-    repo: "https://github.com/colelevy08/prediction-market-bot",
-    live: "https://prediction-market-bot.vercel.app",
-    tags: ["Python", "Trading", "Dashboard"],
+      "Marketing site for a new champagne-and-caviar concept. Reservation flow, wine list, event calendar. Shares a Supabase backend with the members app.",
+    isPrivate: true,
+    live: "https://bocage.vercel.app",
+    tags: ["React", "Vercel", "Supabase"],
   },
   {
+    slug: "legacy-path-planners",
+    title: "Legacy Path Planners",
+    kind: "Client retainer",
+    year: "2025",
+    blurb:
+      "Independent long-term-care insurance practice helping Florida families protect retirement savings.",
+    description:
+      "Lead-gen site and back-office CRM for Norm Levy's LTC insurance practice. Quote intake, agent workflow, calendar booking. Built to read trustworthy in a regulated industry.",
+    isPrivate: true,
+    live: "https://legacy-path-planners.vercel.app",
+    tags: ["React", "Vercel", "Supabase"],
+  },
+  {
+    slug: "saratoga-handicapper",
+    title: "Saratoga Handicapper",
+    kind: "Personal",
+    year: "2025",
+    blurb:
+      "Pro-grade horse-racing handicapping for NYRA tracks — Kelly sizing, pace analysis, live odds, Claude AI commentary.",
+    description:
+      "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and uses Claude for natural-language pace and trip analysis. Built on the Saratoga meet.",
+    isPrivate: true,
+    live: "https://saratoga-handicapper.vercel.app",
+    tags: ["React", "Vite", "FastAPI", "Claude AI"],
+  },
+  {
+    slug: "polybot",
+    title: "PolyBot",
+    kind: "Open source",
+    year: "2026",
+    blurb:
+      "High-speed Polymarket copy-trading bot — whale identification, edge-verified Kelly sizing, WebSocket execution.",
+    description:
+      "Python async pipeline that identifies profitable wallets on Polymarket, verifies edge against current order books, and copies positions Kelly-sized to the operator's bankroll. Real-money trading.",
+    repo: "https://github.com/colelevy08/PolyBot",
+    tags: ["Python", "asyncio", "WebSockets", "Trading"],
+  },
+  {
+    slug: "groovestack",
     title: "GrooveStack",
+    kind: "Open source",
+    year: "2025",
+    blurb:
+      "Collect, trade, verify, and discover vinyl records with a global community of crate diggers.",
     description:
-      "Music-themed web app built and deployed on Vercel — my take on a stacked, playful music experience.",
+      "Full-stack social app for vinyl collectors. Catalog with discogs-style records, peer-to-peer trade requests, condition verification, and a discovery feed. My capstone-scale JS project.",
     repo: "https://github.com/colelevy08/groovestack",
     live: "https://groovestack.vercel.app",
-    tags: ["JavaScript", "Music", "Vercel"],
-  },
-  {
-    title: "Bocage",
-    description:
-      "Personal web project — built and deployed on Vercel.",
-    repo: "https://github.com/colelevy08/bocage",
-    live: "https://bocage.vercel.app",
-    tags: ["JavaScript", "Web", "Vercel"],
+    tags: ["React", "Node", "Vercel"],
   },
 ]
 
-export type HistoryEvent = {
+export type PathEvent = {
+  kind: "Work" | "Education"
   title: string
   location: string
   date: string
+  sortYear: number
   description: string
 }
 
-export const workEvents: HistoryEvent[] = [
+export const path: PathEvent[] = [
   {
+    kind: "Work",
     title: "Assistant Manager",
-    location: "Standard Fare, Saratoga Springs, NY",
-    date: "July 2025 – Current",
+    location: "Standard Fare · Saratoga Springs, NY",
+    date: "Jul 2025 — present",
+    sortYear: 2025.7,
     description:
-      "Supported successful launch of the Standard Fare location. Managed POS updates, cash-outs, and end-of-shift financial processes. Provided exceptional customer service, achieving top guest satisfaction metrics. Trained and supervised new staff, ensuring adherence to company standards and procedures.",
+      "Helped launch the Standard Fare location. Managed POS updates, cash-outs, and end-of-shift financial processes. Led top guest-satisfaction metrics. Trained and supervised new staff.",
   },
   {
+    kind: "Work",
+    title: "Support Engineer I",
+    location: "cb20 · Saratoga Springs, NY",
+    date: "Dec 2024 — May 2025",
+    sortYear: 2024.95,
+    description:
+      "Front-line IT support for managed-services customers, remote and on-site. Drove phone-answer rate from 30% to 95% and CSAT to 4.9/5.",
+  },
+  {
+    kind: "Work",
     title: "Server",
-    location: "The Whistling Kettle, Ballston Spa, NY",
-    date: "October 2024 – May 2025",
+    location: "The Whistling Kettle · Ballston Spa, NY",
+    date: "Oct 2024 — May 2025",
+    sortYear: 2024.85,
     description:
-      "Managed and upsold gourmet tea. Met sales goals by encouraging merchandise purchases. Handled customer inquiries and ensured high satisfaction.",
+      "Managed and upsold gourmet tea and merchandise. Met sales goals while keeping satisfaction high.",
   },
   {
-    title: "Support Engineer 1",
-    location: "cb20, Saratoga Springs, NY",
-    date: "December 2024 – May 2025",
-    description:
-      "Provided technical support for IT managed services customers, both remotely and on-site. Drove phone answer rate from 30% to 95%. Improved CSAT rate to 4.9/5.",
-  },
-  {
+    kind: "Work",
     title: "Captain",
-    location: "Navy Blue, Houston, TX",
-    date: "May 2024 – October 2024",
+    location: "Navy Blue · Houston, TX",
+    date: "May 2024 — Oct 2024",
+    sortYear: 2024.4,
     description:
-      "Worked as a server in fine dining. Demonstrated excellent customer service skills and maintained a clean and organized work area. Updated POS system according to menu changes.",
+      "Fine-dining captain. Maintained POS menu updates and section flow. Strong customer-service track record.",
   },
   {
-    title: "Server",
-    location: "The Daily Catch",
-    date: "May 2022 – July 2022",
-    description:
-      "Provided quick and efficient service, communicated effectively with kitchen staff, and ensured tables were ready for new guests promptly.",
-  },
-  {
-    title: "Server",
-    location: "Maggiano's",
-    date: "April 2022 – June 2022",
-    description:
-      "Delivered excellent customer service, collaborated with team members, and maintained a high level of productivity to keep tables ready for incoming guests.",
-  },
-  {
-    title: "Food Runner & Seafood Prep Chef",
-    location: "The Atlantic Seafood and Chophouse",
-    date: "May 2021 – August 2021",
-    description:
-      "Delivered food from kitchen to table while working closely with head chef and owner to maintain kitchen flow. Maintained speed of service while minimizing errors.",
-  },
-  {
-    title: "Bellhop & Night Auditor",
-    location: "The Harborside Inn",
-    date: "May 2021 – August 2021",
-    description:
-      "Assisted guests with luggage. Completed nightly audits for guest ledgers, reconciled discrepancies, and oversaw hotel revenue reporting.",
-  },
-  {
-    title: "Teacher's Assistant — Chinese Language",
-    location: "SUNY Geneseo",
-    date: "January 2021 – May 2021",
-    description:
-      "Supported lead teacher in virtual classroom during COVID. Assisted with lesson prep, attendance, and one-on-one support to students.",
-  },
-  {
-    title: "Expeditor & Busser",
-    location: "Chianti Il Ristorante",
-    date: "August 2018 – September 2019",
-    description:
-      "Ensured timely delivery of orders, maintained table readiness, and performed busser duties such as filling waters and polishing silverware.",
-  },
-]
-
-export const educationEvents: HistoryEvent[] = [
-  {
+    kind: "Education",
     title: "Full Stack Development — Software Engineering",
     location: "Flatiron School",
-    date: "February 2023 – July 2023",
+    date: "Feb 2023 — Jul 2023",
+    sortYear: 2023.2,
     description:
-      "15-week Software Engineering / Full Stack Development Bootcamp. Python, JavaScript, React, Flask, HTML, CSS, SQL, and more.",
+      "15-week intensive: Python, JavaScript, React, Flask, HTML, CSS, SQL. The pivot from communication into engineering.",
   },
   {
-    title: "Bachelor of Arts — Communication",
+    kind: "Education",
+    title: "BA Communication",
     location: "SUNY Geneseo",
-    date: "September 2019 – December 2022",
+    date: "Sep 2019 — Dec 2022",
+    sortYear: 2022.95,
     description:
-      "Bachelor's in Communication: Journalism, Media, and Professional Communication. Completed one semester early. Studied Chinese, French, and International Relations.",
+      "Journalism, media, and professional communication. Finished one semester early. Studied Chinese, French, and international relations alongside.",
   },
   {
+    kind: "Work",
+    title: "Server",
+    location: "The Daily Catch",
+    date: "May 2022 — Jul 2022",
+    sortYear: 2022.5,
+    description:
+      "Quick, efficient service in a high-volume room. Tight kitchen communication, fast table turns.",
+  },
+  {
+    kind: "Education",
     title: "Study Abroad — International Relations",
-    location: "Sciences Po Saint Germain En Laye, France",
-    date: "September 2022 – December 2022",
-    description: "Study abroad program with classes in International Relations.",
+    location: "Sciences Po Saint-Germain-en-Laye · France",
+    date: "Sep 2022 — Dec 2022",
+    sortYear: 2022.4,
+    description: "One-semester exchange. International relations coursework in French.",
   },
   {
+    kind: "Education",
     title: "Study Abroad — French Language, History & Culture",
-    location: "La Sorbonne, Paris, France",
-    date: "September 2022 – December 2022",
-    description: "Study abroad in Paris: French language, history, and culture.",
+    location: "La Sorbonne · Paris, France",
+    date: "Sep 2022 — Dec 2022",
+    sortYear: 2022.39,
+    description: "Concurrent semester at the Sorbonne. Language, history, culture.",
   },
   {
-    title: "AS Entrepreneurship & Sustainable Technologies",
-    location: "Hudson Valley Community College",
-    date: "September 2015 – June 2019",
+    kind: "Work",
+    title: "Server",
+    location: "Maggiano's",
+    date: "Apr 2022 — Jun 2022",
+    sortYear: 2022.35,
+    description: "High-throughput Italian dining. Section management, team collaboration.",
+  },
+  {
+    kind: "Work",
+    title: "Food Runner & Seafood Prep Chef",
+    location: "The Atlantic Seafood and Chophouse",
+    date: "May 2021 — Aug 2021",
+    sortYear: 2021.5,
     description:
-      "Early college program through HVCC. Computer science, sustainable technologies, renewable energy, and entrepreneurship.",
+      "Ran food and prepped seafood line-side with the head chef and owner. Kept service speed without sacrificing accuracy.",
   },
   {
+    kind: "Work",
+    title: "Bellhop & Night Auditor",
+    location: "The Harborside Inn",
+    date: "May 2021 — Aug 2021",
+    sortYear: 2021.49,
+    description:
+      "Guest services by day, accounting by night. Reconciled guest ledgers, oversaw nightly revenue reporting.",
+  },
+  {
+    kind: "Work",
+    title: "Teacher's Assistant — Chinese Language",
+    location: "SUNY Geneseo",
+    date: "Jan 2021 — May 2021",
+    sortYear: 2021.1,
+    description:
+      "Supported the lead instructor in a virtual classroom through COVID. Lesson prep, attendance, one-on-one student support.",
+  },
+  {
+    kind: "Work",
+    title: "Expeditor & Busser",
+    location: "Chianti Il Ristorante",
+    date: "Aug 2018 — Sep 2019",
+    sortYear: 2018.8,
+    description:
+      "Ran the pass. Kept tables turning. Where the hospitality habits started.",
+  },
+  {
+    kind: "Education",
+    title: "AS Entrepreneurship & Sustainable Technologies",
+    location: "Hudson Valley Community College (early college)",
+    date: "Sep 2015 — Jun 2019",
+    sortYear: 2015.9,
+    description:
+      "Early-college program: computer science, sustainable technologies, renewable energy, entrepreneurship.",
+  },
+  {
+    kind: "Education",
     title: "Saratoga Springs High School",
     location: "Saratoga Springs, NY",
-    date: "September 2015 – June 2019",
+    date: "Sep 2015 — Jun 2019",
+    sortYear: 2015.89,
     description: "New York Regents Diploma.",
   },
 ]
+
+export const stack = {
+  build:
+    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Deployed to GitHub Pages.",
+  source: "github.com/colelevy08/Portfolio2026",
+}
