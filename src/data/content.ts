@@ -56,6 +56,16 @@ export type ProjectCategory =
   | "Tooling"
   | "Open source"
 
+// A featured project can carry its product's brand so its case-study card
+// renders an on-brand visual plate instead of a generic placeholder.
+export type ProjectBrand = {
+  tagline: string
+  accent: string // primary brand color (hex)
+  bg: string // plate background (hex)
+  gradient?: string // optional CSS gradient for the wordmark
+  wordmarkFont?: "sans" | "serif"
+}
+
 export type Project = {
   slug: string
   title: string
@@ -72,6 +82,7 @@ export type Project = {
   tags: string[]
   // Featured projects render as large case-study cards above the grid.
   featured?: boolean
+  brand?: ProjectBrand
 }
 
 export const projects: Project[] = [
@@ -89,6 +100,14 @@ export const projects: Project[] = [
     live: "https://portmint.com",
     isPrivate: true,
     tags: ["React", "TypeScript", "Python", "FastAPI", "Stripe", "Vercel"],
+    // Portmint's real brand: mint primary, mint→sky gradient, deep-ocean bg.
+    brand: {
+      tagline: "Your business's own AI.",
+      accent: "#34e0b3",
+      bg: "#06090f",
+      gradient: "linear-gradient(115deg, #5cf0c4, #34e0b3 45%, #0ea5e9)",
+      wordmarkFont: "sans",
+    },
   },
   {
     slug: "fablekalshi",
@@ -103,6 +122,14 @@ export const projects: Project[] = [
       "An async Python trading system for Kalshi 15-minute and hourly crypto-binary markets. Runs four strategies plus an ensemble in parallel, shadow-trades every candidate with automatic promotion when it clears thresholds, detects volatility/trend/chop regimes to size dynamically, and gates every order through fee- and slippage-aware EV math with fractional-Kelly sizing. Automatic kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes. Backtesting runs across a process pool; every decision is logged for bit-for-bit replay.",
     isPrivate: true,
     tags: ["Python", "asyncio", "WebSockets", "SQLite"],
+    // FableKalshi has no public brand — give it a quant-themed visual in the
+    // portfolio's own accent so the card reads intentional, not empty.
+    brand: {
+      tagline: "Automated quant trading on Kalshi.",
+      accent: "#e2733a",
+      bg: "#16140f",
+      wordmarkFont: "serif",
+    },
   },
   {
     slug: "bocage-society",

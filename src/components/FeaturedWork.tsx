@@ -1,7 +1,10 @@
+import type { CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
+import BrandPlate from './brand/BrandPlate'
+import PortmintMark from './brand/PortmintMark'
 
 const featured = projects.filter((p) => p.featured)
 
@@ -32,6 +35,14 @@ export default function FeaturedWork() {
 function FeaturedCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
+  const accent = p.brand?.accent
+  // Brand color drives the hover-lift border/glow on branded featured cards.
+  const cardStyle = accent
+    ? ({ '--card-accent': accent } as CSSProperties)
+    : undefined
+  // Accent-colored link/eyebrow text for branded cards.
+  const accentStyle = accent ? { color: accent } : undefined
+  const isPortmint = p.slug === 'portmint'
 
   return (
     <motion.article
@@ -43,9 +54,10 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
         delay: Math.min(index * 0.08, 0.2),
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className="lift flex flex-col overflow-hidden rounded-md border border-line bg-bg-2"
+      style={cardStyle}
+      className="lift-brand flex flex-col overflow-hidden rounded-md border border-line bg-bg-2"
     >
-      {/* Visual plate */}
+      {/* Visual plate — real screenshot if present, else the on-brand plate. */}
       <a
         href={primary}
         target={primary ? '_blank' : undefined}
@@ -63,25 +75,25 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
             height={750}
             className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
+        ) : p.brand ? (
+          <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+            <BrandPlate p={p} />
+          </div>
         ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-center">
-            <span className="font-serif text-4xl text-ink sm:text-5xl">
-              {p.title}
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-              {p.category}
-            </span>
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="font-serif text-4xl text-ink">{p.title}</span>
           </div>
         )}
       </a>
 
       {/* Body */}
       <div className="flex flex-1 flex-col p-7 sm:p-9">
-        <p className="eyebrow mb-4">
+        <p className="eyebrow mb-4" style={accentStyle}>
           {p.year} · {p.category}
         </p>
 
-        <h3 className="font-serif text-3xl leading-[1.08] tracking-tight sm:text-4xl">
+        <h3 className="flex items-center gap-3 font-serif text-3xl leading-[1.08] tracking-tight sm:text-4xl">
+          {isPortmint && <PortmintMark size={30} />}
           {p.title}
         </h3>
 
@@ -101,9 +113,13 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
               href={p.live}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-accent"
+              style={accentStyle}
+              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-opacity hover:opacity-70"
             >
-              <span className="hairline w-8 transition-all group-hover:w-12 group-hover:bg-accent" />
+              <span
+                className="hairline w-8 transition-all group-hover:w-12"
+                style={accent ? { background: accent } : undefined}
+              />
               Visit site
               <ArrowUpRight size={13} />
             </a>

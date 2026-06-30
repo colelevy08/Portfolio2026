@@ -164,6 +164,27 @@ a {
   box-shadow: 0 20px 60px -30px rgba(226, 115, 58, 0.55);
 }
 
+/* Brand-aware hover-lift: border + glow take a per-card --card-accent color
+   (set inline) so the Portmint card lifts in mint, FableKalshi in amber. */
+.lift-brand {
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 240ms ease, box-shadow 420ms ease;
+}
+.lift-brand:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-accent, var(--color-accent));
+  box-shadow: 0 20px 60px -30px
+    color-mix(in srgb, var(--card-accent, var(--color-accent)) 55%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift-brand {
+    transition: border-color 240ms ease;
+  }
+  .lift-brand:hover {
+    transform: none;
+  }
+}
+
 /* Skills chip — small rounded pill used in the skills matrix. */
 .chip {
   border: 1px solid var(--color-line);
