@@ -61,8 +61,13 @@ export default function Footer() {
           <p className="text-muted/70">Anchors</p>
           <ul className="mt-2 space-y-1.5">
             <li>
-              <a href="#work" className="hover:text-accent transition-colors">
+              <a href="#featured" className="hover:text-accent transition-colors">
                 Work ↘
+              </a>
+            </li>
+            <li>
+              <a href="#skills" className="hover:text-accent transition-colors">
+                Skills ↘
               </a>
             </li>
             <li>

@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Resume from '../assets/ColeLevyResume.pdf'
 import { profile } from '../data/content'
 
+// Canonical résumé URL is centralized on the profile object.
+const Resume = profile.resumeUrl
+
 const links = [
-  { label: 'Work', to: '#work' },
+  { label: 'Work', to: '#featured' },
+  { label: 'Skills', to: '#skills' },
   { label: 'About', to: '#about' },
   { label: 'Path', to: '#path' },
   { label: 'Contact', to: '#contact' },

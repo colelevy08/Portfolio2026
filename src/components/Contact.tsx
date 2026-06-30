@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useForm, ValidationError } from '@formspree/react'
 import type { SubmissionError, FieldValues } from '@formspree/core'
 import { CheckCircle2, ArrowUpRight } from 'lucide-react'
-import { profile } from '../data/content'
+import { profile, sections } from '../data/content'
 
 type FormErrors = SubmissionError<FieldValues> | null
 
@@ -14,11 +14,11 @@ export default function Contact() {
       <div className="mx-auto max-w-[1240px]">
         <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
           <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">§ 04 / Contact</p>
+            <p className="eyebrow">{sections.contact.eyebrow}</p>
           </div>
           <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight sm:col-span-9 sm:text-5xl lg:text-6xl balance">
-            Got a project, role, or rabbit-hole question?{' '}
-            <span className="text-muted">Send it over.</span>
+            {sections.contact.headline}{' '}
+            <span className="text-muted">{sections.contact.subhead}</span>
           </h2>
         </header>
 
