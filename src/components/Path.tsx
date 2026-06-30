@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { path, type PathEvent } from '../data/content'
+import { path, sections, type PathEvent } from '../data/content'
 
 type Filter = 'all' | 'work' | 'education'
 
@@ -23,14 +23,12 @@ export default function Path() {
       <div className="mx-auto max-w-[1240px]">
         <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
           <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">§ 03 / Path</p>
+            <p className="eyebrow">{sections.path.eyebrow}</p>
           </div>
           <div className="col-span-12 sm:col-span-9">
             <h2 className="font-serif text-3xl leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl balance">
-              The road in.{' '}
-              <span className="text-muted">
-                Kitchen pass to Paris to Flatiron, and back again.
-              </span>
+              {sections.path.headline}{' '}
+              <span className="text-muted">{sections.path.subhead}</span>
             </h2>
 
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { aboutParagraphs, profile, toolkit } from '../data/content'
+import { aboutParagraphs, profile, sections } from '../data/content'
 import colePicture from '../assets/colelevypicture.png'
 
 export default function About() {
@@ -8,11 +8,11 @@ export default function About() {
       <div className="mx-auto max-w-[1240px]">
         <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
           <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">§ 02 / About</p>
+            <p className="eyebrow">{sections.about.eyebrow}</p>
           </div>
           <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight sm:col-span-9 sm:text-5xl lg:text-6xl balance">
-            From hospitality to engineering —{' '}
-            <span className="text-muted">three retainers, two languages, one Saratoga.</span>
+            {sections.about.headline}{' '}
+            <span className="text-muted">{sections.about.subhead}</span>
           </h2>
         </header>
 
@@ -56,44 +56,6 @@ export default function About() {
                 </p>
               ))}
             </div>
-          </div>
-        </motion.div>
-
-        {/* Toolkit — grouped tech stack, including Claude Code as an AI collaborator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1], delay: 0.1 }}
-          className="mt-20 border-t border-line pt-12"
-        >
-          <div className="grid grid-cols-12 gap-y-8 gap-x-6">
-            <div className="col-span-12 sm:col-span-3">
-              <p className="eyebrow">Toolkit</p>
-              <p className="mt-3 max-w-[18ch] font-serif text-xl leading-snug text-ink sm:text-2xl">
-                What I reach for.
-              </p>
-            </div>
-
-            <ul className="col-span-12 grid grid-cols-1 gap-x-6 gap-y-8 sm:col-span-9 sm:grid-cols-2 lg:grid-cols-4">
-              {toolkit.map((group) => (
-                <li key={group.group}>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-                    {group.group}
-                  </p>
-                  <ul className="mt-3 flex flex-wrap gap-1.5">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-2"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
           </div>
         </motion.div>
       </div>

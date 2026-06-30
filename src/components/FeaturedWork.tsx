@@ -3,56 +3,55 @@ import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 
-// Everything that isn't a flagship case study renders in the grid below.
-const selected = projects.filter((p) => !p.featured)
+const featured = projects.filter((p) => p.featured)
 
-export default function Work() {
+export default function FeaturedWork() {
   return (
-    <section id="work" className="relative px-6 py-24 sm:py-32">
+    <section id="featured" className="relative px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-[1240px]">
         <header className="mb-14 grid grid-cols-12 gap-6 sm:mb-20">
           <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.work.eyebrow}</p>
+            <p className="eyebrow">{sections.featured.eyebrow}</p>
           </div>
           <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight balance sm:col-span-9 sm:text-5xl lg:text-6xl">
-            {sections.work.headline}{' '}
-            <span className="text-muted">{sections.work.subhead}</span>
+            {sections.featured.headline}{' '}
+            <span className="text-muted">{sections.featured.subhead}</span>
           </h2>
         </header>
 
-        <ol className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {selected.map((p, i) => (
-            <ProjectCard key={p.slug} p={p} index={i} />
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+          {featured.map((p, i) => (
+            <FeaturedCard key={p.slug} p={p} index={i} />
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   )
 }
 
-function ProjectCard({ p, index }: { p: Project; index: number }) {
+function FeaturedCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
 
   return (
-    <motion.li
-      initial={{ opacity: 0, y: 24 }}
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: true, margin: '-80px' }}
       transition={{
-        duration: 0.6,
-        delay: Math.min(index * 0.05, 0.3),
+        duration: 0.7,
+        delay: Math.min(index * 0.08, 0.2),
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className="flex flex-col"
+      className="lift flex flex-col overflow-hidden rounded-md border border-line bg-bg-2"
     >
-      {/* Screenshot plate */}
+      {/* Visual plate */}
       <a
         href={primary}
         target={primary ? '_blank' : undefined}
         rel="noreferrer"
         aria-label={`${p.title} — open`}
-        className="plate group aspect-[16/10] w-full"
+        className="group block aspect-[16/10] overflow-hidden border-b border-line bg-bg-3"
       >
         {shot ? (
           <img
@@ -65,32 +64,38 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
             className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-center">
-            <span className="font-serif text-2xl text-ink">{p.title}</span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-center">
+            <span className="font-serif text-4xl text-ink sm:text-5xl">
+              {p.title}
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
               {p.category}
             </span>
           </div>
         )}
       </a>
 
-      {/* Meta */}
-      <div className="mt-5 flex flex-1 flex-col">
-        <p className="eyebrow mb-2">
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-7 sm:p-9">
+        <p className="eyebrow mb-4">
           {p.year} · {p.category}
         </p>
 
-        <h3 className="font-serif text-2xl leading-[1.12] tracking-tight">
+        <h3 className="font-serif text-3xl leading-[1.08] tracking-tight sm:text-4xl">
           {p.title}
         </h3>
 
-        <p className="mt-3 text-[14px] leading-[1.6] text-ink-2">{p.blurb}</p>
+        <p className="mt-5 text-[15px] leading-[1.65] text-ink-2">{p.blurb}</p>
 
-        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+        <p className="mt-5 text-[14px] leading-[1.7] text-muted">
+          {p.description}
+        </p>
+
+        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
           {p.tags.join(' · ')}
         </p>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
           {p.live && (
             <a
               href={p.live}
@@ -98,8 +103,8 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
               rel="noreferrer"
               className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-accent"
             >
-              <span className="hairline w-7 transition-all group-hover:w-11 group-hover:bg-accent" />
-              Visit
+              <span className="hairline w-8 transition-all group-hover:w-12 group-hover:bg-accent" />
+              Visit site
               <ArrowUpRight size={13} />
             </a>
           )}
@@ -116,11 +121,11 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           ) : p.isPrivate ? (
             <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted/70">
               <Lock size={11} />
-              Private
+              Private source
             </span>
           ) : null}
         </div>
       </div>
-    </motion.li>
+    </motion.article>
   )
 }

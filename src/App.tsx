@@ -1,10 +1,22 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
+import FeaturedWork from './components/FeaturedWork'
 import Work from './components/Work'
+import Skills from './components/Skills'
+import AIWorkflow from './components/AIWorkflow'
 import About from './components/About'
 import Path from './components/Path'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+
+// Thin centered divider rendered between major sections.
+function Divider() {
+  return (
+    <div className="mx-auto max-w-[1240px] px-6">
+      <div className="hairline" />
+    </div>
+  )
+}
 
 export default function App() {
   return (
@@ -12,21 +24,19 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <div className="mx-auto max-w-[1240px] px-6">
-          <div className="hairline" />
-        </div>
+        <Divider />
+        <FeaturedWork />
+        <Divider />
         <Work />
-        <div className="mx-auto max-w-[1240px] px-6">
-          <div className="hairline" />
-        </div>
+        <Divider />
+        <Skills />
+        <Divider />
+        <AIWorkflow />
+        <Divider />
         <About />
-        <div className="mx-auto max-w-[1240px] px-6">
-          <div className="hairline" />
-        </div>
+        <Divider />
         <Path />
-        <div className="mx-auto max-w-[1240px] px-6">
-          <div className="hairline" />
-        </div>
+        <Divider />
         <Contact />
       </main>
       <Footer />
