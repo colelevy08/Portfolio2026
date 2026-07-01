@@ -1,25 +1,19 @@
+import type { CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
+import { silkFor } from '../lib/silks'
+import SectionHead from './SectionHead'
 
-// Everything that isn't a flagship case study renders in the grid below.
+// Everything that isn't a feature race runs in the field below (posts 3+).
 const selected = projects.filter((p) => !p.featured)
 
 export default function Work() {
   return (
-    <section id="work" className="relative px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <header className="mb-14 grid grid-cols-12 gap-6 sm:mb-20">
-          <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.work.eyebrow}</p>
-          </div>
-          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight balance sm:col-span-9 sm:text-5xl lg:text-6xl">
-            {sections.work.headline}{' '}
-            <span className="text-muted">{sections.work.subhead}</span>
-          </h2>
-        </header>
-
+    <section id="work" className="relative px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHead h={sections.work} />
         <ol className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {selected.map((p, i) => (
             <ProjectCard key={p.slug} p={p} index={i} />
@@ -33,6 +27,9 @@ export default function Work() {
 function ProjectCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
+  // Post position continues from the feature races (posts 1–2).
+  const post = projects.indexOf(p) + 1
+  const silk = silkFor(post)
 
   return (
     <motion.li
@@ -66,7 +63,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-center">
-            <span className="font-serif text-2xl text-ink">{p.title}</span>
+            <span className="font-display text-3xl text-ink">{p.title}</span>
             <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
               {p.category}
             </span>
@@ -76,15 +73,32 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
 
       {/* Meta */}
       <div className="mt-5 flex flex-1 flex-col">
-        <p className="eyebrow mb-2">
-          {p.year} · {p.category}
-        </p>
+        <div className="mb-3 flex items-center gap-2.5">
+          <span
+            className="silk"
+            style={{
+              '--silk-size': '1.75rem',
+              '--silk-fs': '0.9rem',
+              background: silk.bg,
+              color: silk.fg,
+              boxShadow: silk.edge ? `inset 0 0 0 1px ${silk.edge}` : undefined,
+            } as CSSProperties}
+            aria-label={`Post ${post}`}
+          >
+            {post}
+          </span>
+          <p className="eyebrow">
+            {p.year} · {p.category}
+          </p>
+        </div>
 
-        <h3 className="font-serif text-2xl leading-[1.12] tracking-tight">
+        <h3 className="font-display text-[1.7rem] font-bold leading-none">
           {p.title}
         </h3>
 
-        <p className="mt-3 text-[14px] leading-[1.6] text-ink-2">{p.blurb}</p>
+        <p className="mt-3 font-serif text-[14px] leading-[1.6] text-ink-2">
+          {p.blurb}
+        </p>
 
         <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
           {p.tags.join(' · ')}

@@ -30,15 +30,18 @@ export const profile = {
 // one typed file — the headline renders as three lines with an accent-italic
 // middle clause.
 export const hero = {
-  eyebrow: "Cole Levy · 2026",
-  metaLines: ["Full-stack & AI engineer", "Saratoga Springs, NY"],
-  // Headline is assembled in the component: lead + accent + tail.
-  headlineLead: "I build products,",
-  headlineAccent: "trading systems",
-  headlineTail: "and the web layer real businesses run on.",
+  eyebrow: "Saratoga Springs, NY · Vol. 2026",
+  // The serif line that runs under the big display name.
+  subline:
+    "Full-stack & AI engineer. Products, trading systems, and the web layer real businesses run on.",
   status: "Now building Portmint — a self-serve platform for branded AI assistants.",
-  // Small front-and-center proof points.
-  stats: ["15+ projects shipped", "3 client retainers", "2 live trading systems"],
+  // The tote board: label + value pairs, rendered as bulb-lit board cells.
+  board: [
+    { label: "Projects shipped", value: "15+" },
+    { label: "Client retainers", value: "3" },
+    { label: "Live trading systems", value: "2" },
+    { label: "Post time", value: "Anytime" },
+  ],
   ctaPrimary: { label: "See the work", to: "#featured" },
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
 }
@@ -96,7 +99,7 @@ export const projects: Project[] = [
     blurb:
       "The MVP — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
     description:
-      "Self-serve SaaS: enter your website, get a live branded AI assistant in about a minute, then pay and it provisions itself into a real client — no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, Webflow and more, an official WordPress plugin, Stripe subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds secure, least-privilege integrations into real business systems behind it.",
+      "Self-serve SaaS: enter your website, get a live branded AI assistant in about a minute, then pay and it provisions itself into a real client — no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, Webflow and more, an official WordPress plugin, Stripe subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds secure, least-privilege integrations into real business systems behind it. The assistant in the corner of this page is a live Portmint deployment — open it and ask about my work.",
     live: "https://portmint.com",
     isPrivate: true,
     tags: ["React", "TypeScript", "Python", "FastAPI", "Stripe", "Vercel"],
@@ -123,11 +126,11 @@ export const projects: Project[] = [
     isPrivate: true,
     tags: ["Python", "asyncio", "WebSockets", "SQLite"],
     // FableKalshi has no public brand — give it a quant-themed visual in the
-    // portfolio's own accent so the card reads intentional, not empty.
+    // portfolio's own tote-amber accent so the card reads intentional, not empty.
     brand: {
       tagline: "Automated quant trading on Kalshi.",
-      accent: "#e11d2e",
-      bg: "#161315",
+      accent: "#f0a63d",
+      bg: "#091a12",
       wordmarkFont: "serif",
     },
   },
@@ -495,38 +498,38 @@ export const sections: Record<
   SectionHeading
 > = {
   featured: {
-    eyebrow: "§ 01 / Flagship",
-    headline: "An MVP and a quant platform —",
-    subhead: "the two builds I'd put my name on first.",
+    eyebrow: "Feature races",
+    headline: "The two I'd show first.",
+    subhead: "An MVP with paying customers and a quant platform trading real money.",
   },
   work: {
-    eyebrow: "§ 02 / Selected work",
-    headline: "The working catalog.",
+    eyebrow: "The field",
+    headline: "Twelve entries.",
     subhead:
-      "Client retainers, trading systems, developer tooling, and open source.",
+      "Client retainers, trading systems, developer tooling, and open source — every post position filled.",
   },
   skills: {
-    eyebrow: "§ 03 / Skills",
+    eyebrow: "Skills",
     headline: "The toolkit.",
     subhead: "Frontend to FastAPI, AI engineering to quant.",
   },
   ai: {
-    eyebrow: "§ 04 / Method",
-    headline: "Claude Code is in the loop —",
-    subhead: "the specs and the review stay mine.",
+    eyebrow: "Method",
+    headline: "Claude Code is in the loop.",
+    subhead: "The specs and the review stay mine.",
   },
   about: {
-    eyebrow: "§ 05 / About",
-    headline: "From hospitality to engineering —",
-    subhead: "three client retainers, one Saratoga.",
+    eyebrow: "About",
+    headline: "From hospitality to engineering.",
+    subhead: "Three client retainers, one Saratoga.",
   },
   path: {
-    eyebrow: "§ 06 / Path",
-    headline: "How I got here.",
+    eyebrow: "Form",
+    headline: "Past performances.",
     subhead: "Kitchen pass to Paris to Flatiron, and back again.",
   },
   contact: {
-    eyebrow: "§ 07 / Contact",
+    eyebrow: "Contact",
     headline: "Got a project, role, or rabbit-hole question?",
     subhead: "Send it over.",
   },

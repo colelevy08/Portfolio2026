@@ -1,20 +1,28 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   "The Morning Line" — the site's design system takes its materials from
+   Saratoga's tote board and race program: a deep track-green field, chalk
+   lettering, and tote-bulb amber for the numbers that matter. Display type is
+   condensed board lettering (Big Shoulders); prose is a bookish serif
+   (Spectral); data runs in a tabular mono (Spline Sans Mono).
+--------------------------------------------------------------------------- */
 @theme {
-  --color-bg: #0c0b0c;
-  --color-bg-2: #161315;
-  --color-bg-3: #1e1a1c;
-  --color-ink: #f4f0ee;
-  --color-ink-2: #cbc5c3;
-  --color-muted: #8c8683;
-  --color-line: #2a2427;
-  --color-line-2: #3a3336;
-  --color-accent: #e11d2e;
-  --color-accent-2: #f4525f;
+  --color-bg: #0b1d15;
+  --color-bg-2: #10251a;
+  --color-bg-3: #163122;
+  --color-ink: #ece5d3;
+  --color-ink-2: #c3bcaa;
+  --color-muted: #8b9080;
+  --color-line: #23402e;
+  --color-line-2: #35543f;
+  --color-accent: #f0a63d;
+  --color-accent-2: #ffc670;
 
-  --font-serif: "Fraunces", "PP Editorial New", "Times New Roman", ui-serif, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Big Shoulders", "Arial Narrow", sans-serif;
+  --font-serif: "Spectral", Georgia, ui-serif, serif;
+  --font-sans: "Spectral", Georgia, ui-serif, serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, monospace;
 }
 
 html {
@@ -23,23 +31,29 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   background: var(--color-bg);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "ss01", "cv11";
+}
+
+/* Board lettering — condensed caps for names and section titles. */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  font-weight: 700;
 }
 
 .font-serif {
   font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
-  letter-spacing: -0.02em;
 }
 
 .font-mono {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 ::selection {
@@ -47,7 +61,7 @@ body {
   color: var(--color-bg);
 }
 
-/* Section eyebrow — small all-caps mono label */
+/* Section eyebrow — small mono label with an amber tick, like a program rubric */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -55,49 +69,44 @@ body {
   text-transform: uppercase;
   color: var(--color-muted);
 }
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.7em;
+  background: var(--color-accent);
+  vertical-align: 6%;
+}
 
-/* Subtle grain — adds editorial paper texture */
+/* Subtle program-paper grain over the whole page */
 .grain::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 100;
-  opacity: 0.035;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   mix-blend-mode: overlay;
 }
 
-/* Hairline divider matching ink color */
+/* Hairline divider */
 .hairline {
   height: 1px;
   background: var(--color-line);
 }
 
-/* Focus ring for keyboard nav */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Project image plate — subtle bevel against the bg */
-.plate {
-  background: var(--color-bg-2);
-  border: 1px solid var(--color-line);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: border-color 240ms ease, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.plate:hover {
-  border-color: var(--color-line-2);
-}
-
 a {
   color: inherit;
 }
 
-/* Disable text-balance on small screens where it causes awkward wraps */
 @media (min-width: 640px) {
   .balance {
     text-wrap: balance;
@@ -105,68 +114,93 @@ a {
 }
 
 /* ---------------------------------------------------------------------------
-   Aurora — a soft, slow-drifting gradient field behind the hero. Two blurred
-   radial blobs animate on transform/opacity only (GPU-cheap, no layout/paint
-   thrash). Sits behind content; pointer-events disabled.
+   The tote board — the hero's signature element. A framed panel that carries
+   Cole's numbers the way the infield board carries the odds: chalk labels,
+   amber bulb-lit values, hairline cell rules.
 --------------------------------------------------------------------------- */
-.aurora {
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 120%;
-  pointer-events: none;
-  z-index: 0;
+.board {
+  background: linear-gradient(180deg, #0d2318, #091a12);
+  border: 1px solid var(--color-line-2);
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 40px 90px -50px rgba(0, 0, 0, 0.9);
   overflow: hidden;
 }
-.aurora::before,
-.aurora::after {
-  content: "";
-  position: absolute;
-  width: 55vw;
-  height: 55vw;
-  max-width: 720px;
-  max-height: 720px;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.5;
-  will-change: transform;
-}
-.aurora::before {
-  top: -10%;
-  left: -5%;
-  background: radial-gradient(circle at center, var(--color-accent), transparent 60%);
-  animation: aurora-drift-1 22s ease-in-out infinite alternate;
-}
-.aurora::after {
-  top: 5%;
-  right: -10%;
-  background: radial-gradient(circle at center, var(--color-accent-2), transparent 62%);
-  opacity: 0.35;
-  animation: aurora-drift-2 28s ease-in-out infinite alternate;
+
+.board-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
-@keyframes aurora-drift-1 {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(8%, 6%, 0) scale(1.15); }
-}
-@keyframes aurora-drift-2 {
-  from { transform: translate3d(0, 0, 0) scale(1.05); }
-  to   { transform: translate3d(-7%, 4%, 0) scale(0.92); }
-}
-
-/* Magnetic hover-lift for featured cards — subtle rise + accent border. */
-.lift {
-  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 240ms ease, box-shadow 420ms ease;
-}
-.lift:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-accent);
-  box-shadow: 0 20px 60px -30px
-    color-mix(in srgb, var(--color-accent) 55%, transparent);
+.board-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
-/* Brand-aware hover-lift: border + glow take a per-card --card-accent color
-   (set inline) so each featured card lifts in its own brand color. */
+/* One orchestrated load moment: board values rise in like bulbs lighting.
+   Stagger with an inline --d delay; reduced-motion disables entirely. */
+@keyframes tote-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40%);
+    filter: brightness(2.4);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.tote-in {
+  animation: tote-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---------------------------------------------------------------------------
+   Saddle-cloth chip — every project takes a post position, numbered in the
+   real saddle-cloth colors (1 red, 2 white, 3 royal blue…). Colors are set
+   inline from src/lib/silks.ts.
+--------------------------------------------------------------------------- */
+.silk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--silk-size, 2rem);
+  height: var(--silk-size, 2rem);
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--silk-fs, 1.05rem);
+  line-height: 1;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.22);
+  flex: none;
+}
+
+/* Project image plate */
+.plate {
+  background: var(--color-bg-2);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 240ms ease, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.plate:hover {
+  border-color: var(--color-line-2);
+}
+
+/* Hover-lift for cards; featured cards may override the color with
+   --card-accent (their own brand color). */
 .lift-brand {
   transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
     border-color 240ms ease, box-shadow 420ms ease;
@@ -175,41 +209,35 @@ a {
   transform: translateY(-4px);
   border-color: var(--card-accent, var(--color-accent));
   box-shadow: 0 20px 60px -30px
-    color-mix(in srgb, var(--card-accent, var(--color-accent)) 55%, transparent);
-}
-@media (prefers-reduced-motion: reduce) {
-  .lift-brand {
-    transition: border-color 240ms ease;
-  }
-  .lift-brand:hover {
-    transform: none;
-  }
+    color-mix(in srgb, var(--card-accent, var(--color-accent)) 50%, transparent);
 }
 
-/* Skills chip — small rounded pill used in the skills matrix. */
+/* Skills chip */
 .chip {
   border: 1px solid var(--color-line);
   border-radius: 9999px;
-  padding: 0.25rem 0.625rem;
-  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   color: var(--color-ink-2);
-  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+  transition: border-color 200ms ease, color 200ms ease;
 }
 .chip:hover {
   border-color: var(--color-accent);
   color: var(--color-ink);
 }
 
-/* Honor reduced-motion: kill aurora drift and card lift entirely. */
 @media (prefers-reduced-motion: reduce) {
-  .aurora::before,
-  .aurora::after {
+  .tote-in {
     animation: none;
   }
-  .lift {
+  .lift-brand {
     transition: border-color 240ms ease;
   }
-  .lift:hover {
+  .lift-brand:hover {
     transform: none;
+  }
+  .plate {
+    transition: border-color 240ms ease;
   }
 }

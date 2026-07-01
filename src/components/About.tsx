@@ -1,20 +1,13 @@
 import { motion } from 'framer-motion'
 import { aboutParagraphs, profile, sections } from '../data/content'
 import colePicture from '../assets/colelevypicture.png'
+import SectionHead from './SectionHead'
 
 export default function About() {
   return (
-    <section id="about" className="relative px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
-          <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.about.eyebrow}</p>
-          </div>
-          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight sm:col-span-9 sm:text-5xl lg:text-6xl balance">
-            {sections.about.headline}{' '}
-            <span className="text-muted">{sections.about.subhead}</span>
-          </h2>
-        </header>
+    <section id="about" className="relative px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHead h={sections.about} />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +42,7 @@ export default function About() {
 
           {/* Prose column */}
           <div className="col-span-12 sm:col-span-8 lg:col-span-8 lg:col-start-5">
-            <div className="space-y-6 font-serif text-[1.35rem] leading-[1.5] tracking-[-0.005em] text-ink-2 sm:text-[1.55rem] sm:leading-[1.45] lg:text-[1.75rem]">
+            <div className="space-y-6 font-serif text-[1.25rem] font-light leading-[1.55] text-ink-2 sm:text-[1.4rem] lg:text-[1.55rem]">
               {aboutParagraphs.map((p, i) => (
                 <p key={i} className={i === 0 ? 'text-ink' : ''}>
                   {p}

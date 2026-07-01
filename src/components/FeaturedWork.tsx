@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
+import { silkFor } from '../lib/silks'
+import SectionHead from './SectionHead'
 import BrandPlate from './brand/BrandPlate'
 import PortmintMark from './brand/PortmintMark'
 
@@ -10,18 +12,9 @@ const featured = projects.filter((p) => p.featured)
 
 export default function FeaturedWork() {
   return (
-    <section id="featured" className="relative px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <header className="mb-14 grid grid-cols-12 gap-6 sm:mb-20">
-          <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.featured.eyebrow}</p>
-          </div>
-          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight balance sm:col-span-9 sm:text-5xl lg:text-6xl">
-            {sections.featured.headline}{' '}
-            <span className="text-muted">{sections.featured.subhead}</span>
-          </h2>
-        </header>
-
+    <section id="featured" className="relative px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHead h={sections.featured} />
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           {featured.map((p, i) => (
             <FeaturedCard key={p.slug} p={p} index={i} />
@@ -36,11 +29,12 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
   const accent = p.brand?.accent
-  // Brand color drives the hover-lift border/glow on branded featured cards.
+  // Post position = place in the full field (featured cards are posts 1–2).
+  const post = projects.indexOf(p) + 1
+  const silk = silkFor(post)
   const cardStyle = accent
     ? ({ '--card-accent': accent } as CSSProperties)
     : undefined
-  // Accent-colored link/eyebrow text for branded cards.
   const accentStyle = accent ? { color: accent } : undefined
   const isPortmint = p.slug === 'portmint'
 
@@ -55,7 +49,7 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
         ease: [0.2, 0.8, 0.2, 1],
       }}
       style={cardStyle}
-      className="lift-brand flex flex-col overflow-hidden rounded-md border border-line bg-bg-2"
+      className="lift-brand flex flex-col overflow-hidden rounded-lg border border-line bg-bg-2"
     >
       {/* Visual plate — real screenshot if present, else the on-brand plate. */}
       <a
@@ -81,25 +75,40 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
           </div>
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="font-serif text-4xl text-ink">{p.title}</span>
+            <span className="font-display text-4xl text-ink">{p.title}</span>
           </div>
         )}
       </a>
 
       {/* Body */}
       <div className="flex flex-1 flex-col p-7 sm:p-9">
-        <p className="eyebrow mb-4" style={accentStyle}>
-          {p.year} · {p.category}
-        </p>
+        <div className="mb-4 flex items-center gap-3">
+          <span
+            className="silk"
+            style={{
+              background: silk.bg,
+              color: silk.fg,
+              boxShadow: silk.edge ? `inset 0 0 0 1px ${silk.edge}` : undefined,
+            }}
+            aria-label={`Post ${post}`}
+          >
+            {post}
+          </span>
+          <p className="eyebrow" style={accentStyle}>
+            {p.year} · {p.category}
+          </p>
+        </div>
 
-        <h3 className="flex items-center gap-3 font-serif text-3xl leading-[1.08] tracking-tight sm:text-4xl">
-          {isPortmint && <PortmintMark size={30} />}
+        <h3 className="font-display flex items-center gap-3 text-4xl font-bold leading-none sm:text-5xl">
+          {isPortmint && <PortmintMark size={34} />}
           {p.title}
         </h3>
 
-        <p className="mt-5 text-[15px] leading-[1.65] text-ink-2">{p.blurb}</p>
+        <p className="mt-5 font-serif text-[15px] leading-[1.65] text-ink-2">
+          {p.blurb}
+        </p>
 
-        <p className="mt-5 text-[14px] leading-[1.7] text-muted">
+        <p className="mt-4 font-serif text-[14px] leading-[1.7] text-muted">
           {p.description}
         </p>
 

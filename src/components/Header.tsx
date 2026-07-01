@@ -36,11 +36,15 @@ export default function Header() {
       <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-4 sm:py-5">
         <a
           href="#top"
-          className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink hover:text-accent transition-colors"
+          className="group inline-flex items-baseline gap-3 transition-colors hover:text-accent"
           aria-label={`${profile.name} — home`}
         >
-          {profile.name} <span className="text-muted">·</span>{' '}
-          <span className="text-muted">{profile.location.split(',')[0]}</span>
+          <span className="font-display text-lg font-bold leading-none">
+            {profile.name}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+            {profile.location.split(',')[0]}
+          </span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">

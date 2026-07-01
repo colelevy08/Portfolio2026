@@ -3,6 +3,7 @@ import { useForm, ValidationError } from '@formspree/react'
 import type { SubmissionError, FieldValues } from '@formspree/core'
 import { CheckCircle2, ArrowUpRight } from 'lucide-react'
 import { profile, sections } from '../data/content'
+import SectionHead from './SectionHead'
 
 type FormErrors = SubmissionError<FieldValues> | null
 
@@ -10,17 +11,9 @@ export default function Contact() {
   const [state, handleSubmit] = useForm(profile.formspreeId)
 
   return (
-    <section id="contact" className="relative px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <header className="mb-12 grid grid-cols-12 gap-6 sm:mb-16">
-          <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.contact.eyebrow}</p>
-          </div>
-          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight sm:col-span-9 sm:text-5xl lg:text-6xl balance">
-            {sections.contact.headline}{' '}
-            <span className="text-muted">{sections.contact.subhead}</span>
-          </h2>
-        </header>
+    <section id="contact" className="relative px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHead h={sections.contact} />
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}

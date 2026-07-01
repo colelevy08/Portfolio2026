@@ -1,20 +1,12 @@
 import { motion } from 'framer-motion'
 import { sections, skills } from '../data/content'
+import SectionHead from './SectionHead'
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <header className="mb-14 grid grid-cols-12 gap-6 sm:mb-16">
-          <div className="col-span-12 sm:col-span-3">
-            <p className="eyebrow">{sections.skills.eyebrow}</p>
-          </div>
-          <h2 className="col-span-12 font-serif text-3xl leading-[1.1] tracking-tight balance sm:col-span-9 sm:text-5xl lg:text-6xl">
-            {sections.skills.headline}{' '}
-            <span className="text-muted">{sections.skills.subhead}</span>
-          </h2>
-        </header>
-
+    <section id="skills" className="relative px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <SectionHead h={sections.skills} />
         <ul className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((group, i) => (
             <motion.li
@@ -29,7 +21,7 @@ export default function Skills() {
               }}
               className="border-t border-line pt-5"
             >
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+              <p className="font-display text-xl font-bold text-accent">
                 {group.group}
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">

@@ -8,11 +8,12 @@ import About from './components/About'
 import Path from './components/Path'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import PortmintWidget from './components/PortmintWidget'
 
 // Thin centered divider rendered between major sections.
 function Divider() {
   return (
-    <div className="mx-auto max-w-[1240px] px-6">
+    <div className="mx-auto max-w-[1200px] px-6">
       <div className="hairline" />
     </div>
   )
@@ -40,6 +41,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <PortmintWidget />
     </div>
   )
 }
