@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
 
         <div className="col-span-6 sm:col-span-3">
-          <p className="text-muted/70">Anchors</p>
+          <p className="text-muted/70">Index</p>
           <ul className="mt-2 space-y-1.5">
             <li>
               <a href="#featured" className="hover:text-accent transition-colors">

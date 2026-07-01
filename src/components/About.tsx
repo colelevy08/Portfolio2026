@@ -36,7 +36,7 @@ export default function About() {
 
             <dl className="mt-6 space-y-4 font-mono text-[11px] uppercase tracking-[0.16em]">
               <Fact label="Based" value={profile.location} />
-              <Fact label="Title" value="Full-stack developer" />
+              <Fact label="Title" value={profile.title} />
               <Fact label="Currently" value="Assistant Manager · Standard Fare" />
               <Fact
                 label="Cert"

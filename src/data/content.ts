@@ -5,9 +5,9 @@ import resumePdf from "../assets/ColeLevyResume.pdf"
 export const profile = {
   name: "Cole Levy",
   initials: "CL",
-  title: "Full-stack developer & AI-native builder",
+  title: "Full-stack & AI engineer",
   tagline:
-    "Full-stack developer shipping products, trading systems, and client sites — fast, with AI in the loop.",
+    "Full-stack developer shipping products, trading systems, and client sites from Saratoga Springs, NY.",
   available: "Available for client work · est. 2023",
   email: "colelevy08@gmail.com",
   phone: "+15184104999",
@@ -31,14 +31,14 @@ export const profile = {
 // middle clause.
 export const hero = {
   eyebrow: "Cole Levy · 2026",
-  metaLines: ["Full-stack · AI-native", "Saratoga Springs, NY"],
+  metaLines: ["Full-stack & AI engineer", "Saratoga Springs, NY"],
   // Headline is assembled in the component: lead + accent + tail.
   headlineLead: "I build products,",
   headlineAccent: "trading systems",
   headlineTail: "and the web layer real businesses run on.",
   status: "Now building Portmint — a self-serve platform for branded AI assistants.",
   // Small front-and-center proof points.
-  stats: ["15+ shipped", "900+ commits", "3 retainers"],
+  stats: ["15+ projects shipped", "3 client retainers", "2 live trading systems"],
   ctaPrimary: { label: "See the work", to: "#featured" },
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
 }
@@ -126,8 +126,8 @@ export const projects: Project[] = [
     // portfolio's own accent so the card reads intentional, not empty.
     brand: {
       tagline: "Automated quant trading on Kalshi.",
-      accent: "#e2733a",
-      bg: "#16140f",
+      accent: "#e11d2e",
+      bg: "#161315",
       wordmarkFont: "serif",
     },
   },
@@ -465,19 +465,19 @@ export const skills: SkillGroup[] = [
 // deliberately distinct from the (un-named) AI engine behind Portmint.
 export const aiWorkflow = {
   lead:
-    "I'm an AI-native developer. Claude Code is my daily engineering partner — I architect, review, and ship with it in the loop, which is how a solo developer keeps 15+ projects and three client retainers moving at once.",
+    "Claude Code sits in my terminal all day. I write the spec, read every diff, and own everything that ships — that loop is how one developer keeps fifteen projects and three client retainers moving at once.",
   points: [
     {
-      title: "Spec → ship velocity",
-      body: "Agentic workflows turn a clear spec into reviewed, tested code fast — without skipping the read-the-whole-file, find-the-root-cause discipline.",
+      title: "Spec before code",
+      body: "Features start as a written spec: constraints, edge cases, what done means. The agent works against the spec, and nothing lands until I've read the whole diff.",
     },
     {
-      title: "AI features in my own products",
-      body: "I wire Anthropic and OpenAI APIs into real apps — natural-language pace analysis in Saratoga Handicapper, agent fleets for content, and more.",
+      title: "AI inside the products",
+      body: "Anthropic and OpenAI APIs run in shipping software — natural-language pace and trip analysis in Saratoga Handicapper, an AI drafting engine in OpenProfile.",
     },
     {
-      title: "Tooling for the workflow itself",
-      body: "I build the instruments too: Portmint Pulse and Claude Pulseinator track usage, cost, and leverage so the AI loop stays measurable, not magical.",
+      title: "The loop is instrumented",
+      body: "Portmint Pulse and Claude Pulseinator chart token spend, rate limits, and per-project cost. I can tell you what any given feature cost to build.",
     },
   ],
 }
@@ -501,9 +501,9 @@ export const sections: Record<
   },
   work: {
     eyebrow: "§ 02 / Selected work",
-    headline: "Twelve projects in production —",
+    headline: "The working catalog.",
     subhead:
-      "products, client retainers, trading systems, sports analytics, and developer tooling.",
+      "Client retainers, trading systems, developer tooling, and open source.",
   },
   skills: {
     eyebrow: "§ 03 / Skills",
@@ -511,9 +511,9 @@ export const sections: Record<
     subhead: "Frontend to FastAPI, AI engineering to quant.",
   },
   ai: {
-    eyebrow: "§ 04 / AI in the loop",
-    headline: "Built with AI as a partner —",
-    subhead: "not a gimmick, a force multiplier.",
+    eyebrow: "§ 04 / Method",
+    headline: "Claude Code is in the loop —",
+    subhead: "the specs and the review stay mine.",
   },
   about: {
     eyebrow: "§ 05 / About",
