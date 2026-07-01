@@ -1,0 +1,209 @@
+<!doctype html>
+<!--
+  Source of truth for src/assets/ColeLevyResume.pdf.
+
+  Rebuild the PDF (headless Chromium print, US Letter, one page):
+
+    1. Any Chromium works. On this box the Playwright headless shell is cached:
+         ~/.cache/ms-playwright/chromium_headless_shell-*/chrome-linux/headless_shell
+    2. From a scratch dir with playwright-core installed:
+
+         const { chromium } = require('playwright-core')
+         const browser = await chromium.launch({ executablePath, args: ['--no-sandbox'] })
+         const page = await browser.newPage()
+         await page.goto('file://.../resume/ColeLevyResume.html')
+         await page.pdf({ path: 'src/assets/ColeLevyResume.pdf',
+                          format: 'Letter', printBackground: true })
+
+    3. Confirm it is still ONE page before committing.
+
+  Content mirrors src/data/content.ts — when a project or job changes there,
+  update it here too and regenerate.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cole Levy — Résumé</title>
+<style>
+  /* Print geometry: US Letter with tight-but-breathable margins. */
+  @page { size: Letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #444;
+    --accent: #8e1622;   /* deep crimson — matches the portfolio accent family */
+    --line: #c9c2be;
+  }
+
+  html, body { background: #fff; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    font-size: 9.5pt;
+    line-height: 1.27;
+    padding: 0.42in 0.58in 0.35in;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ---- Header ---------------------------------------------------------- */
+  header { text-align: center; margin-bottom: 7pt; }
+  h1 { font-size: 19pt; letter-spacing: 0.01em; font-weight: 700; }
+  .role {
+    font-size: 9.3pt; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-top: 1pt;
+  }
+  .contact { font-size: 8.8pt; color: var(--muted); margin-top: 2.5pt; }
+  .contact a { color: var(--accent); }
+  .sep { color: #999; padding: 0 3pt; }
+
+  /* ---- Sections -------------------------------------------------------- */
+  h2 {
+    font-size: 9pt; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    border-bottom: 0.8pt solid var(--line);
+    padding-bottom: 1.5pt; margin: 6.5pt 0 3.5pt;
+  }
+  section p { margin-bottom: 2pt; }
+
+  ul { list-style: none; }
+  li {
+    padding-left: 10pt; position: relative; margin-bottom: 1.3pt;
+  }
+  li::before { content: "•"; position: absolute; left: 1pt; color: var(--muted); }
+
+  /* ---- Entries (projects / jobs / education) --------------------------- */
+  .entry { margin-bottom: 3.5pt; }
+  .entry-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 8pt;
+  }
+  .entry-title b { font-size: 9.8pt; }
+  .entry-title i { color: var(--muted); }
+  .date { font-size: 8.6pt; color: var(--muted); white-space: nowrap; }
+  .stack {
+    font-style: italic; font-size: 8.4pt; color: var(--muted); margin-top: 0.5pt;
+  }
+
+  .edu { display: flex; justify-content: space-between; margin-bottom: 2pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Cole Levy</h1>
+  <div class="role">FULL-STACK &amp; AI ENGINEER</div>
+  <div class="contact">
+    Saratoga Springs, NY<span class="sep">·</span>(518) 410-4999<span class="sep">·</span><a href="mailto:colelevy08@gmail.com">colelevy08@gmail.com</a><br>
+    <a href="https://colelevy08.github.io/Portfolio2026">colelevy08.github.io/Portfolio2026</a><span class="sep">·</span><a href="https://github.com/colelevy08">github.com/colelevy08</a><span class="sep">·</span><a href="https://www.linkedin.com/in/colelevy">linkedin.com/in/colelevy</a>
+  </div>
+</header>
+
+<section>
+  <h2>Summary</h2>
+  <p>
+    Full-stack and AI engineer who ships production software solo — React/TypeScript front ends,
+    Python/FastAPI back ends, and LLM/agent systems (MCP, RAG, multi-provider APIs). 15+ projects
+    shipped and three paying client retainers in production. Built Portmint, a self-serve SaaS that
+    deploys branded, per-business AI assistants. Comfortable owning a product end to end: spec,
+    build, deploy, and the customer conversation.
+  </p>
+</section>
+
+<section>
+  <h2>Technical Skills</h2>
+  <ul>
+    <li><b>Languages:</b> TypeScript, JavaScript, Python, SQL, Swift</li>
+    <li><b>Frontend:</b> React 18, Next.js, Vite, Tailwind CSS, Framer Motion, Capacitor (iOS/Android), PWAs</li>
+    <li><b>Backend &amp; Data:</b> FastAPI, Node.js, Supabase, PostgreSQL, SQLite, Stripe, REST, WebSockets, asyncio</li>
+    <li><b>AI Engineering:</b> LLM APIs (Anthropic, OpenAI), MCP, agent orchestration, RAG, prompt &amp; agent design</li>
+    <li><b>DevOps &amp; Cloud:</b> Vercel, GitHub Actions, serverless / edge functions, CI/CD, Git</li>
+    <li><b>Quant:</b> EV modeling, fractional-Kelly sizing, backtesting, regime detection</li>
+    <li><b>Certification:</b> CompTIA A+</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Selected Projects</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>Portmint</b> <i>— Self-serve AI-assistant SaaS</i></span>
+      <span class="date">2026</span>
+    </div>
+    <ul>
+      <li>Built a platform that turns any business website into a live, branded AI assistant in about a minute, then provisions itself into a paying client with no redeploy.</li>
+      <li>React + serverless front end; a Python/FastAPI platform builds secure, least-privilege integrations into real business systems; Stripe subscription tiers and a self-serve CRM for captured leads. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, plus an official WordPress plugin.</li>
+    </ul>
+    <div class="stack">React · TypeScript · Python · FastAPI · Stripe · Vercel · LLM / agent orchestration</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>FableKalshi</b> <i>— Multi-strategy quant trading system</i></span>
+      <span class="date">2026</span>
+    </div>
+    <ul>
+      <li>Async Python system trading Kalshi crypto-binary markets: four strategies plus an ensemble in parallel, with shadow-trading and automatic promotion when a candidate clears thresholds.</li>
+      <li>Gates every order through fee- and slippage-aware EV math with fractional-Kelly sizing; automatic kill switches halt entries on drawdown, loss streaks, or stale data. Every decision logged for bit-for-bit replay.</li>
+    </ul>
+    <div class="stack">Python · asyncio · WebSockets · SQLite</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>Saratoga Handicapper</b> <i>— AI horse-racing analytics PWA</i></span>
+      <span class="date">2025</span>
+    </div>
+    <ul>
+      <li>PWA + FastAPI backend ingesting live odds and race cards; runs Kelly-fraction staking on edge-positive races and uses an LLM for natural-language pace and trip analysis.</li>
+    </ul>
+    <div class="stack">React · Vite · FastAPI · LLM API</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>Client Retainers</b> <i>— three production sites + CRMs</i></span>
+      <span class="date">2025–2026</span>
+    </div>
+    <ul>
+      <li>Marketing sites and back-office CRMs for a restaurant, a private champagne society (shipped to iOS, Android, and web from one Capacitor codebase), and an LTC-insurance practice — each owned solo from design through deploy and ongoing support.</li>
+    </ul>
+    <div class="stack">React · Vite · Capacitor · Vercel · Supabase · PostgreSQL</div>
+  </div>
+</section>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>Assistant Manager</b>, <i>Standard Fare (Sure Thing Hospitality)</i> — Saratoga Springs, NY</span>
+      <span class="date">Jul 2025 – Present</span>
+    </div>
+    <ul>
+      <li>Helped launch the location; own POS configuration, nightly financial close, and staff training. Led top guest-satisfaction metrics. (Concurrent with full-time independent development work.)</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title"><b>Support Engineer I</b>, <i>cb20</i> — Saratoga Springs, NY</span>
+      <span class="date">Dec 2024 – May 2025</span>
+    </div>
+    <ul>
+      <li>Front-line IT support (remote and on-site) for managed-services clients; drove phone-answer rate from 30% to 95% and CSAT to 4.9/5.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="edu"><span><b>Flatiron School</b> — Full-Stack Web Development (Python, JavaScript, React, Flask, SQL)</span><span class="date">2023</span></div>
+  <div class="edu"><span><b>SUNY Geneseo</b> — B.A., Communication <i>(semesters at La Sorbonne &amp; Sciences Po, France)</i></span><span class="date">2022</span></div>
+  <div class="edu"><span><b>Hudson Valley CC</b> — A.S., Entrepreneurship &amp; Sustainable Technologies</span><span class="date">2019</span></div>
+</section>
+
+</body>
+</html>
