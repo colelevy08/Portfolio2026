@@ -11,7 +11,9 @@ export default function Contact() {
   const [state, handleSubmit] = useForm(profile.formspreeId)
 
   return (
-    <section id="contact" className="relative px-6 py-20 sm:py-28">
+    // Extra bottom padding on mobile keeps the floating Portmint widget from
+    // covering the submit button.
+    <section id="contact" className="relative px-6 pt-20 pb-36 sm:py-28">
       <div className="mx-auto max-w-[1200px]">
         <SectionHead h={sections.contact} />
 
@@ -20,8 +22,11 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-          className="grid grid-cols-12 gap-y-12 gap-x-6"
+          className="overflow-hidden rounded-lg border border-line bg-bg-2"
         >
+          {/* Awning-canvas piping across the card's top edge. */}
+          <div className="piping" aria-hidden="true" />
+          <div className="grid grid-cols-12 gap-y-12 gap-x-6 p-7 sm:p-10">
           {/* Direct channels */}
           <div className="col-span-12 sm:col-span-5 lg:col-span-4">
             <p className="eyebrow mb-6">Direct</p>
@@ -99,7 +104,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={state.submitting}
-                  className="group inline-flex items-center gap-3 border-b border-ink pb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-ink hover:text-accent hover:border-accent transition-colors disabled:opacity-50"
+                  className="group inline-flex items-center gap-3 rounded-md bg-awning px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bg-2 transition-colors hover:bg-[#a92c22] disabled:opacity-50"
                 >
                   {state.submitting ? 'Sending…' : 'Send message'}
                   <ArrowUpRight
@@ -109,6 +114,7 @@ export default function Contact() {
                 </button>
               </form>
             )}
+          </div>
           </div>
         </motion.div>
       </div>
@@ -173,7 +179,7 @@ function Field({
   errors,
 }: FieldProps) {
   const fieldClasses =
-    'w-full bg-transparent border-b border-line py-3 text-[15px] text-ink placeholder:text-muted outline-none transition-colors focus:border-accent'
+    'w-full bg-transparent border-b border-line-2 py-3 text-[15px] text-ink placeholder:text-muted outline-none transition-colors focus:border-accent'
   return (
     <div>
       <label
@@ -205,7 +211,7 @@ function Field({
         prefix={label}
         field={name}
         errors={errors ?? null}
-        className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-accent"
+        className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-awning"
       />
     </div>
   )

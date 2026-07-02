@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
-import { silkFor } from '../lib/silks'
+import { silkFor, silkShadow } from '../lib/silks'
 import SectionHead from './SectionHead'
 
 // Everything that isn't a feature race runs in the field below (posts 3+).
@@ -43,56 +43,61 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       }}
       className="flex flex-col"
     >
-      {/* Screenshot plate */}
-      <a
-        href={primary}
-        target={primary ? '_blank' : undefined}
-        rel="noreferrer"
-        aria-label={`${p.title} — open`}
-        className="plate group aspect-[16/10] w-full"
-      >
-        {shot ? (
-          <img
-            src={shot}
-            alt={`${p.title} — screenshot`}
-            loading="lazy"
-            decoding="async"
-            width={1200}
-            height={750}
-            className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          />
-        ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-center">
-            <span className="font-display text-3xl text-ink">{p.title}</span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
-              {p.category}
-            </span>
-          </div>
-        )}
-      </a>
-
-      {/* Meta */}
-      <div className="mt-5 flex flex-1 flex-col">
-        <div className="mb-3 flex items-center gap-2.5">
+      {/* Matted screenshot plate; the saddle cloth hangs over its corner. */}
+      <div className="relative">
+        <a
+          href={primary}
+          target={primary ? '_blank' : undefined}
+          rel="noreferrer"
+          aria-label={`${p.title} — open`}
+          className="plate group block aspect-[16/10] w-full"
+        >
           <span
-            className="silk"
-            style={{
-              '--silk-size': '1.75rem',
-              '--silk-fs': '0.9rem',
-              background: silk.bg,
-              color: silk.fg,
-              boxShadow: silk.edge ? `inset 0 0 0 1px ${silk.edge}` : undefined,
-            } as CSSProperties}
-            aria-label={`Post ${post}`}
-          >
-            {post}
-          </span>
-          <p className="eyebrow">
-            {p.year} · {p.category}
-          </p>
-        </div>
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 z-10 h-[2px]"
+            style={{ background: silk.edge ?? silk.bg }}
+          />
+          {shot ? (
+            <img
+              src={shot}
+              alt={`${p.title} — screenshot`}
+              loading="lazy"
+              decoding="async"
+              width={1200}
+              height={750}
+              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+          ) : (
+            <div className="island flex h-full w-full flex-col items-center justify-center gap-1.5 bg-bg text-center">
+              <span className="font-display text-2xl text-ink">{p.title}</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
+                {p.category}
+              </span>
+            </div>
+          )}
+        </a>
+        <span
+          className="silk pointer-events-none absolute -top-2 left-3 z-10"
+          style={{
+            '--silk-size': '1.75rem',
+            '--silk-fs': '0.9rem',
+            background: silk.bg,
+            color: silk.fg,
+            boxShadow: silkShadow(silk),
+          } as CSSProperties}
+          aria-hidden="true"
+        >
+          {post}
+        </span>
+      </div>
 
-        <h3 className="font-display text-[1.7rem] font-bold leading-none">
+      {/* Meta — set like a past-performance line. */}
+      <div className="mt-5 flex flex-1 flex-col">
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
+          Post {post} · {p.year} · {p.category}
+        </p>
+
+        <h3 className="font-display mt-3 text-[1.45rem] leading-tight">
           {p.title}
         </h3>
 
@@ -110,9 +115,9 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
               href={p.live}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-accent"
+              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-awning"
             >
-              <span className="hairline w-7 transition-all group-hover:w-11 group-hover:bg-accent" />
+              <span className="hairline w-7 bg-line-2 transition-all group-hover:w-11 group-hover:bg-awning" />
               Visit
               <ArrowUpRight size={13} />
             </a>
@@ -128,7 +133,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
               Source
             </a>
           ) : p.isPrivate ? (
-            <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted/70">
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
               <Lock size={11} />
               Private
             </span>

@@ -1,25 +1,33 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   "The Morning Line" — the site's design system takes its materials from
-   Saratoga's tote board and race program: a deep track-green field, chalk
-   lettering, and tote-bulb amber for the numbers that matter. Display type is
-   condensed board lettering (Big Shoulders); prose is a bookish serif
-   (Spectral); data runs in a tabular mono (Spline Sans Mono).
+   "The Summer Meet" — Saratoga Race Course in July. The page is race-program
+   cream under a red-and-white striped grandstand awning; cards are clapboard
+   white; accents split three ways — racing green (links, rules), awning red
+   (canvas, hovers, the submit button), and finial brass (decoration only).
+   The old Morning Line palette survives as "dark islands": the hero tote
+   board, screenshot plate backings, and the footer — the infield seen from a
+   bright porch. Display type is Besley (a Clarendon, the letterform of
+   Victorian racing bills); prose stays Spectral; data stays Spline Sans Mono.
 --------------------------------------------------------------------------- */
 @theme {
-  --color-bg: #0b1d15;
-  --color-bg-2: #10251a;
-  --color-bg-3: #163122;
-  --color-ink: #ece5d3;
-  --color-ink-2: #c3bcaa;
-  --color-muted: #8b9080;
-  --color-line: #23402e;
-  --color-line-2: #35543f;
-  --color-accent: #f0a63d;
-  --color-accent-2: #ffc670;
+  --color-bg: #f7f1e3; /* program cream — the page */
+  --color-bg-2: #fffdf6; /* clapboard white — cards, nav, awning light stripe */
+  --color-bg-3: #efe7d2; /* deep cream — subtle wells */
+  --color-ink: #1f2a24; /* sable — headlines and body */
+  --color-ink-2: #3d4a41; /* secondary text */
+  --color-muted: #5d685c; /* captions, labels (5.1:1 on cream) */
+  --color-line: #e0d5bc; /* hairline sand */
+  --color-line-2: #c9bda0; /* darker rule */
+  --color-accent: #175539; /* racing green — primary accent (7.8:1 on cream) */
+  --color-accent-2: #1d6b48; /* lighter green for hovers on dark */
+  --color-awning: #c03428; /* awning red — canvas, hovers, CTA (4.9:1 on cream) */
+  --color-brass: #a4802f; /* finial brass — DECORATION ONLY, never body text */
+  --color-amber: #f0a63d; /* tote-bulb amber — dark islands only */
+  --color-chalk: #ece5d3; /* chalk ink on dark islands */
+  --color-infield: #0b1d15; /* the dark island field (old --color-bg) */
 
-  --font-display: "Big Shoulders", "Arial Narrow", sans-serif;
+  --font-display: "Besley", Georgia, "Times New Roman", serif;
   --font-serif: "Spectral", Georgia, ui-serif, serif;
   --font-sans: "Spectral", Georgia, ui-serif, serif;
   --font-mono: "Spline Sans Mono", ui-monospace, monospace;
@@ -38,63 +46,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Board lettering — condensed caps for names and section titles. */
-.font-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  text-transform: uppercase;
-  letter-spacing: 0.015em;
-  font-weight: 700;
-}
-
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
-}
-
-/* Section eyebrow — small mono label with an amber tick, like a program rubric */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
-  margin-right: 0.7em;
-  background: var(--color-accent);
-  vertical-align: 6%;
-}
-
-/* Subtle program-paper grain over the whole page */
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: overlay;
-}
-
-/* Hairline divider */
-.hairline {
-  height: 1px;
-  background: var(--color-line);
+  color: var(--color-bg-2);
 }
 
 :focus-visible {
@@ -103,8 +57,16 @@ body {
   border-radius: 2px;
 }
 
-a {
-  color: inherit;
+/* Faint paper grain — multiply so it reads as print stock, not dirt */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
 }
 
 @media (min-width: 640px) {
@@ -113,40 +75,336 @@ a {
   }
 }
 
-/* ---------------------------------------------------------------------------
-   The tote board — the hero's signature element. A framed panel that carries
-   Cole's numbers the way the infield board carries the odds: chalk labels,
-   amber bulb-lit values, hairline cell rules.
---------------------------------------------------------------------------- */
-.board {
-  background: linear-gradient(180deg, #0d2318, #091a12);
-  border: 1px solid var(--color-line-2);
-  border-radius: 10px;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 40px 90px -50px rgba(0, 0, 0, 0.9);
-  overflow: hidden;
+/* Component classes live in the components layer so Tailwind utilities
+   (which come later in the cascade) can still override them per-use. */
+@layer components {
+  /* Program lettering — Besley runs sentence case, not board caps. */
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Section eyebrow — small mono label with a brass finial tick */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 0.45em;
+    height: 0.45em;
+    margin-right: 0.7em;
+    background: var(--color-brass);
+    transform: rotate(45deg);
+    vertical-align: 8%;
+  }
+
+  /* Hairline divider */
+  .hairline {
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  /* -------------------------------------------------------------------------
+     The grandstand awning — the site's signature. A red-and-white striped
+     canvas valance crowns the page, each stripe ending in its own scallop cut
+     by a CSS mask. It scrolls away; only the quiet clapboard nav stays sticky.
+  ------------------------------------------------------------------------- */
+  .awning-wrap {
+    filter: drop-shadow(0 5px 10px rgba(31, 42, 36, 0.16));
+  }
+  .awning {
+    height: 48px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-awning) 0 26px,
+      var(--color-bg-2) 26px 52px
+    );
+    /* Scallop tiles anchor left-bottom so they share the stripes' phase at
+       every viewport width — one whole scallop under each stripe. */
+    -webkit-mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - 10px) no-repeat,
+      radial-gradient(13px 10px at 50% 0, #000 98%, transparent) left bottom /
+        26px 10px repeat-x;
+    mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - 10px) no-repeat,
+      radial-gradient(13px 10px at 50% 0, #000 98%, transparent) left bottom /
+        26px 10px repeat-x;
+  }
+  @media (max-width: 640px) {
+    .awning {
+      height: 38px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--color-awning) 0 20px,
+        var(--color-bg-2) 20px 40px
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+        radial-gradient(10px 8px at 50% 0, #000 98%, transparent) left bottom /
+          20px 8px repeat-x;
+      mask:
+        linear-gradient(#000 0 0) top / 100% calc(100% - 8px) no-repeat,
+        radial-gradient(10px 8px at 50% 0, #000 98%, transparent) left bottom /
+          20px 8px repeat-x;
+    }
+  }
+
+  /* Narrow awning-canvas piping — footer top edge, contact card top edge.
+     The light stripe is literal clapboard white (not var(--color-bg-2)) so it
+     stays canvas-colored even inside .island scopes like the footer. */
+  .piping {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-awning) 0 12px,
+      #fffdf6 12px 24px
+    );
+  }
+
+  /* -------------------------------------------------------------------------
+     Scotch rule — the thick-thin double rule of Victorian race programs.
+     Used in the hero masthead and under every section headline. Nowhere else.
+  ------------------------------------------------------------------------- */
+  .scotch {
+    height: 5px;
+    background:
+      linear-gradient(var(--color-accent) 0 0) top / 100% 3px no-repeat,
+      linear-gradient(var(--color-accent) 0 0) bottom / 100% 1px no-repeat;
+  }
+  .scotch-draw {
+    transform-origin: left;
+    animation: scotch-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  /* -------------------------------------------------------------------------
+     Furlong poles — the striped distance markers between sections. Quarter
+     poles run red/white (even furlongs), eighth poles green/white (odd), just
+     like the real ones on the training-track fence.
+  ------------------------------------------------------------------------- */
+  .fpole {
+    position: relative;
+    width: var(--fpole-w, 7px);
+    height: var(--fpole-h, 22px);
+    border-radius: 999px;
+    border: 1px solid var(--color-line-2);
+    flex: none;
+  }
+  .fpole::before {
+    /* gilded finial cap */
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: var(--color-brass);
+  }
+  .fpole-q {
+    background: repeating-linear-gradient(
+      180deg,
+      var(--color-awning) 0 5px,
+      var(--color-bg-2) 5px 10px
+    );
+  }
+  .fpole-e {
+    background: repeating-linear-gradient(
+      180deg,
+      var(--color-accent) 0 5px,
+      var(--color-bg-2) 5px 10px
+    );
+  }
+  /* Inline tick variant (Path rows) — no finial, smaller. */
+  .fpole-tick {
+    --fpole-w: 5px;
+    --fpole-h: 15px;
+  }
+  .fpole-tick::before {
+    display: none;
+  }
+
+  /* -------------------------------------------------------------------------
+     Dark islands — scoped re-tokenization. Anything wrapped in .island keeps
+     the old Morning Line palette: the tote board, plate backings, the footer.
+     Inside an island, "accent" means tote amber again.
+  ------------------------------------------------------------------------- */
+  .island {
+    --color-bg: #0b1d15;
+    --color-bg-2: #10251a;
+    --color-bg-3: #163122;
+    --color-ink: #ece5d3;
+    --color-ink-2: #c3bcaa;
+    --color-muted: #8b9080;
+    --color-line: #23402e;
+    --color-line-2: #35543f;
+    --color-accent: #f0a63d;
+    --color-accent-2: #ffc670;
+    color: var(--color-ink);
+  }
+  .island ::selection {
+    background: var(--color-amber);
+    color: var(--color-infield);
+  }
+
+  /* -------------------------------------------------------------------------
+     The tote board — still the hero's signature element, now the single dark
+     island on a bright page: the infield board seen across a sunlit track.
+     Framed in a clapboard mat with a racing-green rule, like a win photo.
+  ------------------------------------------------------------------------- */
+  .board {
+    background: linear-gradient(180deg, #0d2318, #091a12);
+    border: 4px solid #fffdf6;
+    border-radius: 12px;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, #175539 65%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 30px 70px -45px rgba(31, 42, 36, 0.6);
+    overflow: hidden;
+  }
+
+  .board-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .board-value {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--color-amber);
+    text-shadow: 0 0 16px
+      color-mix(in srgb, var(--color-amber) 40%, transparent);
+  }
+
+  /* One orchestrated load moment: board values rise in like bulbs lighting.
+     Stagger with an inline --d delay; reduced-motion disables entirely. */
+  .tote-in {
+    animation: tote-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  /* -------------------------------------------------------------------------
+     Saddle-cloth chip — every project takes a post position, numbered in the
+     real saddle-cloth colors (1 red, 2 white, 3 royal blue…). Colors are set
+     inline from src/lib/silks.ts. A universal keyline keeps the light cloths
+     (2 white, 4 yellow, 11 grey) legible on cream and clapboard.
+  ------------------------------------------------------------------------- */
+  .silk {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--silk-size, 2rem);
+    height: var(--silk-size, 2rem);
+    border-radius: 5px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: var(--silk-fs, 1rem);
+    line-height: 1;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.14),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+    flex: none;
+  }
+
+  /* Screenshot plate — a matted win photo: clapboard mat, racing-green rule,
+     infield-green backing behind the shot. */
+  .plate {
+    position: relative;
+    background: var(--color-infield);
+    border: 5px solid #fffdf6;
+    border-radius: 8px;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-accent) 55%, transparent),
+      0 16px 40px -24px rgba(31, 42, 36, 0.4);
+    overflow: hidden;
+    transition:
+      box-shadow 240ms ease,
+      transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .plate:hover {
+    box-shadow:
+      0 0 0 1px var(--card-accent, var(--color-awning)),
+      0 20px 48px -24px rgba(31, 42, 36, 0.45);
+  }
+
+  /* Hover-lift for cards; featured cards may override the color with
+     --card-accent (their own brand color). */
+  .lift-brand {
+    transition:
+      transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 240ms ease,
+      box-shadow 420ms ease;
+  }
+  .lift-brand:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-accent, var(--color-awning));
+    box-shadow: 0 20px 60px -30px
+      color-mix(
+        in srgb,
+        var(--card-accent, var(--color-awning)) 45%,
+        transparent
+      );
+  }
+
+  /* Skills chip — condition-book entries on clapboard */
+  .chip {
+    border: 1px solid var(--color-line-2);
+    background: var(--color-bg-2);
+    border-radius: 9999px;
+    padding: 0.25rem 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--color-ink-2);
+    transition:
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+  .chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  /* Drop cap — one per site, on the first About paragraph. */
+  .dropcap::first-letter {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 3.1em;
+    line-height: 0.8;
+    float: left;
+    padding: 0.08em 0.14em 0 0;
+    color: var(--color-accent);
+  }
 }
 
-.board-title {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--color-muted);
+@keyframes scotch-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
-.board-value {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  color: var(--color-accent);
-  text-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 40%, transparent);
-}
-
-/* One orchestrated load moment: board values rise in like bulbs lighting.
-   Stagger with an inline --d delay; reduced-motion disables entirely. */
 @keyframes tote-in {
   0% {
     opacity: 0;
@@ -162,73 +420,11 @@ a {
     filter: none;
   }
 }
-.tote-in {
-  animation: tote-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: var(--d, 0s);
-}
 
-/* ---------------------------------------------------------------------------
-   Saddle-cloth chip — every project takes a post position, numbered in the
-   real saddle-cloth colors (1 red, 2 white, 3 royal blue…). Colors are set
-   inline from src/lib/silks.ts.
---------------------------------------------------------------------------- */
-.silk {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--silk-size, 2rem);
-  height: var(--silk-size, 2rem);
-  border-radius: 5px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--silk-fs, 1.05rem);
-  line-height: 1;
-  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.22);
-  flex: none;
-}
-
-/* Project image plate */
-.plate {
-  background: var(--color-bg-2);
-  border: 1px solid var(--color-line);
-  border-radius: 6px;
-  overflow: hidden;
-  transition: border-color 240ms ease, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.plate:hover {
-  border-color: var(--color-line-2);
-}
-
-/* Hover-lift for cards; featured cards may override the color with
-   --card-accent (their own brand color). */
-.lift-brand {
-  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 240ms ease, box-shadow 420ms ease;
-}
-.lift-brand:hover {
-  transform: translateY(-4px);
-  border-color: var(--card-accent, var(--color-accent));
-  box-shadow: 0 20px 60px -30px
-    color-mix(in srgb, var(--card-accent, var(--color-accent)) 50%, transparent);
-}
-
-/* Skills chip */
-.chip {
-  border: 1px solid var(--color-line);
-  border-radius: 9999px;
-  padding: 0.25rem 0.65rem;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: var(--color-ink-2);
-  transition: border-color 200ms ease, color 200ms ease;
-}
-.chip:hover {
-  border-color: var(--color-accent);
-  color: var(--color-ink);
-}
-
+/* Unlayered so it always wins. */
 @media (prefers-reduced-motion: reduce) {
-  .tote-in {
+  .tote-in,
+  .scotch-draw {
     animation: none;
   }
   .lift-brand {
@@ -238,6 +434,11 @@ a {
     transform: none;
   }
   .plate {
-    transition: border-color 240ms ease;
+    transition: box-shadow 240ms ease;
+  }
+  /* Hover zoom on plate imagery snaps instead of gliding. */
+  .plate img,
+  .plate .island {
+    transition: none;
   }
 }

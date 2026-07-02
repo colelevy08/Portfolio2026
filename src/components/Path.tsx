@@ -26,16 +26,18 @@ export default function Path() {
       <div className="mx-auto max-w-[1200px]">
         <SectionHead h={sections.path} />
 
-        <div className="mb-8 flex flex-wrap gap-x-6 gap-y-2">
+        {/* Program tabs — the active tab carries an awning-red underline. */}
+        <div className="mb-8 flex flex-wrap gap-x-7 gap-y-2">
           {(['all', 'work', 'education'] as Filter[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`font-mono text-[11px] uppercase tracking-[0.22em] transition-colors ${
-                filter === f ? 'text-accent' : 'text-muted hover:text-ink'
+              className={`border-b-2 pb-1.5 font-mono text-[11px] uppercase tracking-[0.22em] transition-colors ${
+                filter === f
+                  ? 'border-awning text-awning'
+                  : 'border-transparent text-muted hover:text-ink'
               }`}
             >
-              {filter === f && <span className="mr-2">▸</span>}
               {f}
               <span className="ml-1.5 text-muted">
                 [
@@ -60,6 +62,9 @@ export default function Path() {
   )
 }
 
+// Each row reads like a past-performance line: mono date, a striped
+// furlong-pole tick encoding the discipline — red/white quarter pole for
+// work, green/white eighth pole for study — then the entry itself.
 function Row({ e, index }: { e: PathEvent; index: number }) {
   const isWork = e.kind === 'Work'
   return (
@@ -72,17 +77,23 @@ function Row({ e, index }: { e: PathEvent; index: number }) {
         delay: Math.min(index * 0.04, 0.4),
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className="group grid grid-cols-[92px_1fr] gap-x-5 border-t border-line py-5 sm:grid-cols-[130px_1fr] sm:gap-x-9 sm:py-7"
+      className="group -mx-4 grid grid-cols-1 gap-y-2 border-t border-line px-4 py-5 odd:bg-bg-2/70 sm:grid-cols-[150px_1fr] sm:gap-x-9 sm:py-7"
     >
-      <div className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted">
+      <div className="flex items-center gap-x-3 font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-muted sm:block">
         {e.date}
-        <div className={`mt-1.5 ${isWork ? 'text-accent' : 'text-ink-2'}`}>
-          {isWork ? 'Work' : 'Study'}
-        </div>
+        <span className="flex items-center gap-1.5 sm:mt-2">
+          <span
+            aria-hidden="true"
+            className={`fpole fpole-tick ${isWork ? 'fpole-q' : 'fpole-e'}`}
+          />
+          <span className={isWork ? 'text-awning' : 'text-accent'}>
+            {isWork ? 'Work' : 'Study'}
+          </span>
+        </span>
       </div>
 
       <div>
-        <h3 className="font-display text-2xl font-bold leading-none sm:text-[1.7rem]">
+        <h3 className="font-display text-xl leading-tight sm:text-2xl">
           {e.title}
         </h3>
         <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">

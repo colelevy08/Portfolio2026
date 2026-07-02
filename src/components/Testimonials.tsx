@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { projects, sections, testimonials } from '../data/content'
-import { silkFor } from '../lib/silks'
+import { silkFor, silkShadow } from '../lib/silks'
 import SectionHead from './SectionHead'
 
 // Client quotes, set like clippings from the local paper. Renders NOTHING
@@ -33,9 +33,12 @@ export default function Testimonials() {
                     delay: Math.min(i * 0.06, 0.2),
                     ease: [0.2, 0.8, 0.2, 1],
                   }}
-                  className="flex flex-col rounded-lg border border-line bg-bg-2 p-7"
+                  className="flex flex-col overflow-hidden rounded-lg border border-line bg-bg-2"
                 >
-                  <blockquote className="flex-1 font-serif text-[1.05rem] leading-[1.6] text-ink">
+                  {/* Winner's-circle card: awning piping across the top. */}
+                  <div className="piping" aria-hidden="true" />
+                  <div className="flex flex-1 flex-col p-7">
+                  <blockquote className="flex-1 font-serif italic text-[1.05rem] leading-[1.6] text-ink">
                     “{t.quote}”
                   </blockquote>
                   <footer className="mt-6 flex items-center gap-3">
@@ -47,9 +50,7 @@ export default function Testimonials() {
                           '--silk-fs': '0.8rem',
                           background: silk.bg,
                           color: silk.fg,
-                          boxShadow: silk.edge
-                            ? `inset 0 0 0 1px ${silk.edge}`
-                            : undefined,
+                          boxShadow: silkShadow(silk),
                         } as CSSProperties}
                         aria-hidden="true"
                       >
@@ -65,6 +66,7 @@ export default function Testimonials() {
                       </p>
                     </div>
                   </footer>
+                  </div>
                 </motion.li>
               )
             })}

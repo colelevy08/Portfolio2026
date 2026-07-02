@@ -21,11 +21,15 @@ export default function AIWorkflow() {
             </p>
           </div>
 
-          {/* Points, set like a board panel */}
-          <ul className="col-span-12 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-line-2 bg-line sm:grid-cols-3 lg:col-span-7">
-            {aiWorkflow.points.map((point) => (
+          {/* Points, set like the conditions block of a race card: one ruled
+              clapboard panel, each condition numbered in program mono. */}
+          <ol className="col-span-12 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-3 lg:col-span-7">
+            {aiWorkflow.points.map((point, i) => (
               <li key={point.title} className="bg-bg-2 p-6">
-                <p className="font-display text-lg font-bold text-accent">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                  Condition {i + 1}
+                </p>
+                <p className="font-display mt-2.5 text-lg leading-snug text-accent">
                   {point.title}
                 </p>
                 <p className="mt-3 font-serif text-[14px] leading-[1.65] text-ink-2">
@@ -33,7 +37,7 @@ export default function AIWorkflow() {
                 </p>
               </li>
             ))}
-          </ul>
+          </ol>
         </motion.div>
       </div>
     </section>

@@ -21,7 +21,7 @@ export default function Skills() {
               }}
               className="border-t border-line pt-5"
             >
-              <p className="font-display text-xl font-bold text-accent">
+              <p className="font-display text-xl text-accent">
                 {group.group}
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">

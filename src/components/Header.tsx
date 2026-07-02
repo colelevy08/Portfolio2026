@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../data/content'
@@ -14,32 +14,20 @@ const links = [
   { label: 'Contact', to: '#contact' },
 ]
 
+// The awning valance above scrolls away with the page; this quiet clapboard
+// bar is what stays stuck to the top.
 export default function Header() {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? 'bg-bg/80 backdrop-blur-md border-b border-line'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-4 sm:py-5">
+    <header className="sticky inset-x-0 top-0 z-50 border-b border-line bg-bg-2/95 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3.5 sm:py-4">
         <a
           href="#top"
-          className="group inline-flex items-baseline gap-3 transition-colors hover:text-accent"
+          className="group inline-flex items-baseline gap-3 transition-colors hover:text-awning"
           aria-label={`${profile.name} — home`}
         >
-          <span className="font-display text-lg font-bold leading-none">
+          <span className="font-display text-lg leading-none">
             {profile.name}
           </span>
           <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
@@ -52,7 +40,7 @@ export default function Header() {
             <a
               key={l.to}
               href={l.to}
-              className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-2 hover:text-accent transition-colors"
+              className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-2 hover:text-awning transition-colors"
             >
               {l.label}
             </a>
@@ -60,7 +48,7 @@ export default function Header() {
           <a
             href={Resume}
             download
-            className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent hover:text-accent-2 transition-colors"
+            className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent hover:text-awning transition-colors"
           >
             Résumé ↓
           </a>
@@ -68,8 +56,10 @@ export default function Header() {
 
         <button
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden text-ink"
+          className="md:hidden -m-2.5 p-2.5 text-ink"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -78,11 +68,12 @@ export default function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-line bg-bg/95 backdrop-blur-md md:hidden"
+            className="overflow-hidden border-t border-line bg-bg-2/98 backdrop-blur-md md:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-5">
               {links.map((l) => (
@@ -90,7 +81,7 @@ export default function Header() {
                   key={l.to}
                   href={l.to}
                   onClick={() => setOpen(false)}
-                  className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-ink-2 hover:text-accent transition-colors"
+                  className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-ink-2 hover:text-awning transition-colors"
                 >
                   {l.label}
                 </a>
@@ -99,7 +90,7 @@ export default function Header() {
                 href={Resume}
                 download
                 onClick={() => setOpen(false)}
-                className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-accent hover:text-accent-2 transition-colors"
+                className="font-mono text-xs uppercase tracking-[0.22em] py-2 text-accent hover:text-awning transition-colors"
               >
                 Résumé ↓
               </a>

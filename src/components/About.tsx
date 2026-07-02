@@ -1,5 +1,6 @@
+import { Fragment } from 'react'
 import { motion } from 'framer-motion'
-import { aboutParagraphs, profile, sections } from '../data/content'
+import { aboutParagraphs, motto, profile, sections } from '../data/content'
 import colePicture from '../assets/colelevypicture.png'
 import SectionHead from './SectionHead'
 
@@ -40,15 +41,28 @@ export default function About() {
             </dl>
           </aside>
 
-          {/* Prose column */}
+          {/* Prose column — program paper: one drop cap, then the town motto
+              set as a centered rubric. */}
           <div className="col-span-12 sm:col-span-8 lg:col-span-8 lg:col-start-5">
             <div className="space-y-6 font-serif text-[1.25rem] font-light leading-[1.55] text-ink-2 sm:text-[1.4rem] lg:text-[1.55rem]">
               {aboutParagraphs.map((p, i) => (
-                <p key={i} className={i === 0 ? 'text-ink' : ''}>
+                <p key={i} className={i === 0 ? 'dropcap text-ink' : ''}>
                   {p}
                 </p>
               ))}
             </div>
+            <p className="mt-10 text-center font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
+              {motto.map((word, i) => (
+                <Fragment key={word}>
+                  {i > 0 && (
+                    <span aria-hidden="true" className="mx-3 text-brass">
+                      ·
+                    </span>
+                  )}
+                  {word}
+                </Fragment>
+              ))}
+            </p>
           </div>
         </motion.div>
       </div>

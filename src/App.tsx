@@ -1,3 +1,4 @@
+import { MotionConfig } from 'framer-motion'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import FeaturedWork from './components/FeaturedWork'
@@ -11,39 +12,80 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import PortmintWidget from './components/PortmintWidget'
 
-// Thin centered divider rendered between major sections.
-function Divider() {
+// Furlong-pole divider between major sections. The labels count down the
+// stretch — 6F at the top of the card to 1F before the turn for home — and
+// the pole stripes follow the real scheme: quarter poles red/white (even
+// furlongs), eighth poles green/white (odd).
+function Divider({ furlong }: { furlong: number }) {
+  const quarter = furlong % 2 === 0
   return (
-    <div className="mx-auto max-w-[1200px] px-6">
-      <div className="hairline" />
+    <div className="mx-auto max-w-[1200px] px-6" aria-hidden="true">
+      <div className="flex items-center gap-4">
+        <div className="hairline flex-1" />
+        <span className={`fpole ${quarter ? 'fpole-q' : 'fpole-e'}`} />
+        <span className="font-mono text-[10px] tracking-[0.22em] text-muted">
+          {furlong}F
+        </span>
+        <div className="hairline flex-1" />
+      </div>
+    </div>
+  )
+}
+
+// The final divider before Contact — the finish. A doubled hairline, the way
+// the wire is drawn on a track diagram.
+function Wire() {
+  return (
+    <div className="mx-auto max-w-[1200px] px-6" aria-hidden="true">
+      <div className="flex items-center gap-4">
+        <div className="flex-1 space-y-[3px]">
+          <div className="hairline" />
+          <div className="hairline" />
+        </div>
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+          The wire
+        </span>
+        <div className="flex-1 space-y-[3px]">
+          <div className="hairline" />
+          <div className="hairline" />
+        </div>
+      </div>
     </div>
   )
 }
 
 export default function App() {
   return (
+    // reducedMotion="user" collapses every Framer transform animation to a
+    // plain fade when the OS asks for reduced motion.
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-bg text-ink">
+      {/* The grandstand awning — crowns the page and scrolls away. */}
+      <div className="awning-wrap" aria-hidden="true">
+        <div className="awning" />
+      </div>
       <Header />
       <main>
         <Hero />
-        <Divider />
+        <Divider furlong={6} />
         <FeaturedWork />
-        <Divider />
+        <Divider furlong={5} />
         <Work />
         <Testimonials />
-        <Divider />
+        <Divider furlong={4} />
         <Skills />
-        <Divider />
+        <Divider furlong={3} />
         <AIWorkflow />
-        <Divider />
+        <Divider furlong={2} />
         <About />
-        <Divider />
+        <Divider furlong={1} />
         <Path />
-        <Divider />
+        <Wire />
         <Contact />
       </main>
       <Footer />
       <PortmintWidget />
     </div>
+    </MotionConfig>
   )
 }

@@ -30,7 +30,7 @@ export const profile = {
 // one typed file — the headline renders as three lines with an accent-italic
 // middle clause.
 export const hero = {
-  eyebrow: "Saratoga Springs, NY · Vol. 2026",
+  eyebrow: "The summer meet · Saratoga Springs, NY · Vol. 2026",
   // The serif line that runs under the big display name.
   subline:
     "Full-stack & AI engineer. Products, trading systems, and the web layer real businesses run on.",
@@ -45,6 +45,10 @@ export const hero = {
   ctaPrimary: { label: "See the work", to: "#featured" },
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
 }
+
+// Saratoga Springs' real town motto — set as a program rubric in About and
+// again in the footer. Rendered with brass middots between the words.
+export const motto = ["Health", "History", "Horses"]
 
 export const aboutParagraphs = [
   "I build the web layer for small businesses that need to look serious on day one — restaurants, insurance practices, members clubs. Three of those are on retainer right now.",

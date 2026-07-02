@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto max-w-[1200px] px-6 pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28"
+      className="relative mx-auto max-w-[1200px] px-6 pt-16 pb-16 sm:pt-24 sm:pb-24 lg:pt-28 lg:pb-28"
     >
       <motion.div
         initial={{ opacity: 0, y: 14 }}
@@ -16,31 +16,49 @@ export default function Hero() {
       >
         <p className="eyebrow">{hero.eyebrow}</p>
 
-        {/* The name runs as board lettering — the biggest thing on the page. */}
-        <h1 className="font-display mt-5 text-[clamp(4.2rem,14vw,11rem)] font-extrabold leading-[0.92]">
+        {/* The name runs as the program-cover masthead. */}
+        <h1 className="font-display mt-5 text-[clamp(3.4rem,11vw,8.5rem)] font-black leading-[0.98]">
           Cole Levy
         </h1>
 
-        <p className="mt-6 max-w-2xl font-serif text-lg leading-relaxed text-ink-2 sm:text-xl">
-          {hero.subline}
-        </p>
+        {/* Victorian thick-thin rules bracket the subline, program style.
+            They draw in once on load; reduced-motion renders them static. */}
+        <div className="mt-10 max-w-2xl">
+          <div
+            className="scotch scotch-draw"
+            style={{ '--d': '0.35s' } as CSSProperties}
+          />
+          <p className="py-4 font-serif text-lg leading-relaxed text-ink-2 sm:text-xl">
+            {hero.subline}
+          </p>
+          <div
+            className="scotch scotch-draw"
+            style={{ '--d': '0.5s' } as CSSProperties}
+          />
+        </div>
 
-        {/* The tote board — the numbers, lit like the infield odds board. */}
-        <div className="board mt-12 sm:mt-14">
+        {/* The tote board — the one dark island on the bright page: the
+            infield board seen across a sunlit track. */}
+        <div className="board island mt-12 sm:mt-14">
           <div className="flex items-center justify-between border-b border-line px-5 py-3">
             <span className="board-title">The morning line</span>
             <span className="board-title hidden sm:inline">{profile.location}</span>
           </div>
+          {/* dt precedes dd in the DOM (valid HTML, label-first for screen
+              readers); flex-col-reverse keeps the bulb value on top visually. */}
           <dl className="grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
             {hero.board.map((cell, i) => (
-              <div key={cell.label} className="bg-bg-2/70 px-5 py-5 sm:py-6">
+              <div
+                key={cell.label}
+                className="flex flex-col-reverse gap-2.5 bg-bg-2/70 px-5 py-5 sm:py-6"
+              >
+                <dt className="board-title">{cell.label}</dt>
                 <dd
                   className="board-value tote-in text-3xl sm:text-4xl"
                   style={{ '--d': `${0.15 + i * 0.12}s` } as CSSProperties}
                 >
                   {cell.value}
                 </dd>
-                <dt className="board-title mt-2.5">{cell.label}</dt>
               </div>
             ))}
           </dl>
@@ -55,9 +73,9 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
           <a
             href={hero.ctaPrimary.to}
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-ink transition-colors hover:text-awning"
           >
-            <span className="hairline w-10 transition-all group-hover:w-14 group-hover:bg-accent" />
+            <span className="hairline w-10 bg-line-2 transition-all group-hover:w-14 group-hover:bg-awning" />
             {hero.ctaPrimary.label}
             <ArrowDownRight size={14} className="-mb-0.5" />
           </a>
