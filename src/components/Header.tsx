@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../data/content'
+import RailRunner from './RailRunner'
 
 // Canonical résumé URL is centralized on the profile object.
 const Resume = profile.resumeUrl
@@ -14,14 +15,47 @@ const links = [
   { label: 'Contact', to: '#contact' },
 ]
 
+// Which nav link lights up for each observed section id — several sections
+// share a link (the grid belongs to Work, the AI method rides with Skills).
+const SECTION_TO_LINK: Record<string, string> = {
+  featured: '#featured',
+  work: '#featured',
+  skills: '#skills',
+  ai: '#skills',
+  about: '#about',
+  path: '#path',
+  contact: '#contact',
+}
+
 // The awning valance above scrolls away with the page; this quiet clapboard
-// bar is what stays stuck to the top.
+// bar — nav over the running rail — is what stays stuck to the top.
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState<string | null>(null)
+
+  // Scrollspy: the section crossing mid-viewport claims its nav link,
+  // program-tab style.
+  useEffect(() => {
+    const sections = Object.keys(SECTION_TO_LINK)
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(SECTION_TO_LINK[entry.target.id] ?? null)
+          }
+        }
+      },
+      { rootMargin: '-35% 0px -60% 0px' },
+    )
+    sections.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <header className="sticky inset-x-0 top-0 z-50 border-b border-line bg-bg-2/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3.5 sm:py-4">
+      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3 sm:py-3.5">
         <a
           href="#top"
           className="group inline-flex items-baseline gap-3 transition-colors hover:text-awning"
@@ -40,7 +74,11 @@ export default function Header() {
             <a
               key={l.to}
               href={l.to}
-              className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-2 hover:text-awning transition-colors"
+              className={`border-b-2 pb-0.5 font-mono text-[11px] uppercase tracking-[0.22em] transition-colors ${
+                active === l.to
+                  ? 'border-awning text-ink'
+                  : 'border-transparent text-ink-2 hover:text-awning'
+              }`}
             >
               {l.label}
             </a>
@@ -48,7 +86,7 @@ export default function Header() {
           <a
             href={Resume}
             download
-            className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent hover:text-awning transition-colors"
+            className="border-b-2 border-transparent pb-0.5 font-mono text-[11px] uppercase tracking-[0.22em] text-accent hover:text-awning transition-colors"
           >
             Résumé ↓
           </a>
@@ -98,6 +136,9 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* The stretch run — scroll progress as a race to the wire. */}
+      <RailRunner />
     </header>
   )
 }

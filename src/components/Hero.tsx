@@ -1,7 +1,29 @@
-import type { CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { hero, profile } from '../data/content'
+
+// Track time is always America/New_York — Saratoga runs on Eastern.
+const trackTime = () =>
+  new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+    timeZone: 'America/New_York',
+  }).format(new Date())
+
+// A live clock in the board header — the one datum on the page that is
+// genuinely live, ticking like the infield board. Isolated in its own
+// component so the once-a-second tick re-renders nothing else.
+function TrackClock() {
+  const [now, setNow] = useState(trackTime)
+  useEffect(() => {
+    const id = setInterval(() => setNow(trackTime()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return <span className="tabular-nums">{now} ET</span>
+}
 
 export default function Hero() {
   return (
@@ -42,7 +64,10 @@ export default function Hero() {
         <div className="board island mt-12 sm:mt-14">
           <div className="flex items-center justify-between border-b border-line px-5 py-3">
             <span className="board-title">The morning line</span>
-            <span className="board-title hidden sm:inline">{profile.location}</span>
+            <span className="board-title">
+              <span className="hidden sm:inline">{profile.location} · </span>
+              <TrackClock />
+            </span>
           </div>
           {/* dt precedes dd in the DOM (valid HTML, label-first for screen
               readers); flex-col-reverse keeps the bulb value on top visually. */}
@@ -50,7 +75,7 @@ export default function Hero() {
             {hero.board.map((cell, i) => (
               <div
                 key={cell.label}
-                className="flex flex-col-reverse gap-2.5 bg-bg-2/70 px-5 py-5 sm:py-6"
+                className="board-cell flex flex-col-reverse gap-2.5 bg-bg-2/70 px-5 py-5 sm:py-6"
               >
                 <dt className="board-title">{cell.label}</dt>
                 <dd

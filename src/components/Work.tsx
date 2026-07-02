@@ -43,14 +43,15 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       }}
       className="flex flex-col"
     >
-      {/* Matted screenshot plate; the saddle cloth hangs over its corner. */}
-      <div className="relative">
+      {/* Matted screenshot plate; the saddle cloth pops on as the card
+          enters view and wobbles like cloth when the plate is hovered. */}
+      <div className="group relative">
         <a
           href={primary}
           target={primary ? '_blank' : undefined}
           rel="noreferrer"
           aria-label={`${p.title} — open`}
-          className="plate group block aspect-[16/10] w-full"
+          className="plate block aspect-[16/10] w-full"
         >
           <span
             aria-hidden="true"
@@ -76,19 +77,27 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
             </div>
           )}
         </a>
-        <span
-          className="silk pointer-events-none absolute -top-2 left-3 z-10"
-          style={{
-            '--silk-size': '1.75rem',
-            '--silk-fs': '0.9rem',
-            background: silk.bg,
-            color: silk.fg,
-            boxShadow: silkShadow(silk),
-          } as CSSProperties}
+        <motion.span
+          className="pointer-events-none absolute -top-2 left-3 z-10"
+          initial={{ scale: 0.4, rotate: -14, opacity: 0 }}
+          whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ type: 'spring', stiffness: 380, damping: 17, delay: 0.2 }}
           aria-hidden="true"
         >
-          {post}
-        </span>
+          <span
+            className="silk transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+            style={{
+              '--silk-size': '1.75rem',
+              '--silk-fs': '0.9rem',
+              background: silk.bg,
+              color: silk.fg,
+              boxShadow: silkShadow(silk),
+            } as CSSProperties}
+          >
+            {post}
+          </span>
+        </motion.span>
       </div>
 
       {/* Meta — set like a past-performance line. */}

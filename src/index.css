@@ -303,6 +303,11 @@ body {
     animation-delay: var(--d, 0s);
   }
 
+  /* Hovering a board cell makes its bulbs flicker once, tote-style. */
+  .board-cell:hover .board-value {
+    animation: bulb-flicker 0.5s ease-out;
+  }
+
   /* -------------------------------------------------------------------------
      Saddle-cloth chip — every project takes a post position, numbered in the
      real saddle-cloth colors (1 red, 2 white, 3 royal blue…). Colors are set
@@ -405,6 +410,24 @@ body {
   }
 }
 
+@keyframes bulb-flicker {
+  0% {
+    filter: brightness(1);
+  }
+  25% {
+    filter: brightness(1.7);
+  }
+  45% {
+    filter: brightness(0.85);
+  }
+  65% {
+    filter: brightness(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
 @keyframes tote-in {
   0% {
     opacity: 0;
@@ -424,7 +447,8 @@ body {
 /* Unlayered so it always wins. */
 @media (prefers-reduced-motion: reduce) {
   .tote-in,
-  .scotch-draw {
+  .scotch-draw,
+  .board-cell:hover .board-value {
     animation: none;
   }
   .lift-brand {

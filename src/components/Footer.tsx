@@ -1,13 +1,61 @@
 import { Fragment } from 'react'
 import { motto, profile, stack } from '../data/content'
 
+// The grandstand roofline in chalk — gabled peaks, gold finials, and amber
+// pennants against the dark island, the one architectural Saratoga signifier
+// on the page.
+function Roofline() {
+  const gables = [0, 240, 480, 720, 960]
+  return (
+    <svg
+      viewBox="0 0 1200 64"
+      className="aspect-[1200/64] w-full"
+      preserveAspectRatio="xMidYMax meet"
+      aria-hidden="true"
+    >
+      <g
+        stroke="var(--color-chalk)"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinejoin="round"
+        opacity="0.3"
+      >
+        <path d="M0 58 H1200" />
+        {gables.map((u) => (
+          <g key={u}>
+            <path d={`M${u + 40} 58 L${u + 120} 22 L${u + 200} 58`} />
+            <path d={`M${u + 120} 22 V10`} />
+          </g>
+        ))}
+      </g>
+      {gables.map((u) => (
+        <g key={u}>
+          <circle
+            cx={u + 120}
+            cy={9}
+            r={1.8}
+            fill="var(--color-brass)"
+            opacity="0.8"
+          />
+          <path
+            d={`M${u + 120} 10 L${u + 139} 13.5 L${u + 120} 17 Z`}
+            fill="var(--color-amber)"
+            opacity="0.55"
+          />
+        </g>
+      ))}
+    </svg>
+  )
+}
+
 // The footer flips dark — the old Morning Line palette living on as the
 // page's closing dark island, under a strip of awning-canvas piping.
 export default function Footer() {
   return (
     <footer className="island bg-bg">
       <div className="piping" aria-hidden="true" />
-      <div className="px-6 py-12">
+      <Roofline />
+      <div className="px-6 pb-12 pt-6">
         <div className="mx-auto grid max-w-[1240px] grid-cols-12 gap-y-6 gap-x-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
           <div className="col-span-12 sm:col-span-4">
             © {new Date().getFullYear()}{' '}

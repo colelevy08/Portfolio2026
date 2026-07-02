@@ -54,13 +54,13 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
           corner; a 2px silk-colored rule runs along the plate's top edge
           (light cloths fall back to their edge color so the rule reads on
           the white mat). */}
-      <div className="relative mx-5 mt-7 sm:mx-6">
+      <div className="group relative mx-5 mt-7 sm:mx-6">
         <a
           href={primary}
           target={primary ? '_blank' : undefined}
           rel="noreferrer"
           aria-label={`${p.title} — open`}
-          className="plate group block aspect-[16/10]"
+          className="plate block aspect-[16/10]"
         >
           <span
             aria-hidden="true"
@@ -87,17 +87,25 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
             </div>
           )}
         </a>
-        <span
-          className="silk pointer-events-none absolute -top-2.5 left-4 z-10"
-          style={{
-            background: silk.bg,
-            color: silk.fg,
-            boxShadow: silkShadow(silk),
-          }}
+        <motion.span
+          className="pointer-events-none absolute -top-2.5 left-4 z-10"
+          initial={{ scale: 0.4, rotate: -14, opacity: 0 }}
+          whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ type: 'spring', stiffness: 380, damping: 17, delay: 0.25 }}
           aria-hidden="true"
         >
-          {post}
-        </span>
+          <span
+            className="silk transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+            style={{
+              background: silk.bg,
+              color: silk.fg,
+              boxShadow: silkShadow(silk),
+            }}
+          >
+            {post}
+          </span>
+        </motion.span>
       </div>
 
       {/* Body */}
