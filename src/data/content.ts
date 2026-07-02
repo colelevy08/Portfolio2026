@@ -122,8 +122,9 @@ export const projects: Project[] = [
     blurb:
       "A multi-strategy quant platform trading Kalshi crypto-binary markets — shadow trading, regime detection, fractional-Kelly sizing, and hard kill switches.",
     description:
-      "An async Python trading system for Kalshi 15-minute and hourly crypto-binary markets. Runs four strategies plus an ensemble in parallel, shadow-trades every candidate with automatic promotion when it clears thresholds, detects volatility/trend/chop regimes to size dynamically, and gates every order through fee- and slippage-aware EV math with fractional-Kelly sizing. Automatic kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes. Backtesting runs across a process pool; every decision is logged for bit-for-bit replay.",
+      "An async Python trading system for Kalshi 15-minute and hourly crypto-binary markets. Runs four strategies plus an ensemble in parallel, shadow-trades every candidate with automatic promotion when it clears thresholds, detects volatility/trend/chop regimes to size dynamically, and gates every order through fee- and slippage-aware EV math with fractional-Kelly sizing. Automatic kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes. Strategy code is private; the fee/EV/Kelly core it trades under is open source as kalshi-edge (the linked repo).",
     isPrivate: true,
+    repo: "https://github.com/colelevy08/kalshi-edge",
     tags: ["Python", "asyncio", "WebSockets", "SQLite"],
     // FableKalshi has no public brand — give it a quant-themed visual in the
     // portfolio's own tote-amber accent so the card reads intentional, not empty.
@@ -272,6 +273,18 @@ export const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "FastAPI", "Supabase"],
   },
 ]
+
+// Client testimonials. REAL QUOTES ONLY — this section renders nothing while
+// the array is empty, and no placeholder/invented quote may ever ship. Add a
+// quote only with the client's permission, verbatim or lightly trimmed.
+export type Testimonial = {
+  quote: string
+  name: string
+  role: string // e.g. "Owner, Bocage Champagne Bar"
+  project: string // slug of the related project, for the silk chip
+}
+
+export const testimonials: Testimonial[] = []
 
 export type PathEvent = {
   kind: "Work" | "Education"
@@ -494,7 +507,14 @@ export type SectionHeading = {
 }
 
 export const sections: Record<
-  "featured" | "work" | "skills" | "ai" | "about" | "path" | "contact",
+  | "featured"
+  | "work"
+  | "testimonials"
+  | "skills"
+  | "ai"
+  | "about"
+  | "path"
+  | "contact",
   SectionHeading
 > = {
   featured: {
@@ -507,6 +527,11 @@ export const sections: Record<
     headline: "Twelve entries.",
     subhead:
       "Client retainers, trading systems, developer tooling, and open source — every post position filled.",
+  },
+  testimonials: {
+    eyebrow: "Word of mouth",
+    headline: "What the clients say.",
+    subhead: "From the people whose businesses run on this work.",
   },
   skills: {
     eyebrow: "Skills",

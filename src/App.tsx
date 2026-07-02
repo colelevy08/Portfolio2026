@@ -2,6 +2,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import FeaturedWork from './components/FeaturedWork'
 import Work from './components/Work'
+import Testimonials from './components/Testimonials'
 import Skills from './components/Skills'
 import AIWorkflow from './components/AIWorkflow'
 import About from './components/About'
@@ -29,6 +30,7 @@ export default function App() {
         <FeaturedWork />
         <Divider />
         <Work />
+        <Testimonials />
         <Divider />
         <Skills />
         <Divider />
