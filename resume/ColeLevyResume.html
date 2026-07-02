@@ -40,9 +40,9 @@
   body {
     font-family: Georgia, "Times New Roman", serif;
     color: var(--ink);
-    font-size: 9.5pt;
-    line-height: 1.27;
-    padding: 0.42in 0.58in 0.35in;
+    font-size: 9.3pt;
+    line-height: 1.24;
+    padding: 0.36in 0.58in 0.28in;
   }
 
   a { color: var(--accent); text-decoration: none; }
@@ -63,7 +63,7 @@
     font-size: 9pt; font-weight: 700; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--accent);
     border-bottom: 0.8pt solid var(--line);
-    padding-bottom: 1.5pt; margin: 6.5pt 0 3.5pt;
+    padding-bottom: 1.5pt; margin: 5.5pt 0 3pt;
   }
   section p { margin-bottom: 2pt; }
 
@@ -74,7 +74,7 @@
   li::before { content: "•"; position: absolute; left: 1pt; color: var(--muted); }
 
   /* ---- Entries (projects / jobs / education) --------------------------- */
-  .entry { margin-bottom: 3.5pt; }
+  .entry { margin-bottom: 3pt; }
   .entry-head {
     display: flex; justify-content: space-between; align-items: baseline;
     gap: 8pt;
@@ -133,8 +133,7 @@
       <span class="date">2026</span>
     </div>
     <ul>
-      <li>Built a platform that turns any business website into a live, branded AI assistant in about a minute, then provisions itself into a paying client with no redeploy.</li>
-      <li>React + serverless front end; a Python/FastAPI platform builds secure, least-privilege integrations into real business systems; Stripe subscription tiers and a self-serve CRM for captured leads. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, plus an official WordPress plugin.</li>
+      <li>Turns any business website into a live, branded AI assistant in about a minute; paying customers provision themselves with no redeploy. React + serverless front of house; a Python/FastAPI platform builds secure, least-privilege integrations behind it; self-serve CRM for captured leads.</li>
     </ul>
     <div class="stack">React · TypeScript · Python · FastAPI · Stripe · Vercel · LLM / agent orchestration</div>
   </div>
@@ -164,11 +163,11 @@
 
   <div class="entry">
     <div class="entry-head">
-      <span class="entry-title"><b>Client Retainers</b> <i>— three production sites + CRMs</i></span>
-      <span class="date">2025–2026</span>
+      <span class="entry-title"><b>Bocage Champagne Society</b> <i>— members app on iOS, Android &amp; web</i></span>
+      <span class="date">2026</span>
     </div>
     <ul>
-      <li>Marketing sites and back-office CRMs for a restaurant, a private champagne society (shipped to iOS, Android, and web from one Capacitor codebase), and an LTC-insurance practice — each owned solo from design through deploy and ongoing support.</li>
+      <li>Membership, RSVPs, ticketing, and a back-office CRM for a private club — one React + Capacitor codebase shipped to both app stores and the web, on Supabase.</li>
     </ul>
     <div class="stack">React · Vite · Capacitor · Vercel · Supabase · PostgreSQL</div>
   </div>
@@ -179,11 +178,23 @@
 
   <div class="entry">
     <div class="entry-head">
+      <span class="entry-title"><b>Founder &amp; Independent Software Developer</b>, <i>Portmint LLC</i> — Saratoga Springs, NY</span>
+      <span class="date">2023 – Present</span>
+    </div>
+    <ul>
+      <li>Built and operate Portmint, a self-serve SaaS with Stripe subscriptions and fully automated provisioning; sole engineer across product, platform, billing, and the official WordPress plugin.</li>
+      <li>Own three production client retainers end to end — a restaurant, a private members club (iOS/Android/web apps), and an insurance practice — design through deploy and ongoing support.</li>
+      <li>Built and operate two real-money trading systems (Kalshi, Polymarket) under strict risk controls: EV gates, fractional-Kelly sizing, automatic kill switches.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
       <span class="entry-title"><b>Assistant Manager</b>, <i>Standard Fare (Sure Thing Hospitality)</i> — Saratoga Springs, NY</span>
       <span class="date">Jul 2025 – Present</span>
     </div>
     <ul>
-      <li>Helped launch the location; own POS configuration, nightly financial close, and staff training. Led top guest-satisfaction metrics. (Concurrent with full-time independent development work.)</li>
+      <li>Helped launch the location; own POS configuration, nightly financial close, and staff training. Concurrent with the development practice above.</li>
     </ul>
   </div>
 
@@ -193,7 +204,7 @@
       <span class="date">Dec 2024 – May 2025</span>
     </div>
     <ul>
-      <li>Front-line IT support (remote and on-site) for managed-services clients; drove phone-answer rate from 30% to 95% and CSAT to 4.9/5.</li>
+      <li>Front-line IT support for managed-services clients; drove phone-answer rate from 30% to 95% and CSAT to 4.9/5.</li>
     </ul>
   </div>
 </section>
