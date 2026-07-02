@@ -29,7 +29,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto max-w-[1200px] px-6 pt-16 pb-16 sm:pt-24 sm:pb-24 lg:pt-28 lg:pb-28"
+      className="relative px-4 pt-16 pb-16 sm:px-6 sm:pt-24 sm:pb-24 lg:pt-28 lg:pb-28"
     >
       <motion.div
         initial={{ opacity: 0, y: 14 }}

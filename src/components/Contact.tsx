@@ -13,8 +13,8 @@ export default function Contact() {
   return (
     // Extra bottom padding on mobile keeps the floating Portmint widget from
     // covering the submit button.
-    <section id="contact" className="relative px-6 pt-20 pb-36 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="contact" className="relative px-4 pt-20 pb-36 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.contact} />
 
         <motion.div

@@ -4,8 +4,8 @@ import SectionHead from './SectionHead'
 
 export default function AIWorkflow() {
   return (
-    <section id="ai" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="ai" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.ai} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,7 +16,7 @@ export default function AIWorkflow() {
         >
           {/* Lead statement */}
           <div className="col-span-12 lg:col-span-5">
-            <p className="font-serif text-[1.35rem] leading-[1.55] text-ink sm:text-[1.55rem]">
+            <p className="max-w-[52ch] font-serif text-[1.35rem] leading-[1.55] text-ink sm:text-[1.55rem]">
               {aiWorkflow.lead}
             </p>
           </div>

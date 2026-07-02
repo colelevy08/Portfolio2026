@@ -55,7 +55,7 @@ export default function Header() {
 
   return (
     <header className="sticky inset-x-0 top-0 z-50 border-b border-line bg-bg-2/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3 sm:py-3.5">
+      <nav className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3.5">
         <a
           href="#top"
           className="group inline-flex items-baseline gap-3 transition-colors hover:text-awning"

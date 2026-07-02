@@ -19,7 +19,7 @@ import PortmintWidget from './components/PortmintWidget'
 function Divider({ furlong }: { furlong: number }) {
   const quarter = furlong % 2 === 0
   return (
-    <div className="mx-auto max-w-[1200px] px-6" aria-hidden="true">
+    <div className="px-4 sm:px-6" aria-hidden="true">
       <div className="flex items-center gap-4">
         <div className="hairline flex-1" />
         <span className={`fpole ${quarter ? 'fpole-q' : 'fpole-e'}`} />
@@ -37,7 +37,7 @@ function Divider({ furlong }: { furlong: number }) {
 // across it the first time it enters view.
 function Wire() {
   return (
-    <div className="mx-auto max-w-[1200px] px-6" aria-hidden="true">
+    <div className="px-4 sm:px-6" aria-hidden="true">
       <div className="relative flex items-center gap-4 overflow-hidden py-1">
         <div className="flex-1 space-y-[3px]">
           <div className="hairline" />

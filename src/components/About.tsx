@@ -6,8 +6,8 @@ import SectionHead from './SectionHead'
 
 export default function About() {
   return (
-    <section id="about" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="about" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.about} />
 
         <motion.div
@@ -44,7 +44,7 @@ export default function About() {
           {/* Prose column — program paper: one drop cap, then the town motto
               set as a centered rubric. */}
           <div className="col-span-12 sm:col-span-8 lg:col-span-8 lg:col-start-5">
-            <div className="space-y-6 font-serif text-[1.25rem] font-light leading-[1.55] text-ink-2 sm:text-[1.4rem] lg:text-[1.55rem]">
+            <div className="max-w-[72ch] space-y-6 font-serif text-[1.25rem] font-light leading-[1.55] text-ink-2 sm:text-[1.4rem] lg:text-[1.55rem]">
               {aboutParagraphs.map((p, i) => (
                 <p key={i} className={i === 0 ? 'dropcap text-ink' : ''}>
                   {p}

@@ -55,8 +55,8 @@ export default function Footer() {
     <footer className="island bg-bg">
       <div className="piping" aria-hidden="true" />
       <Roofline />
-      <div className="px-6 pb-12 pt-6">
-        <div className="mx-auto grid max-w-[1240px] grid-cols-12 gap-y-6 gap-x-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+      <div className="px-4 pb-12 pt-6 sm:px-6">
+        <div className="grid grid-cols-12 gap-y-6 gap-x-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
           <div className="col-span-12 sm:col-span-4">
             © {new Date().getFullYear()}{' '}
             <span className="text-ink">{profile.name}</span>

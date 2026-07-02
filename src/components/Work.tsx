@@ -11,8 +11,8 @@ const selected = projects.filter((p) => !p.featured)
 
 export default function Work() {
   return (
-    <section id="work" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="work" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.work} />
         <ol className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {selected.map((p, i) => (

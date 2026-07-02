@@ -12,11 +12,11 @@ export default function Testimonials() {
 
   return (
     <>
-      <div className="mx-auto max-w-[1200px] px-6">
+      <div className="px-4 sm:px-6">
         <div className="hairline" />
       </div>
-      <section id="testimonials" className="relative px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-[1200px]">
+      <section id="testimonials" className="relative px-4 py-20 sm:px-6 sm:py-28">
+        <div>
           <SectionHead h={sections.testimonials} />
           <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t, i) => {

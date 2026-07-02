@@ -22,8 +22,8 @@ export default function Path() {
   }, [filter, sorted])
 
   return (
-    <section id="path" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="path" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.path} />
 
         {/* Program tabs — the active tab carries an awning-red underline. */}
@@ -52,7 +52,7 @@ export default function Path() {
           ))}
         </div>
 
-        <ol className="max-w-[860px]">
+        <ol>
           {filtered.map((e, i) => (
             <Row key={`${e.title}-${e.date}`} e={e} index={i} />
           ))}

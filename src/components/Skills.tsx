@@ -4,8 +4,8 @@ import SectionHead from './SectionHead'
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="skills" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.skills} />
         <ul className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((group, i) => (

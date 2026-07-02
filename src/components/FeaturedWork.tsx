@@ -12,8 +12,8 @@ const featured = projects.filter((p) => p.featured)
 
 export default function FeaturedWork() {
   return (
-    <section id="featured" className="relative px-6 py-20 sm:py-28">
-      <div className="mx-auto max-w-[1200px]">
+    <section id="featured" className="relative px-4 py-20 sm:px-6 sm:py-28">
+      <div>
         <SectionHead h={sections.featured} />
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           {featured.map((p, i) => (
@@ -119,11 +119,11 @@ function FeaturedCard({ p, index }: { p: Project; index: number }) {
           {p.title}
         </h3>
 
-        <p className="mt-4 font-serif text-[15px] leading-[1.65] text-ink-2">
+        <p className="mt-4 max-w-[68ch] font-serif text-[15px] leading-[1.65] text-ink-2">
           {p.blurb}
         </p>
 
-        <p className="mt-4 font-serif text-[14px] leading-[1.7] text-muted">
+        <p className="mt-4 max-w-[68ch] font-serif text-[14px] leading-[1.7] text-muted">
           {p.description}
         </p>
 
