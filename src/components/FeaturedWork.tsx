@@ -180,6 +180,47 @@ function FeaturedCard({
           </p>
         )}
 
+        {/* Steward's notes — the architecture/risk story, set like the
+            stewards' remarks under a chart line. */}
+        {p.steward && p.steward.length > 0 && (
+          <div className="mt-5 max-w-[60ch] border-l-2 border-line-2 pl-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+              Steward's notes
+            </p>
+            <ul className="mt-2 space-y-1.5">
+              {p.steward.map((note) => (
+                <li
+                  key={note}
+                  className="font-mono text-[12px] leading-relaxed text-ink-2"
+                >
+                  {note}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* The OFFICIAL rail — results aren't real until the stewards post
+            the sign; every link here is independently checkable. */}
+        {p.proof && p.proof.length > 0 && (
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="rounded border border-brass/60 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-brass">
+              Official
+            </span>
+            {p.proof.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-[11px] tracking-[0.06em] text-accent transition-colors hover:text-awning"
+              >
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
+        )}
+
         {/* NBSP binds each dot to its tag so a wrap never leads with '·';
             mt-auto bottom-anchors the tag+link rows so the place/show pair
             stays level (the wide lead card keeps its centered flow). */}

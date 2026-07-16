@@ -102,7 +102,15 @@ export type Project = {
   // A one-line proof point pulled out of the description and set as a
   // highlighted program notice on the featured card (e.g. "try it live").
   callout?: string
+  // "Steward's notes" — the architecture/risk story in 3-4 short mono
+  // bullets, rendered on featured cards only.
+  steward?: string[]
+  // The OFFICIAL rail — independently checkable links a skeptic can click
+  // to verify the card's claims (public repos, live scoreboards, products).
+  proof?: ProofLink[]
 }
+
+export type ProofLink = { label: string; href: string }
 
 export const projects: Project[] = [
   {
@@ -118,6 +126,12 @@ export const projects: Project[] = [
       "Self-serve SaaS: enter your website and get a live, branded AI assistant in about a minute. Built so a subscription provisions itself end to end — tier selected, assistant built, deployed — no human in the loop, no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, a WordPress plugin, Square subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds least-privilege integrations into real business systems behind it.",
     callout:
       "Try it live — the assistant in the corner of this page is a Portmint deployment. Open it and ask about my work.",
+    steward: [
+      "Subscribe → provision → deploy: no human in the loop, no redeploy",
+      "Self-serve tiers at $49 / $149 / $249 monthly",
+      "Least-privilege integration builder on Python/FastAPI",
+    ],
+    proof: [{ label: "Live product", href: "https://portmint.com" }],
     live: "https://portmint.com",
     isPrivate: true,
     tags: ["React", "TypeScript", "Python", "FastAPI", "Square", "Vercel"],
@@ -141,6 +155,14 @@ export const projects: Project[] = [
       "Pro-grade horse-racing handicapping for NYRA tracks — Kelly stake sizing, pace analysis, live odds, AI race commentary. Built on the Saratoga meet.",
     description:
       "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and generates natural-language pace and trip analysis with AI. The hometown project: built at the track it handicaps.",
+    callout:
+      "Every pick is graded in public — the track record at handaicapper.com/record scores model vs. AI vs. blend vs. the market on official charts.",
+    steward: [
+      "Public scoreboard: Brier score, log-loss, hit rate, flat-$2 ROI",
+      "Graded against official result charts, not self-reported",
+      "1,100+ graded races across 80+ tracks; nightly recalibration",
+    ],
+    proof: [{ label: "Public track record", href: "https://handaicapper.com/record" }],
     isPrivate: true,
     live: "https://handaicapper.com",
     tags: ["React", "Vite", "FastAPI", "Claude AI"],
@@ -166,6 +188,18 @@ export const projects: Project[] = [
       "An async Python system trading Kalshi's 15-minute and hourly crypto-binary markets. Four strategies plus an ensemble run in parallel; every candidate shadow-trades until it clears promotion thresholds, and every order passes fee- and slippage-aware EV math with fractional-Kelly sizing. Kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes.",
     callout:
       "The fee/EV/Kelly core it trades under is open source — kalshi-edge, the linked repo.",
+    steward: [
+      "Every order gated by fee- and slippage-aware EV math",
+      "Fractional-Kelly sizing; strategies shadow-trade until promoted",
+      "Nine hard kill switches — drawdown, loss streaks, stale data, reject spikes",
+      "Every decision logged for bit-for-bit replay",
+    ],
+    proof: [
+      {
+        label: "kalshi-edge — the open-source core (MIT, tested)",
+        href: "https://github.com/colelevy08/kalshi-edge",
+      },
+    ],
     isPrivate: true,
     repo: "https://github.com/colelevy08/kalshi-edge",
     tags: ["Python", "asyncio", "WebSockets", "SQLite"],
