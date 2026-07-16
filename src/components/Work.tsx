@@ -6,7 +6,7 @@ import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
 import SectionHead from './SectionHead'
 
-// Everything that isn't a feature race runs in the field below (posts 3+).
+// Everything that isn't a feature race runs in the field below (posts 4+).
 const selected = projects.filter((p) => !p.featured)
 
 export default function Work() {
@@ -27,7 +27,7 @@ export default function Work() {
 function ProjectCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
-  // Post position continues from the feature races (posts 1–2).
+  // Post position continues from the feature races (posts 1–3).
   const post = projects.indexOf(p) + 1
   const silk = silkFor(post)
 
@@ -81,7 +81,9 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           className="pointer-events-none absolute -top-2 left-3 z-10"
           initial={{ scale: 0.4, rotate: -14, opacity: 0 }}
           whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
-          viewport={{ once: true, margin: '-60px' }}
+          // Vertical-only margin: an all-sides inset would exclude the tiny
+          // scaled-down chip near the viewport's left edge and never fire.
+          viewport={{ once: true, margin: '-60px 0px' }}
           transition={{ type: 'spring', stiffness: 380, damping: 17, delay: 0.2 }}
           aria-hidden="true"
         >
@@ -114,8 +116,9 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           {p.blurb}
         </p>
 
+        {/* NBSP binds each dot to its tag so a wrap never leads with '·'. */}
         <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-          {p.tags.join(' · ')}
+          {p.tags.join(' · ')}
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">

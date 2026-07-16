@@ -29,7 +29,9 @@ export default function AIWorkflow() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                   Condition {i + 1}
                 </p>
-                <p className="font-display mt-2.5 text-lg leading-snug text-accent">
+                {/* balance avoids one-word orphan wraps; the reserved
+                    two-line slot keeps body copy level across the row */}
+                <p className="font-display mt-2.5 text-lg leading-snug text-balance text-accent sm:min-h-[2.75em]">
                   {point.title}
                 </p>
                 <p className="mt-3 font-serif text-[14px] leading-[1.65] text-ink-2">

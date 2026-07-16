@@ -22,7 +22,9 @@ function TrackClock() {
     const id = setInterval(() => setNow(trackTime()), 1000)
     return () => clearInterval(id)
   }, [])
-  return <span className="tabular-nums">{now} ET</span>
+  // Amber marks it as live board data, visually distinct from the muted
+  // title beside it — on mobile the two would otherwise read as one string.
+  return <span className="tabular-nums text-amber/75">{now} ET</span>
 }
 
 export default function Hero() {

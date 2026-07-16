@@ -389,6 +389,35 @@ body {
     color: var(--color-ink);
   }
 
+  /* -------------------------------------------------------------------------
+     The rail runner — gallop cycle + dust. React toggles `.running` on the
+     horse wrapper while the page is scrolling; the two stride frames swap on
+     a hard beat and the dust puffs trail behind. At rest, frame A stands.
+  ------------------------------------------------------------------------- */
+  .horse-frame-b {
+    opacity: 0;
+  }
+  .running .horse-frame-a {
+    animation: stride-a 0.32s linear infinite;
+  }
+  .running .horse-frame-b {
+    animation: stride-b 0.32s linear infinite;
+  }
+  .dust {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .running .dust {
+    animation: dust-kick 0.55s ease-out infinite;
+  }
+  .running .dust-2 {
+    animation-delay: 0.18s;
+  }
+  .running .dust-3 {
+    animation-delay: 0.36s;
+  }
+
   /* Drop cap — one per site, on the first About paragraph. */
   .dropcap::first-letter {
     font-family: var(--font-display);
@@ -428,6 +457,43 @@ body {
   }
 }
 
+/* Stride frames swap on a hard beat — the 1% ramp reads as an instant cut. */
+@keyframes stride-a {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes stride-b {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dust-kick {
+  0% {
+    opacity: 0;
+    transform: translate(2px, 1px) scale(0.4);
+  }
+  30% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-6px, -3px) scale(1.15);
+  }
+}
+
 @keyframes tote-in {
   0% {
     opacity: 0;
@@ -448,7 +514,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .tote-in,
   .scotch-draw,
-  .board-cell:hover .board-value {
+  .board-cell:hover .board-value,
+  .running .horse-frame-a,
+  .running .horse-frame-b,
+  .running .dust {
     animation: none;
   }
   .lift-brand {

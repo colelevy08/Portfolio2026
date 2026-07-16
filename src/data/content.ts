@@ -30,17 +30,20 @@ export const profile = {
 // one typed file — the headline renders as three lines with an accent-italic
 // middle clause.
 export const hero = {
-  eyebrow: "The summer meet · Saratoga Springs, NY · Vol. 2026",
+  // NBSPs keep "Saratoga Springs, NY" and "Vol. 2026" from splitting at
+  // mobile widths — wraps land on the interpuncts, never inside a token.
+  eyebrow: "The summer meet · Saratoga Springs, NY · Vol. 2026",
   // The serif line that runs under the big display name.
   subline:
     "Full-stack & AI engineer. Products, trading systems, and the web layer real businesses run on.",
   status: "Now building Portmint — a self-serve platform for branded AI assistants.",
   // The tote board: label + value pairs, rendered as bulb-lit board cells.
+  // "Odds to deliver 1-9" is morning-line speak for an overwhelming favorite.
   board: [
     { label: "Projects shipped", value: "15+" },
     { label: "Client retainers", value: "3" },
-    { label: "Live trading systems", value: "2" },
-    { label: "Post time", value: "Anytime" },
+    { label: "Quant bot on Kalshi", value: "24/7" },
+    { label: "Odds to deliver", value: "1-9" },
   ],
   ctaPrimary: { label: "See the work", to: "#featured" },
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
@@ -90,6 +93,9 @@ export type Project = {
   // Featured projects render as large case-study cards above the grid.
   featured?: boolean
   brand?: ProjectBrand
+  // A one-line proof point pulled out of the description and set as a
+  // highlighted program notice on the featured card (e.g. "try it live").
+  callout?: string
 }
 
 export const projects: Project[] = [
@@ -103,7 +109,9 @@ export const projects: Project[] = [
     blurb:
       "The MVP — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
     description:
-      "Self-serve SaaS: enter your website, get a live branded AI assistant in about a minute, then pay and it provisions itself into a real client — no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, Webflow and more, an official WordPress plugin, Stripe subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds secure, least-privilege integrations into real business systems behind it. The assistant in the corner of this page is a live Portmint deployment — open it and ask about my work.",
+      "Self-serve SaaS: enter your website, get a live branded AI assistant in about a minute, then pay and it provisions itself — no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, an official WordPress plugin, Stripe subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds least-privilege integrations into real business systems behind it.",
+    callout:
+      "Try it live — the assistant in the corner of this page is a Portmint deployment. Open it and ask about my work.",
     live: "https://portmint.com",
     isPrivate: true,
     tags: ["React", "TypeScript", "Python", "FastAPI", "Stripe", "Vercel"],
@@ -117,6 +125,29 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "handaicapper",
+    title: "handAIcapper",
+    kind: "Personal",
+    category: "Quant & trading",
+    year: "2025",
+    featured: true,
+    blurb:
+      "Pro-grade horse-racing handicapping for NYRA tracks — Kelly stake sizing, pace analysis, live odds, AI race commentary. Built on the Saratoga meet.",
+    description:
+      "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and generates natural-language pace and trip analysis with AI. The hometown project: built at the track it handicaps.",
+    isPrivate: true,
+    live: "https://handaicapper.com",
+    tags: ["React", "Vite", "FastAPI", "Claude AI"],
+    // handAIcapper runs in the site's own colors — awning red on infield
+    // green, the Saratoga project wearing the Saratoga silks.
+    brand: {
+      tagline: "The program, computed.",
+      accent: "#c03428",
+      bg: "#0b1d15",
+      wordmarkFont: "serif",
+    },
+  },
+  {
     slug: "fablekalshi",
     title: "FableKalshi",
     kind: "Personal",
@@ -126,7 +157,9 @@ export const projects: Project[] = [
     blurb:
       "A multi-strategy quant platform trading Kalshi crypto-binary markets — shadow trading, regime detection, fractional-Kelly sizing, and hard kill switches.",
     description:
-      "An async Python trading system for Kalshi 15-minute and hourly crypto-binary markets. Runs four strategies plus an ensemble in parallel, shadow-trades every candidate with automatic promotion when it clears thresholds, detects volatility/trend/chop regimes to size dynamically, and gates every order through fee- and slippage-aware EV math with fractional-Kelly sizing. Automatic kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes. Strategy code is private; the fee/EV/Kelly core it trades under is open source as kalshi-edge (the linked repo).",
+      "An async Python system trading Kalshi's 15-minute and hourly crypto-binary markets. Four strategies plus an ensemble run in parallel; every candidate shadow-trades until it clears promotion thresholds, and every order passes fee- and slippage-aware EV math with fractional-Kelly sizing. Kill switches halt entries on drawdown, loss streaks, stale data, or reject spikes.",
+    callout:
+      "The fee/EV/Kelly core it trades under is open source — kalshi-edge, the linked repo.",
     isPrivate: true,
     repo: "https://github.com/colelevy08/kalshi-edge",
     tags: ["Python", "asyncio", "WebSockets", "SQLite"],
@@ -196,20 +229,6 @@ export const projects: Project[] = [
     tags: ["React", "Vercel", "Supabase"],
   },
   {
-    slug: "saratoga-handicapper",
-    title: "Saratoga Handicapper",
-    kind: "Personal",
-    category: "Quant & trading",
-    year: "2025",
-    blurb:
-      "Pro-grade horse-racing handicapping for NYRA tracks — Kelly sizing, pace analysis, live odds, Claude AI commentary.",
-    description:
-      "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and uses Claude for natural-language pace and trip analysis. Built on the Saratoga meet.",
-    isPrivate: true,
-    live: "https://saratoga-handicapper.vercel.app",
-    tags: ["React", "Vite", "FastAPI", "Claude AI"],
-  },
-  {
     slug: "polybot",
     title: "PolyBot",
     kind: "Open source",
@@ -249,19 +268,6 @@ export const projects: Project[] = [
     repo: "https://github.com/colelevy08/portmint-pulse",
     live: "https://colelevy08.github.io/portmint-pulse/",
     tags: ["Python", "CLI", "Observability"],
-  },
-  {
-    slug: "claude-pulseinator",
-    title: "Claude Pulseinator",
-    kind: "Personal",
-    category: "Tooling",
-    year: "2026",
-    blurb:
-      "A native macOS menubar app showing Claude Code usage live — rate-limit windows, today's stats, lifetime totals, and time-series charts.",
-    description:
-      "Swift / SwiftUI menubar app that reads Claude Code credentials from the macOS Keychain to surface 5h/7d rate-limit windows, message/session/token counts, and lifetime totals, with optional SigNoz/OpenTelemetry time-series charts for tokens, cost, and leverage ratio.",
-    isPrivate: true,
-    tags: ["Swift", "SwiftUI", "macOS", "OpenTelemetry"],
   },
   {
     slug: "openprofile",
@@ -444,13 +450,16 @@ export const path: PathEvent[] = [
 
 export const stack = {
   build:
-    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Deployed on Vercel + GitHub Pages.",
+    "React 18 · TypeScript · Vite · Tailwind v4 · Framer Motion. Deployed on Vercel.",
   source: "github.com/colelevy08/Portfolio2026",
 }
 
 export type SkillGroup = {
   group: string
   items: string[]
+  // One line tying the discipline to the shipped work that proves it —
+  // rendered under the chips so the section reads as evidence, not tag soup.
+  proof: string
 }
 
 // The skills matrix, grouped by domain. Consumed by Skills.tsx and About.tsx.
@@ -458,26 +467,32 @@ export const skills: SkillGroup[] = [
   {
     group: "Frontend",
     items: ["React", "TypeScript", "Next.js", "Vite", "Tailwind v4", "Framer Motion", "Capacitor"],
+    proof: "In production on every project on this page.",
   },
   {
     group: "Backend & data",
     items: ["Python", "FastAPI", "Node.js", "Supabase", "Postgres", "SQLite", "Stripe"],
+    proof: "Runs Portmint's platform and three client back offices.",
   },
   {
     group: "AI engineering",
     items: ["Claude Code", "Anthropic API", "OpenAI API", "MCP", "Agent fleets", "RAG / vaults"],
+    proof: "Shipping inside Portmint, handAIcapper, and OpenProfile.",
   },
   {
     group: "Quant & trading",
     items: ["asyncio", "WebSockets", "Kelly sizing", "Backtesting", "Regime detection", "EV modeling"],
+    proof: "Proven in FableKalshi and PolyBot — real money, live markets.",
   },
   {
     group: "DevOps & hosting",
     items: ["Vercel", "GitHub Pages", "GitHub Actions", "Serverless", "Edge Functions"],
+    proof: "Every site in the field deploys through this stack.",
   },
   {
     group: "Native & mobile",
     items: ["Swift / SwiftUI", "Capacitor (iOS/Android)", "PWA / offline", "Service Workers"],
+    proof: "Bocage Champagne Society ships iOS, Android, and web from one codebase.",
   },
 ]
 
@@ -493,11 +508,11 @@ export const aiWorkflow = {
     },
     {
       title: "AI inside the products",
-      body: "Anthropic and OpenAI APIs run in shipping software — natural-language pace and trip analysis in Saratoga Handicapper, an AI drafting engine in OpenProfile.",
+      body: "Anthropic and OpenAI APIs run in shipping software — natural-language pace and trip analysis in handAIcapper, an AI drafting engine in OpenProfile.",
     },
     {
       title: "The loop is instrumented",
-      body: "Portmint Pulse and Claude Pulseinator chart token spend, rate limits, and per-project cost. I can tell you what any given feature cost to build.",
+      body: "Portmint Pulse charts token spend, rate limits, and per-project cost. I can tell you what any given feature cost to build.",
     },
   ],
 }
@@ -523,14 +538,15 @@ export const sections: Record<
 > = {
   featured: {
     eyebrow: "Feature races",
-    headline: "The two I'd show first.",
-    subhead: "An MVP with paying customers and a quant platform trading real money.",
+    headline: "The three I'd show first.",
+    subhead:
+      "An MVP with paying customers, an AI handicapper built at the Saratoga track, and a quant system trading real money.",
   },
   work: {
     eyebrow: "The field",
-    headline: "Twelve entries.",
+    headline: "The rest of the field.",
     subhead:
-      "Client retainers, trading systems, developer tooling, and open source — every post position filled.",
+      "Eight more entries — client retainers, real-money bots, developer tooling, and open source. Every post position filled.",
   },
   testimonials: {
     eyebrow: "Word of mouth",
@@ -538,9 +554,9 @@ export const sections: Record<
     subhead: "From the people whose businesses run on this work.",
   },
   skills: {
-    eyebrow: "Skills",
+    eyebrow: "The tack room",
     headline: "The toolkit.",
-    subhead: "Frontend to FastAPI, AI engineering to quant.",
+    subhead: "Frontend to FastAPI, AI engineering to quant — six disciplines, saddled and ready.",
   },
   ai: {
     eyebrow: "Method",
