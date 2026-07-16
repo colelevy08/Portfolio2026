@@ -38,13 +38,17 @@ export const hero = {
     "Full-stack & AI engineer. Products, trading systems, and the web layer real businesses run on.",
   status: "Now building Portmint — a self-serve platform for branded AI assistants.",
   // The tote board: label + value pairs, rendered as bulb-lit board cells.
-  // "Odds to deliver 1-9" is morning-line speak for an overwhelming favorite.
+  // Every figure here must be independently checkable — that's the OFFICIAL
+  // rule (races graded on handaicapper.com/record; repos linked on-page).
   board: [
     { label: "Projects shipped", value: "15+" },
     { label: "Client retainers", value: "3" },
-    { label: "Quant bot on Kalshi", value: "24/7" },
-    { label: "Odds to deliver", value: "1-9" },
+    { label: "Races graded in public", value: "1,100+" },
+    { label: "Kalshi bot running", value: "24/7" },
   ],
+  // The stewards' line under the board — the motif's one global statement.
+  official:
+    "Results official — every figure on this board is checkable on this page.",
   ctaPrimary: { label: "See the work", to: "#featured" },
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
 }

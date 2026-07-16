@@ -93,6 +93,10 @@ export default function Hero() {
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2">
               <span className="text-accent">▸</span> {hero.status}
             </p>
+            {/* the stewards' sign: the board's numbers are all verifiable */}
+            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+              <span className="text-brass">▸</span> {hero.official}
+            </p>
           </div>
         </div>
 
