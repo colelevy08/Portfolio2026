@@ -36,3 +36,6 @@ pnpm-debug.log*
 .env.test.local
 .env.production.local
 .vercel
+
+# Local-only targeted resumes (job applications) — never commit or deploy
+resume/local/
