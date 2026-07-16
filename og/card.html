@@ -1,0 +1,94 @@
+<!doctype html>
+<!--
+  Source of truth for public/og.png — the 1200×630 Open Graph / Twitter card.
+
+  Rebuild the PNG (headless Chromium screenshot, exact 1200×630):
+
+    1. Any Chromium works. On this box the Playwright headless shell is cached:
+         ~/.cache/ms-playwright/chromium_headless_shell-*/chrome-linux/headless_shell
+    2. From a scratch dir with playwright-core installed:
+
+         const { chromium } = require('playwright-core')
+         const browser = await chromium.launch({ executablePath, args: ['--no-sandbox'] })
+         const page = await browser.newPage({ viewport: { width: 1200, height: 630 } })
+         await page.goto('file://.../og/card.html', { waitUntil: 'networkidle' })
+         await page.screenshot({ path: 'public/og.png' })
+
+    3. Keep it under ~300 KB (flat color compresses well) and update the tote
+       row if the board numbers in src/data/content.ts change.
+
+  Design mirrors the site's theme tokens (src/index.css): infield green field,
+  red-and-white awning piping, Besley chalk display, tote-amber mono data.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:wght@800;900&family=Spline+Sans+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0b1d15; /* infield green */
+    font-family: Besley, Georgia, serif;
+    position: relative;
+  }
+  /* awning piping across the very top — the site's signature stripe */
+  .piping {
+    height: 18px;
+    background: repeating-linear-gradient(90deg, #c03428 0 36px, #fffdf6 36px 72px);
+  }
+  /* cream mat frame, like the win-photo plates */
+  .mat {
+    position: absolute; inset: 34px 34px 34px 34px; top: 52px;
+    border: 3px solid rgba(236, 229, 211, 0.35);
+    border-radius: 14px;
+  }
+  .inner { position: absolute; inset: 0; padding: 84px 96px; }
+  .eyebrow {
+    font-family: "Spline Sans Mono", monospace; font-weight: 500;
+    font-size: 24px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: #8b9080;
+  }
+  .eyebrow .tick { color: #a4802f; margin-right: 14px; }
+  h1 {
+    margin-top: 26px;
+    font-weight: 900; font-size: 148px; line-height: 0.95;
+    letter-spacing: -0.01em; color: #ece5d3; /* chalk */
+  }
+  .role {
+    margin-top: 30px;
+    font-family: "Spline Sans Mono", monospace; font-weight: 600;
+    font-size: 30px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #f0a63d; /* tote amber */
+    text-shadow: 0 0 24px rgba(240, 166, 61, 0.4);
+  }
+  /* mini tote row pinned above the bottom mat edge */
+  .tote {
+    position: absolute; left: 96px; right: 96px; bottom: 78px;
+    display: flex; gap: 56px;
+    font-family: "Spline Sans Mono", monospace; font-weight: 500;
+    font-size: 23px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #c3bcaa;
+    border-top: 1px solid #23402e; padding-top: 26px;
+  }
+  .tote b { color: #f0a63d; font-weight: 600; margin-right: 10px; }
+</style>
+</head>
+<body>
+  <div class="piping"></div>
+  <div class="mat"></div>
+  <div class="inner">
+    <div class="eyebrow"><span class="tick">◆</span>The summer meet · Saratoga Springs, NY</div>
+    <h1>Cole Levy</h1>
+    <div class="role">Full-stack &amp; AI engineer</div>
+    <div class="tote">
+      <span><b>15+</b>projects shipped</span>
+      <span><b>3</b>client retainers</span>
+      <span><b>colelevy.dev</b></span>
+    </div>
+  </div>
+</body>
+</html>

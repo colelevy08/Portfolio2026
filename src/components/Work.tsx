@@ -46,37 +46,50 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       {/* Matted screenshot plate; the saddle cloth pops on as the card
           enters view and wobbles like cloth when the plate is hovered. */}
       <div className="group relative">
-        <a
-          href={primary}
-          target={primary ? '_blank' : undefined}
-          rel="noreferrer"
-          aria-label={`${p.title} — open`}
-          className="plate block aspect-[16/10] w-full"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 z-10 h-[2px]"
-            style={{ background: silk.edge ?? silk.bg }}
-          />
-          {shot ? (
-            <img
-              src={shot}
-              alt={`${p.title} — screenshot`}
-              loading="lazy"
-              decoding="async"
-              width={1200}
-              height={750}
-              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
+        {/* The plate is a link only when there is somewhere to go — an <a>
+            with no href is unreachable by keyboard and flagged by audits. */}
+        {(() => {
+          const plateInner = (
+            <>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 z-10 h-[2px]"
+                style={{ background: silk.edge ?? silk.bg }}
+              />
+              {shot ? (
+                <img
+                  src={shot}
+                  alt={`${p.title} — screenshot`}
+                  loading="lazy"
+                  decoding="async"
+                  width={1200}
+                  height={750}
+                  className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="island flex h-full w-full flex-col items-center justify-center gap-1.5 bg-bg text-center">
+                  <span className="font-display text-2xl text-ink">{p.title}</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
+                    {p.category}
+                  </span>
+                </div>
+              )}
+            </>
+          )
+          return primary ? (
+            <a
+              href={primary}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${p.title} — open`}
+              className="plate block aspect-[16/10] w-full"
+            >
+              {plateInner}
+            </a>
           ) : (
-            <div className="island flex h-full w-full flex-col items-center justify-center gap-1.5 bg-bg text-center">
-              <span className="font-display text-2xl text-ink">{p.title}</span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
-                {p.category}
-              </span>
-            </div>
-          )}
-        </a>
+            <div className="plate block aspect-[16/10] w-full">{plateInner}</div>
+          )
+        })()}
         <motion.span
           className="pointer-events-none absolute -top-2 left-3 z-10"
           initial={{ scale: 0.4, rotate: -14, opacity: 0 }}

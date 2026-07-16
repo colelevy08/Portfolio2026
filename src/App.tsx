@@ -1,4 +1,5 @@
 import { motion, MotionConfig } from 'framer-motion'
+import { ui } from './data/content'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import FeaturedWork from './components/FeaturedWork'
@@ -68,12 +69,16 @@ export default function App() {
     // plain fade when the OS asks for reduced motion.
     <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-bg text-ink">
+      {/* Keyboard users can vault the sticky header straight to the program. */}
+      <a href="#main" className="skip-link">
+        {ui.skipToContent}
+      </a>
       {/* The grandstand awning — crowns the page and scrolls away. */}
       <div className="awning-wrap" aria-hidden="true">
         <div className="awning" />
       </div>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <Divider furlong={6} />
         <FeaturedWork />

@@ -49,6 +49,12 @@ export const hero = {
   ctaResume: { label: "Résumé", to: profile.resumeUrl },
 }
 
+// Small interface strings that aren't section copy but still must live here —
+// all site text stays in this one typed file.
+export const ui = {
+  skipToContent: "Skip to content",
+}
+
 // Saratoga Springs' real town motto — set as a program rubric in About and
 // again in the footer. Rendered with brass middots between the words.
 export const motto = ["Health", "History", "Horses"]

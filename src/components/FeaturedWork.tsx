@@ -76,38 +76,51 @@ function FeaturedCard({
           wide ? 'lg:my-8 lg:ml-8 lg:mr-0 lg:w-[52%] lg:flex-none lg:self-center' : ''
         }`}
       >
-        <a
-          href={primary}
-          target={primary ? '_blank' : undefined}
-          rel="noreferrer"
-          aria-label={`${p.title} — open`}
-          className="plate block aspect-[16/10]"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 z-10 h-[2px]"
-            style={{ background: silk.edge ?? silk.bg }}
-          />
-          {shot ? (
-            <img
-              src={shot}
-              alt={`${p.title} — screenshot`}
-              loading="lazy"
-              decoding="async"
-              width={1200}
-              height={750}
-              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-          ) : p.brand ? (
-            <div className="island h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-              <BrandPlate p={p} />
-            </div>
+        {/* The plate is a link only when there is somewhere to go — an <a>
+            with no href is unreachable by keyboard and flagged by audits. */}
+        {(() => {
+          const plateInner = (
+            <>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 z-10 h-[2px]"
+                style={{ background: silk.edge ?? silk.bg }}
+              />
+              {shot ? (
+                <img
+                  src={shot}
+                  alt={`${p.title} — screenshot`}
+                  loading="lazy"
+                  decoding="async"
+                  width={1200}
+                  height={750}
+                  className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              ) : p.brand ? (
+                <div className="island h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                  <BrandPlate p={p} />
+                </div>
+              ) : (
+                <div className="island flex h-full w-full items-center justify-center bg-bg">
+                  <span className="font-display text-4xl text-ink">{p.title}</span>
+                </div>
+              )}
+            </>
+          )
+          return primary ? (
+            <a
+              href={primary}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${p.title} — open`}
+              className="plate block aspect-[16/10]"
+            >
+              {plateInner}
+            </a>
           ) : (
-            <div className="island flex h-full w-full items-center justify-center bg-bg">
-              <span className="font-display text-4xl text-ink">{p.title}</span>
-            </div>
-          )}
-        </a>
+            <div className="plate block aspect-[16/10]">{plateInner}</div>
+          )
+        })()}
         <motion.span
           className="pointer-events-none absolute -top-2.5 left-4 z-10"
           initial={{ scale: 0.4, rotate: -14, opacity: 0 }}
