@@ -43,7 +43,7 @@ export default function BrandPlate({ p }: { p: Project }) {
       />
 
       <div className="relative z-10 flex flex-col items-center gap-4 px-6 text-center">
-        {p.slug === 'portmint' ? (
+        {brand.mark === 'none' ? null : p.slug === 'portmint' ? (
           <PortmintMark size={60} />
         ) : (
           <QuantMark accent={brand.accent} />

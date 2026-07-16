@@ -5,6 +5,7 @@ import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
 import SectionHead from './SectionHead'
+import BrandPlate from './brand/BrandPlate'
 
 // Everything that isn't a feature race runs in the field below (posts 4+).
 const selected = projects.filter((p) => !p.featured)
@@ -66,6 +67,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
                   height={750}
                   className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
+              ) : p.brand ? (
+                <div className="island h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+                  <BrandPlate p={p} />
+                </div>
               ) : (
                 <div className="island flex h-full w-full flex-col items-center justify-center gap-1.5 bg-bg text-center">
                   <span className="font-display text-2xl text-ink">{p.title}</span>

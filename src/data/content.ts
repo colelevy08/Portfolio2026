@@ -84,6 +84,9 @@ export type ProjectBrand = {
   bg: string // plate background (hex)
   gradient?: string // optional CSS gradient for the wordmark
   wordmarkFont?: "sans" | "serif"
+  // Which mark the plate draws above the wordmark. Defaults to the quant
+  // candlesticks; "none" for products where that motif would mislead.
+  mark?: "quant" | "none"
 }
 
 export type Project = {
@@ -226,7 +229,7 @@ export const projects: Project[] = [
       "Members app + Admin CRM for a private champagne society — one React + Capacitor codebase built for iOS, Android, and the web.",
     description:
       "Capacitor-wrapped React + Vite app with a Supabase backend. Membership, RSVPs, ticketing, and a back-office CRM for the owner. The companion to the public-facing Bocage marketing site.",
-    repo: "https://github.com/colelevy08/BocageChampagneSociety",
+    isPrivate: true,
     live: "https://bocage-champagne-society.vercel.app",
     tags: ["React", "Vite", "Capacitor", "Supabase"],
   },
@@ -240,7 +243,7 @@ export const projects: Project[] = [
       "Marketing site for the Saratoga Springs restaurant I helped open — brunch, dinner, craft cocktails, in-house art gallery.",
     description:
       "Creative-American dining at 21 Phila St. Reservation flow, ticketed event listings, menu CMS, and a gallery rotation page. I helped launch the kitchen and I built the site.",
-    repo: "https://github.com/colelevy08/standard-fare",
+    isPrivate: true,
     live: "https://standardfaresaratoga.com",
     tags: ["React", "Vercel", "Supabase"],
   },
@@ -316,21 +319,44 @@ export const projects: Project[] = [
   {
     slug: "openprofile",
     title: "OpenProfile",
-    kind: "Open source",
-    category: "Open source",
+    kind: "Personal",
+    category: "Product",
     year: "2026",
     blurb:
       "A directory and AI-powered sync engine for the sovereign web — personal sites keep their own domains while an AI watches for changes and drafts micro-posts.",
     description:
       "In progress. Sites verify domain ownership, an AI engine diffs their content and auto-drafts micro-posts to a feed behind an approval queue, and approved posts can sync back to the owner's repo or webhook. Next.js + shadcn/ui front end with a Python/FastAPI indexer on Supabase.",
-    repo: "https://github.com/colelevy08/OpenProfile",
+    isPrivate: true,
     tags: ["Next.js", "TypeScript", "FastAPI", "Supabase"],
+    // No screenshot yet (in progress) — a branded plate keeps the grid's
+    // win-photo rhythm instead of a bare text box.
+    brand: {
+      tagline: "The sovereign web, indexed.",
+      accent: "#2f5fd0",
+      bg: "#0a1120",
+      wordmarkFont: "sans",
+      mark: "none",
+    },
   },
 ]
 
 // Client testimonials. REAL QUOTES ONLY — this section renders nothing while
 // the array is empty, and no placeholder/invented quote may ever ship. Add a
 // quote only with the client's permission, verbatim or lightly trimmed.
+//
+// THE ASK (send to each retainer client, then paste their reply verbatim):
+//   "Could you give me one or two sentences on what it's like working with
+//    me, for my portfolio site (colelevy.dev)? I'll quote you verbatim with
+//    your name and role — happy to show you the section before it goes up."
+//
+// Then add, e.g.:
+//   {
+//     quote: "…their exact words…",
+//     name: "First Last",
+//     role: "Owner, Standard Fare",
+//     project: "standard-fare",
+//   }
+// The section (with its silk chip + card styling) un-gates automatically.
 export type Testimonial = {
   quote: string
   name: string
