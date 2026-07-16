@@ -109,12 +109,12 @@ export const projects: Project[] = [
     blurb:
       "The MVP — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
     description:
-      "Self-serve SaaS: enter your website, get a live branded AI assistant in about a minute, then pay and it provisions itself — no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, an official WordPress plugin, Stripe subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds least-privilege integrations into real business systems behind it.",
+      "Self-serve SaaS: enter your website and get a live, branded AI assistant in about a minute. Built so a subscription provisions itself end to end — tier selected, assistant built, deployed — no human in the loop, no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, a WordPress plugin, Square subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds least-privilege integrations into real business systems behind it.",
     callout:
       "Try it live — the assistant in the corner of this page is a Portmint deployment. Open it and ask about my work.",
     live: "https://portmint.com",
     isPrivate: true,
-    tags: ["React", "TypeScript", "Python", "FastAPI", "Stripe", "Vercel"],
+    tags: ["React", "TypeScript", "Python", "FastAPI", "Square", "Vercel"],
     // Portmint's real brand: mint primary, mint→sky gradient, deep-ocean bg.
     brand: {
       tagline: "Your business's own AI.",
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     category: "Client retainer",
     year: "2026",
     blurb:
-      "Members app + Admin CRM for a private champagne society, shipped to iOS, Android, and web from a single codebase.",
+      "Members app + Admin CRM for a private champagne society — one React + Capacitor codebase built for iOS, Android, and the web.",
     description:
       "Capacitor-wrapped React + Vite app with a Supabase backend. Membership, RSVPs, ticketing, and a back-office CRM for the owner. The companion to the public-facing Bocage marketing site.",
     repo: "https://github.com/colelevy08/BocageChampagneSociety",
@@ -237,7 +237,7 @@ export const projects: Project[] = [
     blurb:
       "High-speed Polymarket copy-trading bot — whale identification, edge-verified Kelly sizing, WebSocket execution.",
     description:
-      "Python async pipeline that identifies profitable wallets on Polymarket, verifies edge against current order books, and copies positions Kelly-sized to the operator's bankroll. Real-money trading.",
+      "Python async pipeline that identifies profitable wallets on Polymarket, verifies edge against current order books, and copies positions Kelly-sized to the operator's bankroll. Built for real-money copy-trading under hard bankroll caps.",
     repo: "https://github.com/colelevy08/PolyBot",
     tags: ["Python", "asyncio", "WebSockets", "Trading"],
   },
@@ -471,7 +471,7 @@ export const skills: SkillGroup[] = [
   },
   {
     group: "Backend & data",
-    items: ["Python", "FastAPI", "Node.js", "Supabase", "Postgres", "SQLite", "Stripe"],
+    items: ["Python", "FastAPI", "Node.js", "Supabase", "Postgres", "SQLite", "Square"],
     proof: "Runs Portmint's platform and three client back offices.",
   },
   {
@@ -482,7 +482,7 @@ export const skills: SkillGroup[] = [
   {
     group: "Quant & trading",
     items: ["asyncio", "WebSockets", "Kelly sizing", "Backtesting", "Regime detection", "EV modeling"],
-    proof: "Proven in FableKalshi and PolyBot — real money, live markets.",
+    proof: "Built into FableKalshi and PolyBot — the fee-aware EV/Kelly core is open source (kalshi-edge).",
   },
   {
     group: "DevOps & hosting",
@@ -492,7 +492,7 @@ export const skills: SkillGroup[] = [
   {
     group: "Native & mobile",
     items: ["Swift / SwiftUI", "Capacitor (iOS/Android)", "PWA / offline", "Service Workers"],
-    proof: "Bocage Champagne Society ships iOS, Android, and web from one codebase.",
+    proof: "Bocage Champagne Society runs iOS, Android, and web builds from one Capacitor codebase.",
   },
 ]
 
@@ -540,13 +540,13 @@ export const sections: Record<
     eyebrow: "Feature races",
     headline: "The three I'd show first.",
     subhead:
-      "An MVP with paying customers, an AI handicapper built at the Saratoga track, and a quant system trading real money.",
+      "A self-provisioning SaaS platform, an AI handicapper with a public accuracy record, and a quant system with an open-source trading core.",
   },
   work: {
     eyebrow: "The field",
     headline: "The rest of the field.",
     subhead:
-      "Eight more entries — client retainers, real-money bots, developer tooling, and open source. Every post position filled.",
+      "Eight more entries — client retainers, trading bots, developer tooling, and open source. Every post position filled.",
   },
   testimonials: {
     eyebrow: "Word of mouth",
