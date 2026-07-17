@@ -143,7 +143,7 @@ export default function Footer() {
             <p className="text-amber">Social</p>
             {/* py-1.5 per link + no list gap ≈ 29px row pitch — clears the
                 WCAG 24px touch-target floor without changing the visual. */}
-            <ul className="mt-1.5 -space-y-0.5">
+            <ul className="mt-1.5">
               <li>
                 <a
                   href={profile.socials.linkedin}
@@ -191,24 +191,36 @@ export default function Footer() {
             <p className="text-amber">Index</p>
             {/* py-1.5 per link + no list gap ≈ 29px row pitch — clears the
                 WCAG 24px touch-target floor without changing the visual. */}
-            <ul className="mt-1.5 -space-y-0.5">
+            <ul className="mt-1.5">
               <li>
-                <a href="#featured" className="hover:text-accent transition-colors">
+                <a
+                  href="#featured"
+                  className="inline-block py-1.5 hover:text-accent transition-colors"
+                >
                   Work ↘
                 </a>
               </li>
               <li>
-                <a href="#skills" className="hover:text-accent transition-colors">
+                <a
+                  href="#skills"
+                  className="inline-block py-1.5 hover:text-accent transition-colors"
+                >
                   Skills ↘
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-accent transition-colors">
+                <a
+                  href="#about"
+                  className="inline-block py-1.5 hover:text-accent transition-colors"
+                >
                   About ↘
                 </a>
               </li>
               <li>
-                <a href="#path" className="hover:text-accent transition-colors">
+                <a
+                  href="#path"
+                  className="inline-block py-1.5 hover:text-accent transition-colors"
+                >
                   Path ↘
                 </a>
               </li>

@@ -56,10 +56,11 @@ export default function Header() {
   return (
     <header className="sticky inset-x-0 top-0 z-50 border-b border-line bg-bg-2/95 backdrop-blur-md">
       <nav className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3.5">
+        {/* No aria-label: the visible text ("Cole Levy Saratoga Springs") IS
+            the accessible name — an abbreviated label mismatches it (WCAG 2.5.3). */}
         <a
           href="#top"
           className="group inline-flex items-baseline gap-3 transition-colors hover:text-awning"
-          aria-label={`${profile.name} — home`}
         >
           <span className="font-display text-lg leading-none">
             {profile.name}

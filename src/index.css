@@ -308,7 +308,9 @@ body {
     font-size: 0.68rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    /* ink-2 (not muted): small caps on the dark island need ≥4.5:1 —
+       muted #8b9080 fails WCAG AA there (Lighthouse color-contrast). */
+    color: var(--color-ink-2);
   }
 
   .board-value {
