@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties, type MouseEvent } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { hero, profile } from '../data/content'
@@ -25,6 +25,19 @@ function TrackClock() {
   // Amber marks it as live board data, visually distinct from the muted
   // title beside it — on mobile the two would otherwise read as one string.
   return <span className="tabular-nums text-amber/75">{now} ET</span>
+}
+
+// Deterministic anchor jump: land the proof card just below the sticky
+// header (scroll-margin proved unreliable on transformed reveal targets).
+// The href stays on the link, so middle-click/no-JS still work.
+function jumpToProof(e: MouseEvent<HTMLAnchorElement>, to: string) {
+  const el = document.querySelector(to)
+  if (!el) return
+  e.preventDefault()
+  const top = el.getBoundingClientRect().top + window.scrollY - 100
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' })
+  history.replaceState(null, '', to)
 }
 
 export default function Hero() {
@@ -71,24 +84,41 @@ export default function Hero() {
               <TrackClock />
             </span>
           </div>
-          {/* dt precedes dd in the DOM (valid HTML, label-first for screen
-              readers); flex-col-reverse keeps the bulb value on top visually. */}
-          <dl className="grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
-            {hero.board.map((cell, i) => (
-              <div
-                key={cell.label}
-                className="board-cell flex flex-col-reverse gap-2.5 bg-bg-2/70 px-5 py-5 sm:py-6"
-              >
-                <dt className="board-title">{cell.label}</dt>
-                <dd
-                  className="board-value tote-in text-3xl sm:text-4xl"
-                  style={{ '--d': `${0.15 + i * 0.12}s` } as CSSProperties}
-                >
-                  {cell.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          {/* Each cell is the claim AND the receipt: cells with a `to` anchor
+              jump to the spot on the page that backs the number up. */}
+          <ul className="grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
+            {hero.board.map((cell, i) => {
+              const inner = (
+                <>
+                  <span
+                    className="board-value tote-in text-3xl sm:text-4xl"
+                    style={{ '--d': `${0.15 + i * 0.12}s` } as CSSProperties}
+                  >
+                    {cell.value}
+                  </span>
+                  <span className="board-title">{cell.label}</span>
+                </>
+              )
+              return (
+                <li key={cell.label} className="contents">
+                  {cell.to ? (
+                    <a
+                      href={cell.to}
+                      onClick={(e) => jumpToProof(e, cell.to)}
+                      title="Checkable — jump to the proof on this page"
+                      className="board-cell flex flex-col gap-2.5 bg-bg-2/70 px-5 py-5 transition-colors hover:bg-bg-3/60 sm:py-6"
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <div className="board-cell flex flex-col gap-2.5 bg-bg-2/70 px-5 py-5 sm:py-6">
+                      {inner}
+                    </div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
           <div className="border-t border-line px-5 py-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2">
               <span className="text-accent">▸</span> {hero.status}

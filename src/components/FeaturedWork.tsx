@@ -65,7 +65,10 @@ function FeaturedCard({
         ease: [0.2, 0.8, 0.2, 1],
       }}
       style={cardStyle}
-      className={`lift-brand flex flex-col overflow-hidden rounded-lg border border-line bg-bg-2 ${
+      // #post-N anchors let the tote board's cells jump straight to the card
+      // that proves their number; scroll-mt clears the sticky header.
+      id={`post-${post}`}
+      className={`lift-brand flex scroll-mt-24 flex-col overflow-hidden rounded-lg border border-line bg-bg-2 ${
         wide ? 'lg:flex-row' : ''
       }`}
     >

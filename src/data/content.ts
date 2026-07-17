@@ -39,12 +39,13 @@ export const hero = {
   status: "Now building Portmint — a self-serve platform for branded AI assistants.",
   // The tote board: label + value pairs, rendered as bulb-lit board cells.
   // Every figure here must be independently checkable — that's the OFFICIAL
-  // rule (races graded on handaicapper.com/record; repos linked on-page).
+  // rule — so each cell links to its proof: `to` jumps to the spot on the
+  // page where the number is backed up (featured posts carry #post-N ids).
   board: [
-    { label: "Projects shipped", value: "15+" },
-    { label: "Client retainers", value: "3" },
-    { label: "Races graded on record", value: "1,100+" },
-    { label: "Kalshi bot running", value: "24/7" },
+    { label: "Projects shipped", value: "15+", to: "#featured" },
+    { label: "Client retainers", value: "3", to: "#work" },
+    { label: "Races graded on record", value: "1,100+", to: "#post-2" },
+    { label: "Kalshi bot running", value: "24/7", to: "#post-3" },
   ],
   // The stewards' line under the board — the motif's one global statement.
   official:
