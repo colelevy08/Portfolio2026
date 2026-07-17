@@ -2,9 +2,11 @@ import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import { aboutParagraphs, motto, profile, sections } from '../data/content'
 import colePicture from '../assets/colelevypicture.png'
+import { useTilt } from '../lib/useTilt'
 import SectionHead from './SectionHead'
 
 export default function About() {
+  const tilt = useTilt()
   return (
     <section id="about" className="relative px-4 py-20 sm:px-6 sm:py-28">
       <div>
@@ -19,7 +21,7 @@ export default function About() {
         >
           {/* Portrait + facts column */}
           <aside className="col-span-12 sm:col-span-4 lg:col-span-3">
-            <div className="plate aspect-[4/5] w-full max-w-[280px]">
+            <div className="plate aspect-[4/5] w-full max-w-[280px]" {...tilt}>
               <img
                 src={colePicture}
                 alt="Cole Levy"
