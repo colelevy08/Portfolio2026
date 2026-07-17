@@ -62,6 +62,14 @@ export const ui = {
   photoFinish: "Photo finish",
 }
 
+// The contact form's success state — a punched pari-mutuel win ticket.
+export const contactSuccess = {
+  header: "Saratoga · The summer meet · Official ticket",
+  headline: "Ticket punched.",
+  body: "Message received — I'll get back to you shortly, usually the same day.",
+  footer: "Win · Race 2026 · Post anytime",
+}
+
 // Saratoga Springs' real town motto — set as a program rubric in About and
 // again in the footer. Rendered with brass middots between the words.
 export const motto = ["Health", "History", "Horses"]

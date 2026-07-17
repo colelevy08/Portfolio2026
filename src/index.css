@@ -35,6 +35,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor jumps land targets below the sticky header (nav + rail). */
+  scroll-padding-top: 96px;
   background: var(--color-bg);
 }
 

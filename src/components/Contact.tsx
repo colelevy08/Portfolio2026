@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { useForm, ValidationError } from '@formspree/react'
 import type { SubmissionError, FieldValues } from '@formspree/core'
-import { CheckCircle2, ArrowUpRight } from 'lucide-react'
-import { profile, sections } from '../data/content'
+import { ArrowUpRight } from 'lucide-react'
+import { contactSuccess, profile, sections } from '../data/content'
 import SectionHead from './SectionHead'
 
 type FormErrors = SubmissionError<FieldValues> | null
@@ -72,15 +72,31 @@ export default function Contact() {
           <div className="col-span-12 sm:col-span-7 lg:col-span-7 lg:col-start-6">
             <p className="eyebrow mb-6">Or write here</p>
             {state.succeeded ? (
-              <div className="flex flex-col items-start gap-3 border-l-2 border-accent pl-6 py-2">
-                <CheckCircle2 size={24} className="text-accent" />
-                <h3 className="font-serif text-2xl tracking-tight">
-                  Message received.
-                </h3>
-                <p className="text-ink-2 text-[15px] leading-[1.6]">
-                  Thanks — I'll get back to you shortly.
+              // The win ticket — punched the moment the message lands.
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, rotate: -4 }}
+                animate={{ opacity: 1, scale: 1, rotate: -1 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                className="relative max-w-md rounded-lg border-2 border-dashed border-line-2 bg-bg px-6 py-5"
+              >
+                {/* the punch — a hole clipped through the ticket */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-dashed border-line-2 bg-bg-2"
+                />
+                <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-muted">
+                  {contactSuccess.header}
                 </p>
-              </div>
+                <h3 className="font-display mt-3 text-3xl text-accent">
+                  {contactSuccess.headline}
+                </h3>
+                <p className="mt-2 text-[15px] leading-[1.6] text-ink-2">
+                  {contactSuccess.body}
+                </p>
+                <div className="mt-4 border-t border-line pt-3 font-mono text-[9px] uppercase tracking-[0.24em] text-muted">
+                  {contactSuccess.footer}
+                </div>
+              </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <Field
