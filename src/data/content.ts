@@ -43,7 +43,7 @@ export const hero = {
   board: [
     { label: "Projects shipped", value: "15+" },
     { label: "Client retainers", value: "3" },
-    { label: "Races graded in public", value: "1,100+" },
+    { label: "Races graded on record", value: "1,100+" },
     { label: "Kalshi bot running", value: "24/7" },
   ],
   // The stewards' line under the board — the motif's one global statement.
@@ -57,6 +57,8 @@ export const hero = {
 // all site text stays in this one typed file.
 export const ui = {
   skipToContent: "Skip to content",
+  // Flashes on the header rail the moment the horse (scroll) reaches the wire.
+  photoFinish: "Photo finish",
 }
 
 // Saratoga Springs' real town motto — set as a program rubric in About and
@@ -163,13 +165,15 @@ export const projects: Project[] = [
     description:
       "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and generates natural-language pace and trip analysis with AI. The hometown project: built at the track it handicaps.",
     callout:
-      "Every pick is graded in public — the track record at handaicapper.com/record scores model vs. AI vs. blend vs. the market on official charts.",
+      "Every pick is graded — the track record at handaicapper.com/record scores model vs. AI vs. blend vs. the market on official charts.",
     steward: [
-      "Public scoreboard: Brier score, log-loss, hit rate, flat-$2 ROI",
+      "Scoreboard: Brier score, log-loss, hit rate, flat-$2 ROI",
       "Graded against official result charts, not self-reported",
       "1,100+ graded races across 80+ tracks; nightly recalibration",
     ],
-    proof: [{ label: "Public track record", href: "https://handaicapper.com/record" }],
+    proof: [
+      { label: "Track record (free account)", href: "https://handaicapper.com/record" },
+    ],
     isPrivate: true,
     live: "https://handaicapper.com",
     tags: ["React", "Vite", "FastAPI", "Claude AI"],

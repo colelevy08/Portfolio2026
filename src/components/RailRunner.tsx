@@ -8,6 +8,7 @@ import {
   useTransform,
   useVelocity,
 } from 'framer-motion'
+import { ui } from '../data/content'
 
 // The rail under the nav: a horse-and-jockey runs the stretch as you scroll,
 // past six furlong ticks, toward the checkered wire at the far end. Scroll
@@ -49,6 +50,13 @@ export default function RailRunner() {
       stopTimer.current = window.setTimeout(() => setRunning(false), 240)
     }
   })
+
+  // The finish: the first time the horse reaches the wire (the reader hit the
+  // bottom of the page), the photo-finish camera fires — once per visit.
+  const [finished, setFinished] = useState(false)
+  useMotionValueEvent(progress, 'change', (v) => {
+    if (!reduce && v >= 0.985) setFinished(true)
+  })
   useEffect(
     () => () => {
       if (stopTimer.current !== null) window.clearTimeout(stopTimer.current)
@@ -82,6 +90,27 @@ export default function RailRunner() {
           boxShadow: 'inset 0 0 0 1px #1f2a24',
         }}
       />
+
+      {/* the photo-finish camera fires once, when the horse hits the wire */}
+      {finished && (
+        <>
+          <motion.span
+            className="pointer-events-none absolute bottom-[3px] right-[3px] h-3 w-3 rounded-full bg-[#fffdf6]"
+            style={{ boxShadow: '0 0 16px 7px rgba(255, 253, 246, 0.85)' }}
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={{ opacity: [0, 1, 0], scale: [0.4, 1.5, 1.9] }}
+            transition={{ duration: 0.55, ease: 'easeOut' }}
+          />
+          <motion.span
+            className="pointer-events-none absolute bottom-[5px] right-[96px] font-mono text-[8px] uppercase tracking-[0.24em] text-ink"
+            initial={{ opacity: 0, x: 6 }}
+            animate={{ opacity: [0, 1, 1, 0], x: 0 }}
+            transition={{ duration: 2, times: [0, 0.12, 0.7, 1] }}
+          >
+            {ui.photoFinish}
+          </motion.span>
+        </>
+      )}
 
       {/* horse track stops short of the wire by the horse's own width */}
       <div className="absolute inset-y-0 left-0 right-[48px]">
