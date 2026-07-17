@@ -4,6 +4,7 @@ import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
+import { useTilt } from '../lib/useTilt'
 import SectionHead from './SectionHead'
 import BrandPlate from './brand/BrandPlate'
 import PortmintMark from './brand/PortmintMark'
@@ -43,6 +44,7 @@ function FeaturedCard({
 }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
+  const tilt = useTilt()
   const accent = p.brand?.accent
   // Post position = place in the full field (featured cards are posts 1–3).
   const post = projects.indexOf(p) + 1
@@ -114,11 +116,14 @@ function FeaturedCard({
               rel="noreferrer"
               aria-label={`${p.title} — open`}
               className="plate block aspect-[16/10]"
+              {...tilt}
             >
               {plateInner}
             </a>
           ) : (
-            <div className="plate block aspect-[16/10]">{plateInner}</div>
+            <div className="plate block aspect-[16/10]" {...tilt}>
+              {plateInner}
+            </div>
           )
         })()}
         <motion.span

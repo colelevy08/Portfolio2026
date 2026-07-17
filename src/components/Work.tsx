@@ -4,6 +4,7 @@ import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
+import { useTilt } from '../lib/useTilt'
 import SectionHead from './SectionHead'
 import BrandPlate from './brand/BrandPlate'
 
@@ -28,6 +29,7 @@ export default function Work() {
 function ProjectCard({ p, index }: { p: Project; index: number }) {
   const shot = shotFor(p.slug)
   const primary = p.live ?? p.repo
+  const tilt = useTilt()
   // Post position continues from the feature races (posts 1–3).
   const post = projects.indexOf(p) + 1
   const silk = silkFor(post)
@@ -88,11 +90,14 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
               rel="noreferrer"
               aria-label={`${p.title} — open`}
               className="plate block aspect-[16/10] w-full"
+              {...tilt}
             >
               {plateInner}
             </a>
           ) : (
-            <div className="plate block aspect-[16/10] w-full">{plateInner}</div>
+            <div className="plate block aspect-[16/10] w-full" {...tilt}>
+              {plateInner}
+            </div>
           )
         })()}
         <motion.span
