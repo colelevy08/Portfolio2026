@@ -44,7 +44,7 @@ export const hero = {
   board: [
     { label: "Projects shipped", value: "15+", to: "#featured" },
     { label: "Client retainers", value: "3", to: "#work" },
-    { label: "Races graded on record", value: "1,100+", to: "#post-2" },
+    { label: "Brier vs the morning line", value: ".777", to: "#post-1" },
     { label: "Kalshi bot running", value: "24/7", to: "#post-3" },
   ],
   // The stewards' line under the board — the motif's one global statement.
@@ -104,7 +104,7 @@ export const motto = ["Health", "History", "Horses"]
 export const aboutParagraphs = [
   "I build the web layer for small businesses that need to look serious on day one — restaurants, insurance practices, members clubs. Three of those are on retainer right now.",
   "Before the bootcamp at Flatiron School (2023) I studied Communication at SUNY Geneseo, with semesters at La Sorbonne and Sciences Po. The communication degree is why my interfaces read clearly; the dev work is what makes them ship.",
-  "When I'm off the client clock I write trading bots against prediction markets, build a horse-racing analytics PWA for the Saratoga track, and run kitchens. I currently assistant-manage Standard Fare, a restaurant I helped launch in 2025.",
+  "When I'm off the client clock I write trading bots against prediction markets, point a handicapping model at every horse track in the world, and run kitchens. I currently assistant-manage Standard Fare, a restaurant I helped launch in 2025.",
 ]
 
 export type ProjectCategory =
@@ -159,6 +159,40 @@ export type ProofLink = { label: string; href: string }
 
 export const projects: Project[] = [
   {
+    slug: "handaicapper",
+    title: "handAIcapper",
+    kind: "Personal",
+    category: "Quant & trading",
+    year: "2025",
+    featured: true,
+    blurb:
+      "The magnum opus — a quantitative handicapping engine covering every horse track in the world, running with its nose in front of the track's own morning line.",
+    description:
+      "A PWA + FastAPI backend that ingests entries, odds, and result charts worldwide, ranks every field first to last, and stores every prediction for grading. On the graded record the model's Brier score is .777 to the morning line's .778 (lower is better) — a photo-finish margin over the benchmark the tracks themselves publish, and improving with nightly recalibration. Kelly-fraction stake sizing and AI pace-and-trip analysis ride on top. The hometown project: born at the Saratoga track.",
+    callout:
+      "Every pick is graded — the track record at handaicapper.com/record scores the model against the morning line on official charts. Brier .777 vs .778 as of July 2026.",
+    steward: [
+      "Nose in front of the morning line — Brier .777 vs .778 (Jul 2026)",
+      "Every field ranked first to last; predictions stored in full",
+      "Graded against official result charts, not self-reported",
+      "1,100+ graded races on the record; nightly recalibration",
+    ],
+    proof: [
+      { label: "Track record (free account)", href: "https://handaicapper.com/record" },
+    ],
+    isPrivate: true,
+    live: "https://handaicapper.com",
+    tags: ["React", "Vite", "FastAPI", "Claude AI"],
+    // handAIcapper runs in the site's own colors — awning red on infield
+    // green, the Saratoga project wearing the Saratoga silks.
+    brand: {
+      tagline: "The program, computed.",
+      accent: "#c03428",
+      bg: "#0b1d15",
+      wordmarkFont: "serif",
+    },
+  },
+  {
     slug: "portmint",
     title: "Portmint",
     kind: "Personal",
@@ -166,7 +200,7 @@ export const projects: Project[] = [
     year: "2026",
     featured: true,
     blurb:
-      "The MVP — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
+      "The venture — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
     description:
       "Self-serve SaaS: enter your website and get a live, branded AI assistant in about a minute. Built so a subscription provisions itself end to end — tier selected, assistant built, deployed — no human in the loop, no redeploy. Auto-install flows for Shopify, WordPress, Wix, Squarespace, and Webflow, a WordPress plugin, Square subscription tiers, and a self-serve CRM for captured leads. React + serverless front of house; a Python/FastAPI platform builds least-privilege integrations into real business systems behind it.",
     callout:
@@ -187,39 +221,6 @@ export const projects: Project[] = [
       bg: "#06090f",
       gradient: "linear-gradient(115deg, #5cf0c4, #34e0b3 45%, #0ea5e9)",
       wordmarkFont: "sans",
-    },
-  },
-  {
-    slug: "handaicapper",
-    title: "handAIcapper",
-    kind: "Personal",
-    category: "Quant & trading",
-    year: "2025",
-    featured: true,
-    blurb:
-      "Pro-grade horse-racing handicapping for NYRA tracks — Kelly stake sizing, pace analysis, live odds, AI race commentary. Built on the Saratoga meet.",
-    description:
-      "A PWA + FastAPI backend that ingests live odds and race cards, runs Kelly-fraction stake sizing on edge-positive races, and generates natural-language pace and trip analysis with AI. The hometown project: built at the track it handicaps.",
-    callout:
-      "Every pick is graded — the track record at handaicapper.com/record scores model vs. AI vs. blend vs. the market on official charts.",
-    steward: [
-      "Scoreboard: Brier score, log-loss, hit rate, flat-$2 ROI",
-      "Graded against official result charts, not self-reported",
-      "1,100+ graded races across 80+ tracks; nightly recalibration",
-    ],
-    proof: [
-      { label: "Track record (free account)", href: "https://handaicapper.com/record" },
-    ],
-    isPrivate: true,
-    live: "https://handaicapper.com",
-    tags: ["React", "Vite", "FastAPI", "Claude AI"],
-    // handAIcapper runs in the site's own colors — awning red on infield
-    // green, the Saratoga project wearing the Saratoga silks.
-    brand: {
-      tagline: "The program, computed.",
-      accent: "#c03428",
-      bg: "#0b1d15",
-      wordmarkFont: "serif",
     },
   },
   {
@@ -650,7 +651,7 @@ export const sections: Record<
     eyebrow: "Feature races",
     headline: "The three I'd show first.",
     subhead:
-      "A self-provisioning SaaS platform, an AI handicapper with a public accuracy record, and a quant system with an open-source trading core.",
+      "An AI handicapper a nose in front of the morning line worldwide, a self-provisioning SaaS platform, and a quant system with an open-source trading core.",
   },
   work: {
     eyebrow: "The field",
