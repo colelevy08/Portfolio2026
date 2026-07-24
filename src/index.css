@@ -334,6 +334,15 @@ body {
     animation: bulb-flicker 0.5s ease-out;
   }
 
+  /* Post time — while the bugle call plays (Hero toggles .post-time), every
+     cell flickers once in its tote-in stagger order, the board "lighting up"
+     for the race. Animates the CELL (not .board-value) so it never collides
+     with the value's own tote-in animation; --d is the cell's stagger delay. */
+  .post-time .board-cell {
+    animation: bulb-flicker 0.55s ease-out;
+    animation-delay: var(--d, 0s);
+  }
+
   /* -------------------------------------------------------------------------
      Saddle-cloth chip — every project takes a post position, numbered in the
      real saddle-cloth colors (1 red, 2 white, 3 royal blue…). Colors are set
@@ -560,6 +569,7 @@ body {
   .tote-in,
   .scotch-draw,
   .board-cell:hover .board-value,
+  .post-time .board-cell,
   .running .horse-frame-a,
   .running .horse-frame-b,
   .running .dust {

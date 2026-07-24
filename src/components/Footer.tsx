@@ -1,13 +1,65 @@
 import { Fragment } from 'react'
 import type { CSSProperties } from 'react'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+  type MotionValue,
+} from 'framer-motion'
 import { motto, profile, projects, stack } from '../data/content'
 import { silkFor, silkShadow } from '../lib/silks'
+
+// Each pennant answers the gust a little differently — same wind, different
+// cloth — so the row ripples instead of swinging as one rigid unit.
+const PENNANT_CLOTH = [1, 0.78, 1.18, 0.88, 1.06]
+
+// One pennant, hinged at its hoist (the pole side). `gust` is the shared
+// wind signal; `cloth` scales how much this flag answers it.
+function Pennant({
+  u,
+  gust,
+  cloth,
+}: {
+  u: number
+  gust: MotionValue<number>
+  cloth: number
+}) {
+  const rotate = useTransform(gust, (deg) => deg * cloth)
+  return (
+    <motion.path
+      d={`M${u + 120} 10 L${u + 139} 13.5 L${u + 120} 17 Z`}
+      fill="var(--color-amber)"
+      opacity="0.55"
+      style={{ rotate, transformBox: 'fill-box', transformOrigin: '0% 50%' }}
+    />
+  )
+}
 
 // The grandstand roofline in chalk — gabled peaks, gold finials, and amber
 // pennants against the dark island, the one architectural Saratoga signifier
 // on the page.
+//
+// The pennants feel the wind of your scroll: scroll velocity maps to a gust
+// angle and runs through a deliberately underdamped spring, so a fast flick
+// of the page deflects the flags, overshoots, flutters, and settles. Springs
+// sleep once settled — at rest this costs nothing per frame.
 function Roofline() {
   const gables = [0, 240, 480, 720, 960]
+  const reduce = useReducedMotion()
+
+  const { scrollY } = useScroll()
+  const velocity = useVelocity(scrollY)
+  // px/s of page movement → degrees of gust. Scrolling down lifts the flags
+  // into the wind; scrolling back up drops them the other way. The spring is
+  // underdamped on purpose (damping 7): that overshoot IS the flutter.
+  const windTarget = useTransform(velocity, [-2400, 0, 2400], [13, 0, -13], {
+    clamp: true,
+  })
+  const gust = useSpring(windTarget, { stiffness: 130, damping: 7, mass: 0.45 })
+
   return (
     <svg
       viewBox="0 0 1200 64"
@@ -30,7 +82,7 @@ function Roofline() {
           </g>
         ))}
       </g>
-      {gables.map((u) => (
+      {gables.map((u, i) => (
         <g key={u}>
           <circle
             cx={u + 120}
@@ -39,11 +91,15 @@ function Roofline() {
             fill="var(--color-brass)"
             opacity="0.8"
           />
-          <path
-            d={`M${u + 120} 10 L${u + 139} 13.5 L${u + 120} 17 Z`}
-            fill="var(--color-amber)"
-            opacity="0.55"
-          />
+          {reduce ? (
+            <path
+              d={`M${u + 120} 10 L${u + 139} 13.5 L${u + 120} 17 Z`}
+              fill="var(--color-amber)"
+              opacity="0.55"
+            />
+          ) : (
+            <Pennant u={u} gust={gust} cloth={PENNANT_CLOTH[i]} />
+          )}
         </g>
       ))}
     </svg>

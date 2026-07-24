@@ -60,6 +60,33 @@ export const ui = {
   skipToContent: "Skip to content",
   // Flashes on the header rail the moment the horse (scroll) reaches the wire.
   photoFinish: "Photo finish",
+  // The bugle button on the tote board (accessible name — the button is icon-only).
+  callToPost: "Sound the call to the post",
+  // Lights up beside the board title while the call plays.
+  postTime: "Post time",
+}
+
+// The railbird's console easter egg — everything printed to DevTools lives
+// here. The race call is theater and says so; the honest numbers stay on the
+// tote board upstairs.
+export const railbird = {
+  header: "SARATOGA · THE OFFICIAL PROGRAM · COLELEVY.DEV",
+  sub: "You found the railbird's seat.",
+  hint: "Type race() to call the ninth — the feature race.",
+  off: "🏇 And they're off at Saratoga!",
+  // Announcer segments in running order. {a} {b} {c} are the current
+  // 1st/2nd/3rd as the simulated field sorts itself out.
+  calls: [
+    "{a} breaks on top, {b} right there, {c} settles just off the pace…",
+    "Into the clubhouse turn — {a} by a length, {b} saving ground on the rail…",
+    "Down the backstretch, {b} is rolling on the outside, {a} digs in…",
+    "They turn for home — {a} and {b} head and head at the eighth pole…",
+    "Inside the sixteenth… down to the wire…",
+  ],
+  photo: "▚▚ PHOTO FINISH ▚▚",
+  official: "OFFICIAL",
+  outro:
+    "The race call is theater. The numbers on the board upstairs are real — every one is checkable on the page.",
 }
 
 // The contact form's success state — a punched pari-mutuel win ticket.
