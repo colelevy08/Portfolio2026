@@ -565,6 +565,43 @@ export const stack = {
   source: "github.com/colelevy08/Portfolio2026",
 }
 
+export type CertGroup = {
+  issuer: string
+  meta: string
+  items: string[]
+}
+
+// Licenses & certifications, grouped by issuer — the resume's own grouping,
+// not re-split into 21 individual lines. Consumed by Certifications.tsx.
+export const certifications: CertGroup[] = [
+  {
+    issuer: "CompTIA",
+    meta: "Issued Apr 2025 · expires Apr 2028",
+    items: ["A+ ce"],
+  },
+  {
+    issuer: "IBM",
+    meta: "Issued Aug 2026",
+    items: ["Introduction to Artificial Intelligence (AI)"],
+  },
+  {
+    issuer: "Anthropic",
+    meta: "21 certifications · Jul–Aug 2026",
+    items: [
+      "Claude 101",
+      "Claude Code 101",
+      "Claude Code in Action",
+      "Claude Platform 101",
+      "Building with the Claude API",
+      "Claude in Amazon Bedrock",
+      "Claude on Google Cloud",
+      "MCP: Intro & Advanced Topics",
+      "Subagents, Agent Skills & Claude Cowork (Intros)",
+      "AI Fluency series (Framework & Foundations, Capabilities & Limitations, Builders, Students, Educators, K-12 Educators, Small Businesses, Nonprofits, Teaching the Framework)",
+    ],
+  },
+]
+
 export type SkillGroup = {
   group: string
   items: string[]
@@ -644,6 +681,7 @@ export const sections: Record<
   | "ai"
   | "about"
   | "path"
+  | "certifications"
   | "contact",
   SectionHeading
 > = {
@@ -683,6 +721,12 @@ export const sections: Record<
     eyebrow: "Form",
     headline: "Past performances.",
     subhead: "Kitchen pass to Paris to Flatiron, and back again.",
+  },
+  certifications: {
+    eyebrow: "Papers",
+    headline: "Licensed and certified.",
+    subhead:
+      "A trade license and 22 vendor courses — 21 of them Anthropic's, earned building this page and handAIcapper with Claude Code in the loop.",
   },
   contact: {
     eyebrow: "Contact",

@@ -24,6 +24,9 @@ const SECTION_TO_LINK: Record<string, string> = {
   ai: '#skills',
   about: '#about',
   path: '#path',
+  // The certifications papers close out the same "form guide" as Path, so
+  // they ride with it rather than claiming a nav slot of their own.
+  certifications: '#path',
   contact: '#contact',
 }
 

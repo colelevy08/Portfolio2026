@@ -9,12 +9,13 @@ import Skills from './components/Skills'
 import AIWorkflow from './components/AIWorkflow'
 import About from './components/About'
 import Path from './components/Path'
+import Certifications from './components/Certifications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import PortmintWidget from './components/PortmintWidget'
 
 // Furlong-pole divider between major sections. The labels count down the
-// stretch — 6F at the top of the card to 1F before the turn for home — and
+// stretch — 7F at the top of the card to 1F before the turn for home — and
 // the pole stripes follow the real scheme: quarter poles red/white (even
 // furlongs), eighth poles green/white (odd).
 function Divider({ furlong }: { furlong: number }) {
@@ -80,19 +81,21 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
-        <Divider furlong={6} />
+        <Divider furlong={7} />
         <FeaturedWork />
-        <Divider furlong={5} />
+        <Divider furlong={6} />
         <Work />
         <Testimonials />
-        <Divider furlong={4} />
+        <Divider furlong={5} />
         <Skills />
-        <Divider furlong={3} />
+        <Divider furlong={4} />
         <AIWorkflow />
-        <Divider furlong={2} />
+        <Divider furlong={3} />
         <About />
-        <Divider furlong={1} />
+        <Divider furlong={2} />
         <Path />
+        <Divider furlong={1} />
+        <Certifications />
         <Wire />
         <Contact />
       </main>
