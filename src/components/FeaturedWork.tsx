@@ -1,13 +1,15 @@
-import type { CSSProperties } from 'react'
+import { useSyncExternalStore, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
 import { projects, sections, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
+import { getMarks, subscribe } from '../lib/program'
 import { useTilt } from '../lib/useTilt'
 import SectionHead from './SectionHead'
 import BrandPlate from './brand/BrandPlate'
 import PortmintMark from './brand/PortmintMark'
+import ProgramPencil, { InkLoop } from './ProgramPencil'
 
 const featured = projects.filter((p) => p.featured)
 // The favorite (post 1) runs alone on a full-width card; posts 2–3 pair up
@@ -49,6 +51,7 @@ function FeaturedCard({
   // Post position = place in the full field (featured cards are posts 1–3).
   const post = projects.indexOf(p) + 1
   const silk = silkFor(post)
+  const marked = useSyncExternalStore(subscribe, getMarks, getMarks).includes(post)
   const cardStyle = accent
     ? ({ '--card-accent': accent } as CSSProperties)
     : undefined
@@ -149,7 +152,9 @@ function FeaturedCard({
           >
             {post}
           </span>
+          <InkLoop marked={marked} />
         </motion.span>
+        <ProgramPencil post={post} title={p.title} />
       </div>
 
       {/* Body */}
@@ -158,9 +163,23 @@ function FeaturedCard({
           wide ? 'lg:justify-center lg:p-10' : ''
         }`}
       >
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
-          Post {post} · {p.year} · {p.category}
-          {post === 1 && ' · The favorite'}
+        {/* The running line: who this is on the left, what I make it on the
+            right. "The favorite" on post 1 is what teaches a reader who has
+            never opened a program what 6-5 means. */}
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
+            Post {post} · {p.year} · {p.category}
+            {post === 1 && ' · The favorite'}
+          </p>
+          {/* what I make this entry — the price, set off to the right */}
+          <p className="font-mono text-[13px] tracking-[0.08em] text-ink">
+            {p.odds}
+          </p>
+        </div>
+
+        {/* the handicapper's one-clause comment */}
+        <p className="mt-2 max-w-[52ch] font-serif text-[13px] italic leading-snug text-muted">
+          {p.line}
         </p>
 
         <h3

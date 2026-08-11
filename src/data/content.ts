@@ -26,6 +26,20 @@ export const profile = {
   },
 }
 
+// The one number the whole site rests on: handAIcapper's Brier score against
+// the track's own morning line. It appears in the hero board, the featured
+// card, the tack room, and the photo-finish section — every one of those spots
+// interpolates THESE values, so the snapshot is refreshed in a single place.
+// Lower is better; the margin is one thousandth of a point and recalibrates
+// nightly, which is why the date ships with the figures.
+export const brier = {
+  model: ".777",
+  line: ".778",
+  races: "1,100+",
+  asOf: "July 2026",
+  record: "https://handaicapper.com/record",
+}
+
 // Hero copy. Lives here (not hardcoded in Hero.tsx) so all site copy stays in
 // one typed file — the headline renders as three lines with an accent-italic
 // middle clause.
@@ -44,7 +58,10 @@ export const hero = {
   board: [
     { label: "Projects shipped", value: "15+", to: "#featured" },
     { label: "Client retainers", value: "3", to: "#work" },
-    { label: "Brier vs the morning line", value: ".777", to: "#post-1" },
+    // "Lower wins" does the work a Brier score can't do for itself — and the
+    // cell jumps to the photo-finish print, which shows the margin instead of
+    // asserting it.
+    { label: "Brier — lower wins", value: brier.model, to: "#photo" },
     { label: "Kalshi bot running", value: "24/7", to: "#post-3" },
   ],
   // The stewards' line under the board — the motif's one global statement.
@@ -64,6 +81,14 @@ export const ui = {
   callToPost: "Sound the call to the post",
   // Lights up beside the board title while the call plays.
   postTime: "Post time",
+  // Printed above the field. A morning line is the track handicapper's own
+  // forecast of betting interest — so this one has to disclose the obvious
+  // conflict: the handicapper setting it is also one of the entries.
+  morningLine:
+    "The morning line is my forecast of interest, not a grade — and I set it while standing in the field, which is exactly the conflict a program is supposed to print. Short prices ship today and are checkable now; long prices are early. Every one of them is clickable.",
+  // Accessible names for the program pencil. {title} is the entry's name.
+  markEntry: "Mark {title} on your program",
+  eraseEntry: "Erase your mark on {title}",
 }
 
 // The railbird's console easter egg — everything printed to DevTools lives
@@ -89,6 +114,54 @@ export const railbird = {
     "The race call is theater. The numbers on the board upstairs are real — every one is checkable on the page.",
 }
 
+// "The stewards have the photo" — the site owns a photo-finish motif in five
+// places and has exactly one genuine photo finish in its content: Brier .777
+// against the morning line's .778. This section is that print. Because a Brier
+// score is a number where LOWER wins, .777 reads like a loss to anyone who
+// doesn't already know; seeing the nose in front settles it without a sentence
+// of explanation.
+export const thePhoto = {
+  eyebrow: "The stewards have the photo",
+  headline: "A nose.",
+  intro: `The morning line is the track's own published forecast — a professional handicapper, paid, working from the same charts I have. Over ${brier.races} graded races my model scored ${brier.model} against his ${brier.line}. Lower wins. One thousandth of a point is the kind of margin they develop the photo for, and it is the whole difference between having an opinion about horses and having a record.`,
+  scrubLabel: "Develop the photo",
+  slug: "Saratoga · Wire cam",
+  // The chart under the print. Post 1 is handAIcapper's own saddle cloth;
+  // post 11 (grey) stands in for the track's line.
+  result: [
+    { place: "1", post: 1, name: "handAIcapper", figure: `Brier ${brier.model}` },
+    { place: "2", post: 11, name: "The morning line", figure: `Brier ${brier.line}` },
+  ],
+  margin: `Margin: a nose (.001). ${brier.races} graded races, scored on official result charts.`,
+  proof: { label: "See the graded record", href: brier.record },
+  // Announced to screen readers as the frame slider moves; also the visible
+  // corner slug's source of truth.
+  frameText: (f: number, total: number) =>
+    `Frame ${f} of ${total} — ${
+      f === 0
+        ? "undeveloped"
+        : f < total
+          ? "noses approaching the wire"
+          : "at the wire, post 1 by a nose"
+    }`,
+  // The lamp beside the chart: the stewards' sign goes up at the last frame.
+  lampPhoto: "Photo",
+  lampOfficial: "Official",
+}
+
+// The footer's program-card block — what the pencil marks add up to.
+export const footerCard = {
+  yourCard: "Your card",
+  marked: "marked",
+  freshProgram: "Fresh program",
+  orderOfFinish: "Order of finish",
+  pencil:
+    "Circle an entry anywhere above and it comes down here, in the order you called it. Pencil marks last for this visit only — nothing is stored, nothing leaves your browser.",
+  // The one line of invitation for the site's two best-hidden things.
+  invitation:
+    "The bugle on the board upstairs plays the real First Call; there is a seat for railbirds in the console, if you have one open.",
+}
+
 // The contact form's success state — a punched pari-mutuel win ticket.
 export const contactSuccess = {
   header: "Saratoga · The summer meet · Official ticket",
@@ -97,14 +170,35 @@ export const contactSuccess = {
   footer: "Win · Race 2026 · Post anytime",
 }
 
-// Saratoga Springs' real town motto — set as a program rubric in About and
-// again in the footer. Rendered with brass middots between the words.
-export const motto = ["Health", "History", "Horses"]
+// Saratoga Springs' real town motto — set as a program rubric in About (where
+// each word is pressable and glosses itself) and again in the footer, where
+// only the three words are printed. One clause of provenance turns a
+// decorative rubric into a fact.
+export const motto = {
+  provenance: "Saratoga Springs' town motto, printed on the city seal.",
+  words: [
+    {
+      word: "Health",
+      gloss:
+        "the mineral springs the town was built to sell — and the restaurant floor I still work, which is where I learned that a system beats hustle.",
+    },
+    {
+      word: "History",
+      gloss:
+        "the meet has run here since 1863 — and I read Communication at Geneseo, the Sorbonne, and Sciences Po before I ever read a stack trace.",
+    },
+    {
+      word: "Horses",
+      gloss:
+        "the reason this program exists — and the reason I pointed a model at every track in the world to see whether it could beat the morning line.",
+    },
+  ],
+}
 
 export const aboutParagraphs = [
   "I build the web layer for small businesses that need to look serious on day one — restaurants, insurance practices, members clubs. Three of those are on retainer right now.",
   "Before the bootcamp at Flatiron School (2023) I studied Communication at SUNY Geneseo, with semesters at La Sorbonne and Sciences Po. The communication degree is why my interfaces read clearly; the dev work is what makes them ship.",
-  "When I'm off the client clock I write trading bots against prediction markets, point a handicapping model at every horse track in the world, and run kitchens. I currently assistant-manage Standard Fare, a restaurant I helped launch in 2025.",
+  "When I'm off the client clock I write trading bots against prediction markets, point a handicapping model at every horse track in the world, and run kitchens. I assistant-manage Standard Fare — a restaurant I helped open in 2025, whose website is post 5 on this page.",
 ]
 
 export type ProjectCategory =
@@ -135,6 +229,12 @@ export type Project = {
   kind: "Client retainer" | "Open source" | "Personal"
   category: ProjectCategory
   year: string
+  // Morning line — my own forecast of interest in each entry, not a grade.
+  // Short prices ship and are checkable today; long prices are early. Both
+  // fields are REQUIRED so no entry can join the field without a price.
+  odds: string
+  // The handicapper's one-clause comment, printed under the price.
+  line: string
   blurb: string
   description: string
   repo?: string
@@ -164,18 +264,18 @@ export const projects: Project[] = [
     kind: "Personal",
     category: "Quant & trading",
     year: "2025",
+    odds: "6-5",
+    line: `Favorite. A nose in front of the track's own line over ${brier.races} graded races.`,
     featured: true,
     blurb:
       "The magnum opus — a quantitative handicapping engine covering every horse track in the world, running with its nose in front of the track's own morning line.",
-    description:
-      "A PWA + FastAPI backend that ingests entries, odds, and result charts worldwide, ranks every field first to last, and stores every prediction for grading. On the graded record the model's Brier score is .777 to the morning line's .778 (lower is better) — a photo-finish margin over the benchmark the tracks themselves publish, and improving with nightly recalibration. Kelly-fraction stake sizing and AI pace-and-trip analysis ride on top. The hometown project: born at the Saratoga track.",
-    callout:
-      "Every pick is graded — the track record at handaicapper.com/record scores the model against the morning line on official charts. Brier .777 vs .778 as of July 2026.",
+    description: `A PWA + FastAPI backend that ingests entries, odds, and result charts worldwide, ranks every field first to last, and stores every prediction for grading. On the graded record the model's Brier score is ${brier.model} to the morning line's ${brier.line} (lower is better) — a photo-finish margin over the benchmark the tracks themselves publish, and improving with nightly recalibration. Kelly-fraction stake sizing and AI pace-and-trip analysis ride on top. The hometown project: born at the Saratoga track.`,
+    callout: `Every pick is graded — the track record at handaicapper.com/record scores the model against the morning line on official charts. Brier ${brier.model} vs ${brier.line} as of ${brier.asOf}.`,
     steward: [
-      "Nose in front of the morning line — Brier .777 vs .778 (Jul 2026)",
+      `Nose in front of the morning line — Brier ${brier.model} vs ${brier.line} (${brier.asOf})`,
       "Every field ranked first to last; predictions stored in full",
       "Graded against official result charts, not self-reported",
-      "1,100+ graded races on the record; nightly recalibration",
+      `${brier.races} graded races on the record; nightly recalibration`,
     ],
     proof: [
       { label: "Track record (free account)", href: "https://handaicapper.com/record" },
@@ -198,6 +298,8 @@ export const projects: Project[] = [
     kind: "Personal",
     category: "Product",
     year: "2026",
+    odds: "5-2",
+    line: "Provisions itself end to end. No human in the loop, no redeploy.",
     featured: true,
     blurb:
       "The venture — a self-serve platform that lets any business build, brand, and deploy its own AI assistant in minutes, no code required.",
@@ -229,6 +331,8 @@ export const projects: Project[] = [
     kind: "Personal",
     category: "Quant & trading",
     year: "2026",
+    odds: "7-2",
+    line: "Real money, nine kill switches. Passes far more races than it bets.",
     featured: true,
     blurb:
       "A multi-strategy quant platform trading Kalshi crypto-binary markets — shadow trading, regime detection, fractional-Kelly sizing, and hard kill switches.",
@@ -266,6 +370,8 @@ export const projects: Project[] = [
     kind: "Client retainer",
     category: "Client retainer",
     year: "2026",
+    odds: "8-1",
+    line: "Three platforms off one codebase. Runs back every month.",
     blurb:
       "Members app + Admin CRM for a private champagne society — one React + Capacitor codebase built for iOS, Android, and the web.",
     description:
@@ -280,6 +386,8 @@ export const projects: Project[] = [
     kind: "Client retainer",
     category: "Client retainer",
     year: "2025",
+    odds: "8-1",
+    line: "Built the site in 2025. Manages the floor now.",
     blurb:
       "Marketing site for the Saratoga Springs restaurant I helped open — brunch, dinner, craft cocktails, in-house art gallery.",
     description:
@@ -294,8 +402,10 @@ export const projects: Project[] = [
     kind: "Client retainer",
     category: "Client retainer",
     year: "2025",
+    odds: "10-1",
+    line: "Twenty seats to fill, and a reservation flow that has to hold all of them.",
     blurb:
-      "Saratoga Springs' first champagne bar — a 20-seat room for sparkling wines, caviar, and charcuterie.",
+      "Saratoga Springs' first champagne bar — a 20-seat room for sparkling wines, caviar, and charcuterie. I built the room's entire web presence: reservations, wine list, event calendar.",
     description:
       "Marketing site for a new champagne-and-caviar concept. Reservation flow, wine list, event calendar. Shares a Supabase backend with the members app.",
     isPrivate: true,
@@ -308,8 +418,10 @@ export const projects: Project[] = [
     kind: "Client retainer",
     category: "Client retainer",
     year: "2025",
+    odds: "10-1",
+    line: "Family stable — Norm Levy's practice. Same surname, first client.",
     blurb:
-      "Independent long-term-care insurance practice helping Florida families protect retirement savings.",
+      "Independent long-term-care insurance practice helping Florida families protect retirement savings. I built the site and the CRM the practice runs on.",
     description:
       "Lead-gen site and back-office CRM for Norm Levy's LTC insurance practice. Quote intake, agent workflow, calendar booking. Built to read trustworthy in a regulated industry.",
     isPrivate: true,
@@ -322,6 +434,8 @@ export const projects: Project[] = [
     kind: "Open source",
     category: "Quant & trading",
     year: "2026",
+    odds: "12-1",
+    line: "Copies the wallets that win, under a hard bankroll cap. Copying is not conviction.",
     blurb:
       "High-speed Polymarket copy-trading bot — whale identification, edge-verified Kelly sizing, WebSocket execution.",
     description:
@@ -335,6 +449,8 @@ export const projects: Project[] = [
     kind: "Open source",
     category: "Open source",
     year: "2025",
+    odds: "15-1",
+    line: "The maiden win. Capstone-scale, and still up.",
     blurb:
       "Collect, trade, verify, and discover vinyl records with a global community of crate diggers.",
     description:
@@ -349,6 +465,8 @@ export const projects: Project[] = [
     kind: "Open source",
     category: "Tooling",
     year: "2026",
+    odds: "12-1",
+    line: "How I know what this page cost to build.",
     blurb:
       "A private, local-first dashboard for Claude Code usage — live rate limits, token & cost trends, per-model and per-project breakdowns. Zero config, no telemetry.",
     description:
@@ -363,6 +481,8 @@ export const projects: Project[] = [
     kind: "Personal",
     category: "Product",
     year: "2026",
+    odds: "20-1",
+    line: "First-time starter. Nothing to show yet that would be honest.",
     blurb:
       "A directory and AI-powered sync engine for the sovereign web — personal sites keep their own domains while an AI watches for changes and drafts micro-posts.",
     description:
@@ -414,6 +534,10 @@ export type PathEvent = {
   date: string
   sortYear: number
   description: string
+  // The chart comment — the one clipped clause a form guide prints under a
+  // running line. Optional on purpose: a start with nothing true to say gets
+  // none. Uniform comments on every line are worse than none at all.
+  comment?: string
 }
 
 export const path: PathEvent[] = [
@@ -425,6 +549,7 @@ export const path: PathEvent[] = [
     sortYear: 2025.7,
     description:
       "Helped launch the Standard Fare location. Managed POS updates, cash-outs, and end-of-shift financial processes. Led top guest-satisfaction metrics. Trained and supervised new staff.",
+    comment: "Built this room's website in 2025. Manage its floor now.",
   },
   {
     kind: "Work",
@@ -434,6 +559,7 @@ export const path: PathEvent[] = [
     sortYear: 2024.95,
     description:
       "Front-line IT support for managed-services customers, remote and on-site. Drove phone-answer rate from 30% to 95% and CSAT to 4.9/5.",
+    comment: "30% to 95% on phone answer. Best number in this column.",
   },
   {
     kind: "Work",
@@ -442,7 +568,7 @@ export const path: PathEvent[] = [
     date: "Oct 2024 — May 2025",
     sortYear: 2024.85,
     description:
-      "Managed and upsold gourmet tea and merchandise. Met sales goals while keeping satisfaction high.",
+      "Sold tea to people who came in for tea, then sold them the pot. Retail attachment on top of a full service section.",
   },
   {
     kind: "Work",
@@ -451,7 +577,7 @@ export const path: PathEvent[] = [
     date: "May 2024 — Oct 2024",
     sortYear: 2024.4,
     description:
-      "Fine-dining captain. Maintained POS menu updates and section flow. Strong customer-service track record.",
+      "Fine-dining captain. A section in a busy room is a scheduling problem with people in it — POS menu updates, section flow, and the timing that holds both together.",
   },
   {
     kind: "Education",
@@ -461,6 +587,7 @@ export const path: PathEvent[] = [
     sortYear: 2023.2,
     description:
       "15-week intensive: Python, JavaScript, React, Flask, HTML, CSS, SQL. The pivot from communication into engineering.",
+    comment: "Class rise. Everything above this line runs off it.",
   },
   {
     kind: "Education",
@@ -470,6 +597,7 @@ export const path: PathEvent[] = [
     sortYear: 2022.95,
     description:
       "Journalism, media, and professional communication. Finished one semester early. Studied Chinese, French, and international relations alongside.",
+    comment: "Finished a semester early to go abroad.",
   },
   {
     kind: "Work",
@@ -487,6 +615,7 @@ export const path: PathEvent[] = [
     date: "Sep 2022 — Dec 2022",
     sortYear: 2022.4,
     description: "One-semester exchange. International relations coursework in French.",
+    comment: "Coupled entry — same term as the Sorbonne. Two schools, one interest.",
   },
   {
     kind: "Education",
@@ -495,6 +624,7 @@ export const path: PathEvent[] = [
     date: "Sep 2022 — Dec 2022",
     sortYear: 2022.39,
     description: "Concurrent semester at the Sorbonne. Language, history, culture.",
+    comment: "Coupled entry — see above. Both semesters carried in French.",
   },
   {
     kind: "Work",
@@ -502,7 +632,8 @@ export const path: PathEvent[] = [
     location: "Maggiano's",
     date: "Apr 2022 — Jun 2022",
     sortYear: 2022.35,
-    description: "High-throughput Italian dining. Section management, team collaboration.",
+    description:
+      "Volume house. Where I learned that a system beats hustle — section management, and a team that has to move as one.",
   },
   {
     kind: "Work",
@@ -521,6 +652,7 @@ export const path: PathEvent[] = [
     sortYear: 2021.49,
     description:
       "Guest services by day, accounting by night. Reconciled guest ledgers, oversaw nightly revenue reporting.",
+    comment: "Two jobs, one building, opposite ends of the clock.",
   },
   {
     kind: "Work",
@@ -530,6 +662,7 @@ export const path: PathEvent[] = [
     sortYear: 2021.1,
     description:
       "Supported the lead instructor in a virtual classroom through COVID. Lesson prep, attendance, one-on-one student support.",
+    comment: "Taught a language I was still learning, over video, mid-COVID.",
   },
   {
     kind: "Work",
@@ -537,8 +670,8 @@ export const path: PathEvent[] = [
     location: "Chianti Il Ristorante",
     date: "Aug 2018 — Sep 2019",
     sortYear: 2018.8,
-    description:
-      "Ran the pass. Kept tables turning. Where the hospitality habits started.",
+    description: "Ran the pass. Kept tables turning.",
+    comment: "First line on the card. Where the hospitality habits started.",
   },
   {
     kind: "Education",
@@ -605,9 +738,10 @@ export const certifications: CertGroup[] = [
 export type SkillGroup = {
   group: string
   items: string[]
-  // One line tying the discipline to the shipped work that proves it —
-  // rendered under the chips so the section reads as evidence, not tag soup.
-  proof: string
+  // The receipt: one line tying the discipline to the shipped work that proves
+  // it, plus a link a skeptic can actually click. Rendered under the chips so
+  // the section reads as evidence, not tag soup.
+  proof: { text: string; label: string; href: string }
 }
 
 // The skills matrix, grouped by domain. Consumed by Skills.tsx and About.tsx.
@@ -615,32 +749,56 @@ export const skills: SkillGroup[] = [
   {
     group: "Frontend",
     items: ["React", "TypeScript", "Next.js", "Vite", "Tailwind v4", "Framer Motion", "Capacitor"],
-    proof: "In production on every project on this page.",
+    proof: {
+      text: "This page is the sample: a hand-drawn horse on the rail, a tote board, and a Victorian race program, in React and Tailwind v4.",
+      label: "Read the source",
+      href: `https://${stack.source}`,
+    },
   },
   {
     group: "Backend & data",
     items: ["Python", "FastAPI", "Node.js", "Supabase", "Postgres", "SQLite", "Square"],
-    proof: "Runs Portmint's platform and three client back offices.",
+    proof: {
+      text: "Portmint's platform takes a subscription and returns a deployed assistant with nobody in the loop.",
+      label: "See it live",
+      href: "https://portmint.com",
+    },
   },
   {
     group: "AI engineering",
     items: ["Claude Code", "Anthropic API", "OpenAI API", "MCP", "Agent fleets", "RAG / vaults"],
-    proof: "Shipping inside Portmint, handAIcapper, and OpenProfile.",
+    proof: {
+      text: "handAIcapper writes its own pace-and-trip notes in plain English, and the track record grades them.",
+      label: "The graded record",
+      href: brier.record,
+    },
   },
   {
     group: "Quant & trading",
     items: ["asyncio", "WebSockets", "Kelly sizing", "Backtesting", "Regime detection", "EV modeling"],
-    proof: "Built into FableKalshi and PolyBot — the fee-aware EV/Kelly core is open source (kalshi-edge).",
+    proof: {
+      text: "The fee-aware EV and Kelly core FableKalshi trades under is open source, MIT, and tested.",
+      label: "kalshi-edge",
+      href: "https://github.com/colelevy08/kalshi-edge",
+    },
   },
   {
     group: "DevOps & hosting",
     items: ["Vercel", "GitHub Pages", "GitHub Actions", "Serverless", "Edge Functions"],
-    proof: "Every site in the field deploys through this stack.",
+    proof: {
+      text: "Every entry on this page deploys on a push. This one included.",
+      label: "This site's deploys",
+      href: `https://${stack.source}`,
+    },
   },
   {
     group: "Native & mobile",
     items: ["Swift / SwiftUI", "Capacitor (iOS/Android)", "PWA / offline", "Service Workers"],
-    proof: "Bocage Champagne Society runs iOS, Android, and web builds from one Capacitor codebase.",
+    proof: {
+      text: "Bocage Champagne Society ships iOS, Android, and web from one Capacitor codebase.",
+      label: "Open the app",
+      href: "https://bocage-champagne-society.vercel.app",
+    },
   },
 ]
 
@@ -659,8 +817,12 @@ export const aiWorkflow = {
       body: "Anthropic and OpenAI APIs run in shipping software — natural-language pace and trip analysis in handAIcapper, an AI drafting engine in OpenProfile.",
     },
     {
+      // The old copy ended on "I can tell you what any feature cost" — a dare
+      // with nothing behind it, on the one page whose governing rule is that
+      // every claim is checkable. It now points at the tool instead, which is
+      // public, stdlib-only, and will say the same about your own machine.
       title: "The loop is instrumented",
-      body: "Portmint Pulse charts token spend, rate limits, and per-project cost. I can tell you what any given feature cost to build.",
+      body: "Portmint Pulse charts token spend, rate limits, and per-project cost — this page included. It's open source and reads your local stats, so you can run the same numbers on your own work.",
     },
   ],
 }
@@ -693,9 +855,9 @@ export const sections: Record<
   },
   work: {
     eyebrow: "The field",
-    headline: "The rest of the field.",
+    headline: "Eight more, all of them live.",
     subhead:
-      "Eight more entries — client retainers, trading bots, developer tooling, and open source. Every post position filled.",
+      "Client retainers, trading bots, developer tooling, and open source. Every post position filled.",
   },
   testimonials: {
     eyebrow: "Word of mouth",
@@ -704,23 +866,25 @@ export const sections: Record<
   },
   skills: {
     eyebrow: "The tack room",
-    headline: "The toolkit.",
-    subhead: "Frontend to FastAPI, AI engineering to quant — six disciplines, saddled and ready.",
+    headline: "Everything on this page came out of this room.",
+    subhead: "Six disciplines, and a receipt under each one.",
   },
   ai: {
-    eyebrow: "Method",
+    eyebrow: "Conditions",
     headline: "Claude Code is in the loop.",
-    subhead: "The specs and the review stay mine.",
+    subhead: "The specs and the review stay mine. The instrumentation is public.",
   },
   about: {
-    eyebrow: "About",
-    headline: "From hospitality to engineering.",
-    subhead: "Three client retainers, one Saratoga.",
+    eyebrow: "The connections",
+    headline: "Saratoga Springs is a racetrack.",
+    subhead:
+      "Three client retainers, one town — and the oldest sporting venue in the country at the end of it.",
   },
   path: {
     eyebrow: "Form",
     headline: "Past performances.",
-    subhead: "Kitchen pass to Paris to Flatiron, and back again.",
+    subhead:
+      "Sixteen starts, kitchen pass to Paris to Flatiron and back. Chart comments where there is something to say.",
   },
   certifications: {
     eyebrow: "Papers",

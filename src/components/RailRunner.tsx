@@ -11,8 +11,8 @@ import {
 import { ui } from '../data/content'
 
 // The rail under the nav: a horse-and-jockey runs the stretch as you scroll,
-// past six furlong ticks, toward the checkered wire at the far end. Scroll
-// position IS the race position — the page's furlong dividers (6F → 1F → the
+// past seven furlong ticks, toward the checkered wire at the far end. Scroll
+// position IS the race position — the page's furlong dividers (7F → 1F → the
 // wire) count the same trip. While the page is moving the horse strides
 // through a two-frame gallop cycle and kicks up dust; at rest it stands.
 export default function RailRunner() {
@@ -72,12 +72,12 @@ export default function RailRunner() {
       {/* the running rail */}
       <div className="hairline absolute inset-x-0 bottom-[4px]" />
 
-      {/* furlong ticks, matching the six section dividers */}
-      {[1, 2, 3, 4, 5, 6].map((i) => (
+      {/* furlong ticks, matching the seven section dividers */}
+      {[1, 2, 3, 4, 5, 6, 7].map((i) => (
         <span
           key={i}
           className="absolute bottom-[4px] h-[5px] w-px bg-line-2"
-          style={{ left: `${(i * 100) / 7}%` }}
+          style={{ left: `${(i * 100) / 8}%` }}
         />
       ))}
 

@@ -5,6 +5,14 @@ import SectionHead from './SectionHead'
 
 type Filter = 'all' | 'work' | 'education'
 
+// The rows already print "Work" / "Study" per line, so the tabs use the
+// program's own words for the same three views.
+const FILTER_LABEL: Record<Filter, string> = {
+  all: 'Full card',
+  work: 'Work',
+  education: 'Study',
+}
+
 // Work/education history set like a form guide's past-performance lines:
 // dense rows, mono dates, a colored discipline mark per line.
 export default function Path() {
@@ -26,33 +34,48 @@ export default function Path() {
       <div>
         <SectionHead h={sections.path} />
 
-        {/* Program tabs — the active tab carries an awning-red underline. */}
-        <div className="mb-8 flex flex-wrap gap-x-7 gap-y-2">
-          {(['all', 'work', 'education'] as Filter[]).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`border-b-2 pb-1.5 font-mono text-[11px] uppercase tracking-[0.22em] transition-colors ${
-                filter === f
-                  ? 'border-awning text-awning'
-                  : 'border-transparent text-muted hover:text-ink'
-              }`}
-            >
-              {f}
-              <span className="ml-1.5 text-muted">
-                [
-                {f === 'all'
-                  ? path.length
-                  : f === 'work'
-                    ? path.filter((p) => p.kind === 'Work').length
-                    : path.filter((p) => p.kind === 'Education').length}
-                ]
-              </span>
-            </button>
-          ))}
+        {/* Program tabs — the active tab carries an awning-red underline.
+            The strip sticks flush under the header so the filter is still in
+            reach 3,000px into the form guide, which is where a reader actually
+            decides they want one kind of line only. The offsets are the
+            header's MEASURED height (nav + running rail): 73px at 375px and
+            78px from sm up, where the nav's padding grows. z-20 sits under the
+            header and well under the Portmint launcher. */}
+        <div className="sticky top-[73px] z-20 -mx-4 mb-8 border-b border-line bg-bg px-4 py-3 sm:top-[78px] sm:-mx-6 sm:px-6">
+          {/* Tighter gap and tracking below sm: at 375px the three tabs wrap
+              to two lines otherwise, and a two-line sticky strip under a 73px
+              header eats a fifth of a phone screen for the whole section. */}
+          <div className="flex flex-wrap gap-x-5 gap-y-2 sm:gap-x-7">
+            {(['all', 'work', 'education'] as Filter[]).map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                // Toggle state, not navigation — aria-pressed, not aria-current.
+                aria-pressed={filter === f}
+                className={`border-b-2 pb-1.5 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors sm:tracking-[0.22em] ${
+                  filter === f
+                    ? 'border-awning text-awning'
+                    : 'border-transparent text-muted hover:text-ink'
+                }`}
+              >
+                {FILTER_LABEL[f]}
+                <span className="ml-1.5 text-muted">
+                  [
+                  {f === 'all'
+                    ? path.length
+                    : f === 'work'
+                      ? path.filter((p) => p.kind === 'Work').length
+                      : path.filter((p) => p.kind === 'Education').length}
+                  ]
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        <ol>
+        {/* Keying the list on the filter re-mounts it, which re-runs the row
+            entrance stagger — the field visibly re-forms instead of snapping. */}
+        <ol key={filter}>
           {filtered.map((e, i) => (
             <Row key={`${e.title}-${e.date}`} e={e} index={i} />
           ))}
@@ -71,7 +94,11 @@ function Row({ e, index }: { e: PathEvent; index: number }) {
     <motion.li
       initial={{ opacity: 0, x: -12 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      // Vertical-only inset: these rows animate in from x:-12, and an
+      // all-sides margin can exclude a left-shifted element entirely so the
+      // observer never fires — with once:true that freezes it at opacity 0.
+      // Same trap documented at FeaturedWork.tsx's saddle-cloth chip.
+      viewport={{ once: true, margin: '-40px 0px' }}
       transition={{
         duration: 0.5,
         delay: Math.min(index * 0.04, 0.4),
@@ -102,6 +129,14 @@ function Row({ e, index }: { e: PathEvent; index: number }) {
         <p className="mt-3 max-w-[58ch] font-serif text-[15px] leading-[1.6] text-ink-2">
           {e.description}
         </p>
+        {/* The chart comment — printed only where there's something true to
+            say about the trip. */}
+        {e.comment && (
+          <p className="mt-2 max-w-[58ch] font-mono text-[11px] leading-relaxed text-muted">
+            <span aria-hidden="true">▸ </span>
+            {e.comment}
+          </p>
+        )}
       </div>
     </motion.li>
   )

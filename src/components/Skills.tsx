@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import { sections, skills } from '../data/content'
 import { silkFor, silkShadow } from '../lib/silks'
 import SectionHead from './SectionHead'
@@ -57,10 +58,24 @@ export default function Skills() {
                     </li>
                   ))}
                 </ul>
-                {/* the receipt: where this discipline is shipping right now */}
+                {/* The receipt: where this discipline is shipping right now,
+                    and a link a skeptic can click. The link sits on its own
+                    line rather than inside the sentence — a link buried in a
+                    text block has to carry a non-color distinguisher to pass
+                    audit, and this reads better anyway. */}
                 <p className="mt-4 font-serif text-[13px] italic leading-snug text-muted">
-                  {group.proof}
+                  {group.proof.text}
                 </p>
+                <a
+                  href={group.proof.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group/proof mt-2 inline-flex items-center gap-2 py-1 font-mono text-[10.5px] uppercase tracking-[0.2em] text-accent transition-colors hover:text-awning"
+                >
+                  <span className="hairline w-6 bg-line-2 transition-all group-hover/proof:w-9 group-hover/proof:bg-awning" />
+                  {group.proof.label}
+                  <ArrowUpRight size={12} />
+                </a>
               </motion.li>
             )
           })}

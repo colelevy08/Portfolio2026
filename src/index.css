@@ -472,6 +472,93 @@ body {
     animation-delay: 0.36s;
   }
 
+  /* -------------------------------------------------------------------------
+     The photo finish — the strip-camera print in ThePhoto.tsx.
+  ------------------------------------------------------------------------- */
+
+  /* The developer: an opaque sheet over the print that slides away as the
+     frame slider advances, so the image "comes up" out of the dark. --f is the
+     frame as a 0–1 fraction. Transform only, so it never triggers layout. */
+  .photo-develop {
+    background: var(--color-infield);
+    transform: translateX(calc(var(--f, 0) * 100%));
+    transition: transform 220ms linear;
+    /* a soft leading edge, so the sheet reads as developer washing across the
+       paper rather than a hard wipe. The mask itself never animates. */
+    mask-image: linear-gradient(90deg, transparent, #000 6%);
+  }
+
+  /* The frame slider. Styled by hand because the default control is the one
+     thing on this page that would look like a web form. */
+  .photo-scrub {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-line-2);
+    cursor: pointer;
+  }
+  /* 26px thumbs clear the 24px WCAG target floor with margin. The two vendor
+     rules cannot be combined — a browser drops the whole selector list if it
+     doesn't recognise one of them. */
+  .photo-scrub::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 3px;
+    background: var(--color-chalk);
+    box-shadow: inset 0 0 0 1px var(--color-line-2);
+  }
+  .photo-scrub::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 3px;
+    background: var(--color-chalk);
+    box-shadow: inset 0 0 0 1px var(--color-line-2);
+  }
+  /* Never `outline: none` — the focus ring is the keyboard user's only cue.
+     Inside .island, --color-accent is tote amber, which reads on the dark. */
+  .photo-scrub:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  /* The stewards' sign lighting up when the print is fully developed. */
+  .photo-lamp {
+    animation: bulb-flicker 700ms ease-out 1;
+  }
+
+  /* -------------------------------------------------------------------------
+     The program pencil — the ink loop drawn around a circled entry's saddle
+     cloth. The stroke draws itself on once; erasing removes the element.
+  ------------------------------------------------------------------------- */
+  .ink-mark path {
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+    animation: ink-draw 420ms cubic-bezier(0.3, 0.9, 0.4, 1) forwards;
+  }
+
+  /* -------------------------------------------------------------------------
+     The conditions block — three panels that arrive one at a time once the
+     block is in view, using the same inline --d stagger clock as the tote
+     board. One observer for the whole list; the panels are pure CSS.
+  ------------------------------------------------------------------------- */
+  .condition {
+    opacity: 0;
+    transition: background 200ms ease;
+  }
+  [data-inview] .condition {
+    animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s) both;
+  }
+  /* focus-within so a keyboard reader gets the same panel highlight as a
+     mouse. A lift would break the gap-px seam of the ruled block. */
+  .condition:hover,
+  .condition:focus-within {
+    background: var(--color-bg-3);
+  }
+
   /* Drop cap — one per site, on the first About paragraph. */
   .dropcap::first-letter {
     font-family: var(--font-display);
@@ -481,6 +568,25 @@ body {
     float: left;
     padding: 0.08em 0.14em 0 0;
     color: var(--color-accent);
+  }
+}
+
+/* The pencil's ink loop drawing itself onto the paper. */
+@keyframes ink-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Condition panels arriving one at a time. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -572,8 +678,23 @@ body {
   .post-time .board-cell,
   .running .horse-frame-a,
   .running .horse-frame-b,
-  .running .dust {
+  .running .dust,
+  .ink-mark path,
+  .photo-lamp,
+  [data-inview] .condition {
     animation: none;
+  }
+  /* Anything whose entrance animation we just cancelled must be forced
+     visible, or `both` fill leaves it frozen at opacity 0 forever. */
+  .ink-mark path {
+    stroke-dashoffset: 0;
+  }
+  .condition {
+    opacity: 1;
+  }
+  /* The developer sheet jumps between frames instead of washing across. */
+  .photo-develop {
+    transition: none;
   }
   .lift-brand {
     transition: border-color 240ms ease;

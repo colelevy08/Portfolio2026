@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useSyncExternalStore } from 'react'
 import type { CSSProperties } from 'react'
 import {
   motion,
@@ -9,8 +9,9 @@ import {
   useVelocity,
   type MotionValue,
 } from 'framer-motion'
-import { motto, profile, projects, stack } from '../data/content'
+import { footerCard, motto, profile, projects, stack } from '../data/content'
 import { silkFor, silkShadow } from '../lib/silks'
+import { clearMarks, getMarks, subscribe } from '../lib/program'
 
 // Each pennant answers the gust a little differently — same wind, different
 // cloth — so the row ripples instead of swinging as one rigid unit.
@@ -106,9 +107,93 @@ function Roofline() {
   )
 }
 
-// The top three finishers, straight off the featured order — rendered as
-// saddle cloths in the footer's "order of finish" block.
+// The top three finishers, straight off the featured order — what the block
+// prints when the reader hasn't marked anything.
 const finishers = projects.filter((p) => p.featured)
+
+// One line of the block: saddle cloth, title, price, linking to the entry.
+function Runner({ post, to }: { post: number; to: string }) {
+  const p = projects[post - 1]
+  const silk = silkFor(post)
+  return (
+    <li>
+      <a href={to} className="group inline-flex items-center gap-3">
+        <span
+          className="silk"
+          style={{
+            '--silk-size': '1.5rem',
+            '--silk-fs': '0.75rem',
+            background: silk.bg,
+            color: silk.fg,
+            boxShadow: silkShadow(silk),
+          } as CSSProperties}
+        >
+          {post}
+        </span>
+        {/* normal case — "handAIcapper" must keep its mid-word AI */}
+        <span className="font-mono text-[12px] tracking-[0.08em] text-ink-2 transition-colors group-hover:text-accent">
+          {p.title}
+        </span>
+        <span className="font-mono text-[11px] text-ink-2">{p.odds}</span>
+      </a>
+    </li>
+  )
+}
+
+// The program card. With no pencil marks it prints the order of finish, the
+// way the footer always has, plus the standing invitation to mark one. Once
+// the reader circles anything it becomes THEIR card, in the order they called
+// them — the only thing on this site that is different because of something
+// they did.
+function YourCard() {
+  const marks = useSyncExternalStore(subscribe, getMarks, getMarks)
+  const has = marks.length > 0
+
+  return (
+    <div>
+      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
+        {has ? footerCard.yourCard : footerCard.orderOfFinish}
+        {has && (
+          // The live region is this two-word count and nothing else —
+          // politely announcing a re-ordered list on every press would be
+          // noise, not information.
+          <span aria-live="polite" className="text-amber">
+            {' '}
+            · {marks.length} {footerCard.marked}
+          </span>
+        )}
+      </p>
+
+      <ol className="mt-3 space-y-2">
+        {has
+          ? marks.map((post) => (
+              <Runner key={post} post={post} to={`#post-${post}`} />
+            ))
+          : finishers.map((p) => (
+              <Runner
+                key={p.slug}
+                post={projects.indexOf(p) + 1}
+                to={`#post-${projects.indexOf(p) + 1}`}
+              />
+            ))}
+      </ol>
+
+      {has ? (
+        <button
+          type="button"
+          onClick={clearMarks}
+          className="mt-4 inline-block py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-2 transition-colors hover:text-accent"
+        >
+          {footerCard.freshProgram}
+        </button>
+      ) : (
+        <p className="mt-4 max-w-[42ch] font-mono text-[10px] leading-relaxed text-ink-2">
+          {footerCard.pencil}
+        </p>
+      )}
+    </div>
+  )
+}
 
 // The footer flips dark — the old Morning Line palette living on as the
 // page's closing dark island, under a strip of awning-canvas piping. It
@@ -137,41 +222,7 @@ export default function Footer() {
             </a>
           </div>
 
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
-              Order of finish
-            </p>
-            <ol className="mt-3 space-y-2">
-              {finishers.map((p, i) => {
-                const silk = silkFor(i + 1)
-                return (
-                  <li key={p.slug}>
-                    <a
-                      href="#featured"
-                      className="group inline-flex items-center gap-3"
-                    >
-                      <span
-                        className="silk"
-                        style={{
-                          '--silk-size': '1.5rem',
-                          '--silk-fs': '0.75rem',
-                          background: silk.bg,
-                          color: silk.fg,
-                          boxShadow: silkShadow(silk),
-                        } as CSSProperties}
-                      >
-                        {i + 1}
-                      </span>
-                      {/* normal case — "handAIcapper" must keep its mid-word AI */}
-                      <span className="font-mono text-[12px] tracking-[0.08em] text-ink-2 transition-colors group-hover:text-accent">
-                        {p.title}
-                      </span>
-                    </a>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
+          <YourCard />
         </div>
 
         {/* Index columns */}
@@ -182,14 +233,16 @@ export default function Footer() {
             <br />
             {profile.location}
             <p className="mt-4 text-[10px] tracking-[0.3em]">
-              {motto.map((word, i) => (
-                <Fragment key={word}>
+              {/* The footer prints only the three words; the rubric in About
+                  is where each one glosses itself. */}
+              {motto.words.map((m, i) => (
+                <Fragment key={m.word}>
                   {i > 0 && (
                     <span aria-hidden="true" className="mx-2 text-amber">
                       ·
                     </span>
                   )}
-                  {word}
+                  {m.word}
                 </Fragment>
               ))}
             </p>
@@ -309,11 +362,19 @@ export default function Footer() {
 
         {/* Print line — the program's last page. Right padding keeps the
             back-to-top link clear of the fixed Portmint launcher bubble. */}
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5 pr-20 font-mono text-[10px] uppercase tracking-[0.22em] text-muted sm:pr-24">
-          <p>Official program · Vol. 2026 · Printed in Saratoga Springs, NY</p>
-          <a href="#top" className="hover:text-accent transition-colors">
-            Back to the paddock ↑
-          </a>
+        <div className="mt-10 border-t border-line pt-5 pr-20 sm:pr-24">
+          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+            <p>Official program · Vol. 2026 · Printed in Saratoga Springs, NY</p>
+            <a href="#top" className="hover:text-accent transition-colors">
+              Back to the paddock ↑
+            </a>
+          </div>
+          {/* The last line on the last page — the only invitation the site's
+              two best-hidden things get, at the depth where only a reader who
+              earned it will find them. */}
+          <p className="mt-3 max-w-[70ch] font-mono text-[10px] leading-relaxed text-ink-2">
+            {footerCard.invitation}
+          </p>
         </div>
       </div>
     </footer>

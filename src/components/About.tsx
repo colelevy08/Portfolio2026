@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { motion } from 'framer-motion'
 import { aboutParagraphs, motto, profile, sections } from '../data/content'
 import colePicture from '../assets/colelevypicture.png'
@@ -31,8 +31,11 @@ export default function About() {
             </div>
 
             <dl className="mt-6 space-y-4 font-mono text-[11px] uppercase tracking-[0.16em]">
+              {/* "Full-stack & AI engineer" already appears in the page
+                  title, the hero subline, and the meta description — a fourth
+                  printing here was the only fact on the card that proved
+                  nothing. Four facts is enough; don't backfill it. */}
               <Fact label="Based" value={profile.location} />
-              <Fact label="Title" value={profile.title} />
               <Fact label="Currently" value="Assistant Manager · Standard Fare" />
               <Fact
                 label="Cert"
@@ -53,22 +56,59 @@ export default function About() {
                 </p>
               ))}
             </div>
-            <p className="mt-10 text-center font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
-              {motto.map((word, i) => (
-                <Fragment key={word}>
-                  {i > 0 && (
-                    <span aria-hidden="true" className="mx-3 text-brass">
-                      ·
-                    </span>
-                  )}
-                  {word}
-                </Fragment>
-              ))}
-            </p>
+            <Rubric />
           </div>
         </motion.div>
       </div>
     </section>
+  )
+}
+
+// The town motto, set as a program rubric — and each word is pressable. Press
+// one and it glosses itself twice over: what it means to Saratoga Springs, and
+// what it means here. Nothing is gated behind the press: with nothing selected
+// the line underneath prints the motto's provenance, which is the fact the
+// rubric was decoration without.
+function Rubric() {
+  const [active, setActive] = useState<number | null>(null)
+  const current = active === null ? null : motto.words[active]
+
+  return (
+    <div className="mt-10">
+      <p className="text-center font-mono text-[11px] uppercase tracking-[0.22em] text-muted sm:tracking-[0.3em]">
+        {motto.words.map((m, i) => (
+          <Fragment key={m.word}>
+            {i > 0 && (
+              <span aria-hidden="true" className="mx-2 text-brass sm:mx-3">
+                ·
+              </span>
+            )}
+            <button
+              type="button"
+              // Press the active word again to clear it and get the
+              // provenance line back.
+              onClick={() => setActive(active === i ? null : i)}
+              aria-pressed={active === i}
+              className={`px-2 py-1.5 border-b transition-colors ${
+                active === i
+                  ? 'border-awning text-awning'
+                  : 'border-transparent hover:text-ink'
+              }`}
+            >
+              {m.word}
+            </button>
+          </Fragment>
+        ))}
+      </p>
+      {/* One slot, reserved at the height of the longest gloss so pressing a
+          word never shifts the page under the reader. */}
+      <p
+        aria-live="polite"
+        className="mx-auto mt-3 min-h-[5.5em] max-w-[54ch] text-center font-serif text-[14px] italic leading-relaxed text-muted sm:min-h-[4.5em]"
+      >
+        {current ? `${current.word} — ${current.gloss}` : motto.provenance}
+      </p>
+    </div>
   )
 }
 

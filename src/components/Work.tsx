@@ -1,12 +1,14 @@
-import type { CSSProperties } from 'react'
+import { useSyncExternalStore, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, Lock } from 'lucide-react'
-import { projects, sections, type Project } from '../data/content'
+import { projects, sections, ui, type Project } from '../data/content'
 import { shotFor } from '../lib/screenshots'
 import { silkFor, silkShadow } from '../lib/silks'
+import { getMarks, subscribe } from '../lib/program'
 import { useTilt } from '../lib/useTilt'
 import SectionHead from './SectionHead'
 import BrandPlate from './brand/BrandPlate'
+import ProgramPencil, { InkLoop } from './ProgramPencil'
 
 // Everything that isn't a feature race runs in the field below (posts 4+).
 const selected = projects.filter((p) => !p.featured)
@@ -16,6 +18,11 @@ export default function Work() {
     <section id="work" className="relative px-4 py-20 sm:px-6 sm:py-28">
       <div>
         <SectionHead h={sections.work} />
+        {/* The disclosure a program is supposed to print: who set this line,
+            and why he is not a disinterested party. */}
+        <p className="-mt-6 mb-10 max-w-[62ch] font-mono text-[11px] leading-relaxed text-muted">
+          {ui.morningLine}
+        </p>
         <ol className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {selected.map((p, i) => (
             <ProjectCard key={p.slug} p={p} index={i} />
@@ -33,6 +40,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   // Post position continues from the feature races (posts 1–3).
   const post = projects.indexOf(p) + 1
   const silk = silkFor(post)
+  const marked = useSyncExternalStore(subscribe, getMarks, getMarks).includes(post)
 
   return (
     <motion.li
@@ -44,7 +52,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
         delay: Math.min(index * 0.05, 0.3),
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className="flex flex-col"
+      // Every entry carries its own #post-N anchor so a mark in the footer's
+      // card links straight back to the card that earned it.
+      id={`post-${post}`}
+      className="flex scroll-mt-24 flex-col"
     >
       {/* Matted screenshot plate; the saddle cloth pops on as the card
           enters view and wobbles like cloth when the plate is hovered. */}
@@ -122,13 +133,26 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           >
             {post}
           </span>
+          <InkLoop marked={marked} />
         </motion.span>
+        <ProgramPencil post={post} title={p.title} />
       </div>
 
       {/* Meta — set like a past-performance line. */}
       <div className="mt-5 flex flex-1 flex-col">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
-          Post {post} · {p.year} · {p.category}
+        {/* The running line: the entry on the left, my price on the right. */}
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
+            Post {post} · {p.year} · {p.category}
+          </p>
+          <p className="font-mono text-[13px] tracking-[0.08em] text-ink">
+            {p.odds}
+          </p>
+        </div>
+
+        {/* the handicapper's one-clause comment */}
+        <p className="mt-2 font-serif text-[13px] italic leading-snug text-muted">
+          {p.line}
         </p>
 
         <h3 className="font-display mt-3 text-[1.45rem] leading-tight">

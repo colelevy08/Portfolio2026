@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from
 import { motion } from 'framer-motion'
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { hero, profile, ui } from '../data/content'
-import { playCallToThePost } from '../lib/bugle'
 
 // Track time is always America/New_York — Saratoga runs on Eastern.
 const trackTime = (withSeconds: boolean) =>
@@ -74,12 +73,23 @@ function usePostTime() {
     },
     [],
   )
-  const soundTheCall = () => {
-    if (postTime) return // one call at a time — buglers don't overlap
-    const ms = playCallToThePost()
-    if (ms === 0) return // no Web Audio on this browser: stay quiet
-    setPostTime(true)
-    timer.current = window.setTimeout(() => setPostTime(false), ms)
+  // The whole synthesized score is dead weight for the majority of visitors
+  // who never press the button, so it loads on the press instead of in the
+  // first paint. `loading` guards the gap between the click and the module
+  // arriving, so a double-tap can't start two calls.
+  const loading = useRef(false)
+  const soundTheCall = async () => {
+    if (postTime || loading.current) return // buglers don't overlap
+    loading.current = true
+    try {
+      const { playCallToThePost } = await import('../lib/bugle')
+      const ms = playCallToThePost()
+      if (ms === 0) return // no Web Audio on this browser: stay quiet
+      setPostTime(true)
+      timer.current = window.setTimeout(() => setPostTime(false), ms)
+    } finally {
+      loading.current = false
+    }
   }
   return { postTime, soundTheCall }
 }

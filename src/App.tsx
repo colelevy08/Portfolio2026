@@ -1,18 +1,25 @@
+import { lazy, Suspense } from 'react'
 import { motion, MotionConfig } from 'framer-motion'
 import { ui } from './data/content'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import FeaturedWork from './components/FeaturedWork'
 import Work from './components/Work'
+import ThePhoto from './components/ThePhoto'
 import Testimonials from './components/Testimonials'
 import Skills from './components/Skills'
 import AIWorkflow from './components/AIWorkflow'
 import About from './components/About'
 import Path from './components/Path'
 import Certifications from './components/Certifications'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 import PortmintWidget from './components/PortmintWidget'
+
+// Contact drags in the Formspree client, which nothing above the fold needs.
+// Splitting it out keeps that weight off the first paint; the Suspense
+// fallback reserves the section's height so the split can't cause a layout
+// shift while the chunk arrives.
+const Contact = lazy(() => import('./components/Contact'))
 
 // Furlong-pole divider between major sections. The labels count down the
 // stretch — 7F at the top of the card to 1F before the turn for home — and
@@ -81,10 +88,12 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
-        <Divider furlong={7} />
+        <Divider furlong={8} />
         <FeaturedWork />
-        <Divider furlong={6} />
+        <Divider furlong={7} />
         <Work />
+        <Divider furlong={6} />
+        <ThePhoto />
         <Testimonials />
         <Divider furlong={5} />
         <Skills />
@@ -97,7 +106,9 @@ export default function App() {
         <Divider furlong={1} />
         <Certifications />
         <Wire />
-        <Contact />
+        <Suspense fallback={<div className="min-h-[640px]" />}>
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
       <PortmintWidget />

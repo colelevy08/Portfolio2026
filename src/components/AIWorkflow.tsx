@@ -1,31 +1,47 @@
+import { useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { aiWorkflow, sections } from '../data/content'
 import SectionHead from './SectionHead'
 
 export default function AIWorkflow() {
+  // One observer for the whole conditions block — it just flips a flag, and
+  // CSS staggers the three panels off an inline --d delay. Same idiom as the
+  // tote board's bulbs, and no more observers than the section had before.
+  const [seen, setSeen] = useState(false)
+
   return (
     <section id="ai" className="relative px-4 py-20 sm:px-6 sm:py-28">
       <div>
         <SectionHead h={sections.ai} />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
-          className="grid grid-cols-12 gap-y-12 gap-x-6"
-        >
+        <div className="grid grid-cols-12 gap-y-12 gap-x-6">
           {/* Lead statement */}
-          <div className="col-span-12 lg:col-span-5">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px 0px' }}
+            transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+            className="col-span-12 lg:col-span-5"
+          >
             <p className="max-w-[52ch] font-serif text-[1.35rem] leading-[1.55] text-ink sm:text-[1.55rem]">
               {aiWorkflow.lead}
             </p>
-          </div>
+          </motion.div>
 
           {/* Points, set like the conditions block of a race card: one ruled
-              clapboard panel, each condition numbered in program mono. */}
-          <ol className="col-span-12 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-3 lg:col-span-7">
+              clapboard panel, each condition numbered in program mono. They
+              post one at a time as the block comes into view. */}
+          <motion.ol
+            onViewportEnter={() => setSeen(true)}
+            viewport={{ once: true, margin: '-100px 0px' }}
+            data-inview={seen || undefined}
+            className="col-span-12 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-3 lg:col-span-7"
+          >
             {aiWorkflow.points.map((point, i) => (
-              <li key={point.title} className="bg-bg-2 p-6">
+              <li
+                key={point.title}
+                className="condition bg-bg-2 p-6"
+                style={{ '--d': `${i * 0.09}s` } as CSSProperties}
+              >
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                   Condition {i + 1}
                 </p>
@@ -39,8 +55,8 @@ export default function AIWorkflow() {
                 </p>
               </li>
             ))}
-          </ol>
-        </motion.div>
+          </motion.ol>
+        </div>
       </div>
     </section>
   )
