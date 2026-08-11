@@ -8,6 +8,7 @@ import RailRunner from './RailRunner'
 const Resume = profile.resumeUrl
 
 const links = [
+  { label: 'Papers', to: '#certifications' },
   { label: 'Work', to: '#featured' },
   { label: 'Skills', to: '#skills' },
   { label: 'About', to: '#about' },
@@ -20,13 +21,16 @@ const links = [
 const SECTION_TO_LINK: Record<string, string> = {
   featured: '#featured',
   work: '#featured',
+  // The photo-finish print is the proof behind the Work section's headline
+  // number, so it rides with Work rather than claiming a nav slot of its own.
+  photo: '#featured',
   skills: '#skills',
   ai: '#skills',
   about: '#about',
   path: '#path',
-  // The certifications papers close out the same "form guide" as Path, so
-  // they ride with it rather than claiming a nav slot of their own.
-  certifications: '#path',
+  // The papers now open the card rather than closing it, so they own a nav
+  // slot instead of riding with Path.
+  certifications: '#certifications',
   contact: '#contact',
 }
 

@@ -11,9 +11,14 @@ export default function Certifications() {
     <section id="certifications" className="relative px-4 py-20 sm:px-6 sm:py-28">
       <div>
         <SectionHead h={sections.certifications} />
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {certifications.map((group, i) => {
             const silk = silkFor(i + 1)
+            // A stall card holding a whole course catalogue needs the full
+            // width to wrap its chips; the one-line issuers sit side by side
+            // above it. Six is the point where a card stops looking like a
+            // sibling of the short ones.
+            const wide = group.items.length > 6
             return (
               <motion.li
                 key={group.issuer}
@@ -25,7 +30,9 @@ export default function Certifications() {
                   delay: Math.min(i * 0.06, 0.3),
                   ease: [0.2, 0.8, 0.2, 1],
                 }}
-                className="lift-brand relative overflow-hidden rounded-lg border border-line bg-bg-2 p-6"
+                className={`lift-brand relative overflow-hidden rounded-lg border border-line bg-bg-2 p-6 ${
+                  wide ? 'sm:col-span-2' : ''
+                }`}
                 style={{ '--card-accent': silk.edge ?? silk.bg } as CSSProperties}
               >
                 <span

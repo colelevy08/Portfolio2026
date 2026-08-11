@@ -89,22 +89,24 @@ export default function App() {
       <main id="main">
         <Hero />
         <Divider furlong={8} />
-        <FeaturedWork />
+        {/* The papers run first: credentials before the field, so the card is
+            read by someone who already knows what's backing it. */}
+        <Certifications />
         <Divider furlong={7} />
-        <Work />
+        <FeaturedWork />
         <Divider furlong={6} />
+        <Work />
+        <Divider furlong={5} />
         <ThePhoto />
         <Testimonials />
-        <Divider furlong={5} />
-        <Skills />
         <Divider furlong={4} />
-        <AIWorkflow />
+        <Skills />
         <Divider furlong={3} />
-        <About />
+        <AIWorkflow />
         <Divider furlong={2} />
-        <Path />
+        <About />
         <Divider furlong={1} />
-        <Certifications />
+        <Path />
         <Wire />
         <Suspense fallback={<div className="min-h-[640px]" />}>
           <Contact />

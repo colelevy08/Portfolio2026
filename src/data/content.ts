@@ -704,8 +704,12 @@ export type CertGroup = {
   items: string[]
 }
 
-// Licenses & certifications, grouped by issuer — the resume's own grouping,
-// not re-split into 21 individual lines. Consumed by Certifications.tsx.
+// Licenses & certifications, grouped by issuer, with every course printed as
+// its own line. The résumé compresses the Anthropic block into three bundled
+// phrases ("MCP: Intro & Advanced Topics", the Intros, the AI Fluency series);
+// here they're unpacked so the 21 in the meta line can actually be counted on
+// the page. 7 Claude/platform + 2 MCP + 3 Intros + 9 AI Fluency = 21.
+// Consumed by Certifications.tsx.
 export const certifications: CertGroup[] = [
   {
     issuer: "CompTIA",
@@ -728,9 +732,20 @@ export const certifications: CertGroup[] = [
       "Building with the Claude API",
       "Claude in Amazon Bedrock",
       "Claude on Google Cloud",
-      "MCP: Intro & Advanced Topics",
-      "Subagents, Agent Skills & Claude Cowork (Intros)",
-      "AI Fluency series (Framework & Foundations, Capabilities & Limitations, Builders, Students, Educators, K-12 Educators, Small Businesses, Nonprofits, Teaching the Framework)",
+      "MCP: Introduction",
+      "MCP: Advanced Topics",
+      "Introduction to Subagents",
+      "Introduction to Agent Skills",
+      "Introduction to Claude Cowork",
+      "AI Fluency: Framework & Foundations",
+      "AI Fluency: Capabilities & Limitations",
+      "AI Fluency for Builders",
+      "AI Fluency for Students",
+      "AI Fluency for Educators",
+      "AI Fluency for K-12 Educators",
+      "AI Fluency for Small Businesses",
+      "AI Fluency for Nonprofits",
+      "AI Fluency: Teaching the Framework",
     ],
   },
 ]
